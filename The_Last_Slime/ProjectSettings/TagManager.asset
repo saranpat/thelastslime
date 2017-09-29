@@ -7,6 +7,8 @@ TagManager:
   - Floor
   - FireTrap
   - Wall
+  - Key
+  - Door
   layers:
   - Default
   - TransparentFX

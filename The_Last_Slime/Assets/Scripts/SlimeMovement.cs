@@ -8,6 +8,9 @@ public class SlimeMovement : MonoBehaviour {
     public static bool onPressurePlate = false;
     public static bool onFireTrap = false;
 
+    //Test door sprite
+    public Sprite doorImg;
+
     //Input map size
     public int xSize;
     public int ySize;
@@ -17,6 +20,7 @@ public class SlimeMovement : MonoBehaviour {
 
     //Store Position
     private GameObject[] floor;
+    private GameObject[] keys;
     private int curPos;
     private int StartPos;
     private string targetPos;
@@ -30,6 +34,9 @@ public class SlimeMovement : MonoBehaviour {
 
     //Check lost status
     private bool isLost = false;
+
+    //Pick key check
+    private int keyCnt = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -53,6 +60,13 @@ public class SlimeMovement : MonoBehaviour {
                 i++;
             }
         }
+
+        if (keys == null)
+        {
+            keys = GameObject.FindGameObjectsWithTag("Key");
+        }
+
+        keyCnt = keys.Length;
 
         heading = Mathf.Atan2(transform.right.z, transform.right.x) * Mathf.Rad2Deg;
     }
@@ -136,10 +150,33 @@ public class SlimeMovement : MonoBehaviour {
                         print("You Lost !!!");
                     }
 
+                    if (floor[i].tag == "Door" && keyCnt == 0)
+                    {
+                        print("You Win !!!");
+                    }
+
                     break;
                 }
             }
-            
+            //Check collected keys
+            for (int j = 0; j < keys.Length; j++)
+            {
+                if (floor[curPos].transform.position == keys[j].transform.position)
+                {
+                    if (keys[j].activeSelf)
+                    {
+                        keyCnt--;
+
+                        if(keyCnt == 0)
+                        {
+                            GameObject d = GameObject.FindGameObjectWithTag("Door");
+                            d.GetComponent<SpriteRenderer>().sprite = doorImg;
+                        }
+                    }
+                    keys[j].SetActive(false);
+                }
+            }
+
             transform.position = Vector3.MoveTowards(transform.position, floor[curPos].transform.position,
                                                         speed * Time.deltaTime);
             //Check if finish movement
@@ -155,7 +192,7 @@ public class SlimeMovement : MonoBehaviour {
             onFireTrap = false;
             StartCoroutine(Respawn());
         }
-	}
+    }
     //Wait to respawn
     private IEnumerator Respawn ()
     {
