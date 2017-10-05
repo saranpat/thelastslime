@@ -63,19 +63,21 @@ public class Movewithmouse : MonoBehaviour {
         {
             if (other.gameObject.GetComponent<DoorScript>().isOpen == true)
             {
-                print("To the next Level");
+                //print("To the next Level");
             }
         }
 
         if (other.tag == "Water")
         {
-            cantDetect = true; print(cantDetect);
+            cantDetect = true;
+            //print(cantDetect);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        cantDetect = false; print(cantDetect);
+        cantDetect = false;
+        //print(cantDetect);
     }
 
     IEnumerator Respawn()
