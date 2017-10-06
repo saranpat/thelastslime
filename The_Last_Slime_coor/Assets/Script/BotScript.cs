@@ -8,11 +8,13 @@ public class BotScript : MonoBehaviour {
     public float speed;
     public float dist; // distance the enemy can "see" in front of him
     public float visionAngle;
+    public bool isLoop;
 
     private int curPathIndex;
     private Transform targetPoint;
     private Vector2 dir;
     private float angle;
+    private bool plus;
 
     private bool isDetect;
     private GameObject player;
@@ -23,6 +25,7 @@ public class BotScript : MonoBehaviour {
         curPathIndex = 0;
 
         isDetect = false;
+        plus = true;
 	}
 	
 	// Update is called once per frame
@@ -69,10 +72,40 @@ public class BotScript : MonoBehaviour {
 
         if (transform.position == targetPoint.position)
         {
-            curPathIndex++;
+            if (isLoop)
+            {
+                curPathIndex++;
 
-            if (curPathIndex == targetPin.Length)
-                curPathIndex = 0;
+                if (curPathIndex == targetPin.Length)
+                {
+                    curPathIndex = 0;
+                }
+            }
+            else
+            {
+                if (plus)
+                {
+                    curPathIndex++;
+
+                    if (curPathIndex == targetPin.Length)
+                    {
+                        plus = false;
+                        curPathIndex -= 2;
+                    }
+                }
+                else
+                {
+                    curPathIndex--;
+
+                    if (curPathIndex == targetPin.Length)
+                    {
+                        plus = true;
+                        curPathIndex += 2;
+                    }
+                }
+            }
+
+
 
             targetPoint = targetPin[curPathIndex].transform;
         }

@@ -382,7 +382,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &308706065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,6 +402,7 @@ MonoBehaviour:
   speed: 1.5
   dist: 10
   visionAngle: 30
+  isLoop: 0
 --- !u!50 &308706066
 Rigidbody2D:
   serializedVersion: 4
