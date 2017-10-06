@@ -9,14 +9,13 @@ public class Movewithmouse : MonoBehaviour {
     public static int keyCnt;
 
     public static bool cantDetect;
+    public static bool isDead;
 
-	private Vector3 target;
+    private Vector3 target;
 	private Vector2 target2d;
     private Vector2 startPos;
 
 	private Rigidbody2D rb2d;
-
-    private bool isDead;
 
 	void Start () {
 		target = transform.position;
@@ -43,13 +42,16 @@ public class Movewithmouse : MonoBehaviour {
 			transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
 			//rb2d.velocity =target2d.normalized * speed;
 		}
+
+        if (isDead)
+            StartCoroutine(Respawn());
 	}
 
     void OnTriggerEnter2D (Collider2D other)
     {
         if (other.tag == "Fire")
         {
-            StartCoroutine(Respawn());
+            isDead = true;
         }
 
         if (other.tag == "Key")
@@ -82,10 +84,6 @@ public class Movewithmouse : MonoBehaviour {
 
     IEnumerator Respawn()
     {
-        yield return new WaitForSeconds(0.4f);
-
-        isDead = true;
-
         yield return new WaitForSeconds(2f);
 
         transform.position = startPos;

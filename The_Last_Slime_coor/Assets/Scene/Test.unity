@@ -117,7 +117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 46508808}
   - component: {fileID: 46508809}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Ground Block11 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,7 +187,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 61407176}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -231,7 +231,7 @@ GameObject:
   m_Component:
   - component: {fileID: 175705167}
   - component: {fileID: 175705168}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Ground Block00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -302,7 +302,7 @@ GameObject:
   m_Component:
   - component: {fileID: 214855588}
   - component: {fileID: 214855589}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Ground Block22 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -397,8 +397,9 @@ MonoBehaviour:
   targetPin:
   - {fileID: 2002224117}
   - {fileID: 1220030869}
-  speed: 1
+  speed: 1.5
   dist: 10
+  visionAngle: 30
 --- !u!50 &308706066
 Rigidbody2D:
   serializedVersion: 4
@@ -500,7 +501,7 @@ GameObject:
   - component: {fileID: 346487064}
   - component: {fileID: 346487066}
   - component: {fileID: 346487065}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Ground Block20
   m_TagString: Water
   m_Icon: {fileID: 0}
@@ -721,7 +722,7 @@ GameObject:
   - component: {fileID: 537073978}
   - component: {fileID: 537073977}
   - component: {fileID: 537073976}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Ground Block21 (1)
   m_TagString: Door
   m_Icon: {fileID: 0}
@@ -972,7 +973,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 788770530}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Key
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1006,7 +1007,7 @@ GameObject:
   - component: {fileID: 862929696}
   - component: {fileID: 862929695}
   - component: {fileID: 862929694}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Ground Block21 (2)
   m_TagString: Door
   m_Icon: {fileID: 0}
@@ -1135,7 +1136,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 941226107}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: StageCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1168,7 +1169,7 @@ GameObject:
   m_Component:
   - component: {fileID: 966522450}
   - component: {fileID: 966522451}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Ground Block20 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1239,7 +1240,7 @@ GameObject:
   m_Component:
   - component: {fileID: 976736476}
   - component: {fileID: 976736477}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Ground Block10 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1310,7 +1311,7 @@ GameObject:
   m_Component:
   - component: {fileID: 997898578}
   - component: {fileID: 997898579}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Ground Block01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1381,7 +1382,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1030909537}
   - component: {fileID: 1030909536}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1427,7 +1428,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1035042929}
   - component: {fileID: 1035042930}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Ground Block11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1498,7 +1499,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1094931343}
   - component: {fileID: 1094931344}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Ground Block22
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1568,7 +1569,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1134767998}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1598,7 +1599,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1165423348}
   - component: {fileID: 1165423349}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Ground Block00 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1671,7 +1672,7 @@ GameObject:
   - component: {fileID: 1220030872}
   - component: {fileID: 1220030871}
   - component: {fileID: 1220030870}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1751,7 +1752,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1345666936}
   - component: {fileID: 1345666937}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: GameObject (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1799,7 +1800,7 @@ GameObject:
   - component: {fileID: 1404267318}
   - component: {fileID: 1404267320}
   - component: {fileID: 1404267319}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: New Sprite
   m_TagString: Key
   m_Icon: {fileID: 0}
@@ -1915,7 +1916,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1431275477}
   - component: {fileID: 1431275478}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Ground Block10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1985,7 +1986,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1451341834}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2017,7 +2018,7 @@ GameObject:
   - component: {fileID: 1504065029}
   - component: {fileID: 1504065030}
   - component: {fileID: 1504065031}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Ground Block21
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2108,7 +2109,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1551401139}
   - component: {fileID: 1551401140}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Ground Block02 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2179,7 +2180,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1573307270}
   - component: {fileID: 1573307271}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: GameObject (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2254,7 +2255,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1676895123}
   - component: {fileID: 1676895124}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: GameObject (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2302,7 +2303,7 @@ GameObject:
   - component: {fileID: 1705416496}
   - component: {fileID: 1705416498}
   - component: {fileID: 1705416497}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: New Sprite (1)
   m_TagString: Key
   m_Icon: {fileID: 0}
@@ -2418,7 +2419,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1714778140}
   - component: {fileID: 1714778141}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Ground Block12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2585,7 +2586,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.08881807, y: -0.05924654}
+  m_Offset: {x: 0.037446976, y: 0.012320042}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2596,7 +2597,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 10.516488, y: 7.5260506}
+  m_Size: {x: 7.947793, y: 5.3790226}
   m_EdgeRadius: 0
 --- !u!1 &1835505581
 GameObject:
@@ -2606,7 +2607,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1835505582}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2640,7 +2641,7 @@ GameObject:
   - component: {fileID: 1890912799}
   m_Layer: 0
   m_Name: Wall2
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2754,7 +2755,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1979890211}
   - component: {fileID: 1979890212}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Ground Block02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2827,7 +2828,7 @@ GameObject:
   - component: {fileID: 2002224120}
   - component: {fileID: 2002224119}
   - component: {fileID: 2002224118}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2892,7 +2893,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2002224117}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: -0, z: 0}
+  m_LocalPosition: {x: 0.01, y: 2.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2907,7 +2908,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2106159203}
   - component: {fileID: 2106159204}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Ground Block12 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

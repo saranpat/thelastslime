@@ -8,6 +8,7 @@ TagManager:
   - Key
   - Door
   - Water
+  - Wall
   layers:
   - Default
   - TransparentFX
