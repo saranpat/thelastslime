@@ -97,7 +97,7 @@ public class BotScript : MonoBehaviour {
                 {
                     curPathIndex--;
 
-                    if (curPathIndex == targetPin.Length)
+                    if (curPathIndex == -1)
                     {
                         plus = true;
                         curPathIndex = 1;
@@ -122,29 +122,32 @@ public class BotScript : MonoBehaviour {
         RaycastHit2D hit2 = Physics2D.Raycast(transform.position, offsetR, dist);
         RaycastHit2D hit3 = Physics2D.Raycast(transform.position, offsetL, dist);
 
-        if (hit.collider != null)
+        if (Movewithmouse.cantDetect)
+            isDetect = false;
+
+        if (hit.collider != null && !Movewithmouse.cantDetect)
         {
             if (hit.collider.tag == "Wall" || hit.collider.tag == "Fire")
             {
                 isDetect = false;
             }
-            else if (hit.collider.tag == "Player" && !Movewithmouse.cantDetect)
+            else if (hit.collider.tag == "Player")
             {
                 isDetect = true;
                 player = GameObject.FindGameObjectWithTag("Player");
             }
         }
-        if (hit2.collider != null)
+        if (hit2.collider != null && !Movewithmouse.cantDetect)
         {
-            if (hit2.collider.tag == "Player" && !Movewithmouse.cantDetect)
+            if (hit2.collider.tag == "Player")
             {
                 isDetect = true;
                 player = GameObject.FindGameObjectWithTag("Player");
             }
         }
-        if (hit3.collider != null)
+        if (hit3.collider != null && !Movewithmouse.cantDetect)
         {
-            if (hit3.collider.tag == "Player" && !Movewithmouse.cantDetect)
+            if (hit3.collider.tag == "Player")
             {
                 isDetect = true;
                 player = GameObject.FindGameObjectWithTag("Player");

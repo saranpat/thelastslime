@@ -397,8 +397,6 @@ MonoBehaviour:
   targetPin:
   - {fileID: 214855587}
   - {fileID: 1979890210}
-  - {fileID: 175705166}
-  - {fileID: 966522449}
   speed: 1.5
   dist: 10
   visionAngle: 30

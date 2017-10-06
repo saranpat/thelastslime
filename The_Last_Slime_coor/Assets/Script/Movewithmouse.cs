@@ -5,9 +5,6 @@ using UnityEngine;
 public class Movewithmouse : MonoBehaviour {
 	public float speed = 1.5f;
 
-    public int keyCount;
-    public static int keyCnt;
-
     public static bool cantDetect;
     public static bool isDead;
 
@@ -20,8 +17,6 @@ public class Movewithmouse : MonoBehaviour {
 	void Start () {
 		target = transform.position;
         startPos = target;
-
-        keyCnt = keyCount;
 
 		rb2d = GetComponent<Rigidbody2D> ();
 
@@ -56,8 +51,6 @@ public class Movewithmouse : MonoBehaviour {
 
         if (other.tag == "Key")
         {
-            keyCnt--;
-
             other.gameObject.SetActive(false);
         }
 
@@ -91,6 +84,14 @@ public class Movewithmouse : MonoBehaviour {
             cantDetect = true;
             gameObject.GetComponent<CircleCollider2D>().isTrigger = true;
             gameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
+        }
+
+        if (collision.tag == "Lever")
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                LeverScript.switchOff = true;
+            }
         }
     }
 

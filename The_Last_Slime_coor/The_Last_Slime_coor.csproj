@@ -81,6 +81,7 @@
     <Compile Include="Assets\Script\BotScript.cs" />
     <Compile Include="Assets\Script\CameraScript.cs" />
     <Compile Include="Assets\Script\DoorScript.cs" />
+    <Compile Include="Assets\Script\LeverScript.cs" />
     <Compile Include="Assets\Script\Movewithmouse.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

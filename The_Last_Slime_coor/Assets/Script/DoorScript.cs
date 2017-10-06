@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DoorScript : MonoBehaviour {
 
-    public int keyLeftToOpen;
+    public GameObject keyToOpen;
     public Sprite openSprite;
     public bool isOpen;
 
@@ -15,7 +15,7 @@ public class DoorScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Movewithmouse.keyCnt == keyLeftToOpen)
+		if (!keyToOpen.activeSelf)
         {
             isOpen = true;
             gameObject.GetComponent<SpriteRenderer>().sprite = openSprite;

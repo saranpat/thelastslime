@@ -9,6 +9,7 @@ TagManager:
   - Door
   - Water
   - Wall
+  - Lever
   layers:
   - Default
   - TransparentFX
