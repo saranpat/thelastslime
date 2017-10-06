@@ -36,10 +36,9 @@ public class BotScript : MonoBehaviour {
             walk();
         }
 
-        if(!isDetect)
-            DetectPlayer();
+        DetectPlayer();
 
-            if (isDetect)
+        if (isDetect)
         {
             if (Vector2.Distance(transform.position, player.transform.position) <= dist 
                 && Vector2.Distance(transform.position, player.transform.position) > 0.7f)
@@ -94,12 +93,11 @@ public class BotScript : MonoBehaviour {
 
         if (hit.collider != null)
         {
-            if (hit.collider.tag == "Player")
+            if (hit.collider.tag == "Wall" || hit.collider.tag == "Fire")
             {
-                isDetect = true;
-                player = GameObject.FindGameObjectWithTag("Player");
-            } 
-            else if (hit.collider.tag == "Wall" || hit.collider.tag == "Fire")
+                isDetect = false;
+            }
+            else if (hit.collider.tag == "Player")
             {
                 isDetect = true;
                 player = GameObject.FindGameObjectWithTag("Player");
@@ -130,5 +128,6 @@ public class BotScript : MonoBehaviour {
         yield return new WaitForSeconds(2.0f);
 
         isDetect = false;
+        curPathIndex = 0;
     }
 }
