@@ -90,7 +90,7 @@ public class BotScript : MonoBehaviour {
                     if (curPathIndex == targetPin.Length)
                     {
                         plus = false;
-                        curPathIndex -= 2;
+                        curPathIndex = targetPin.Length - 2;
                     }
                 }
                 else
@@ -100,12 +100,10 @@ public class BotScript : MonoBehaviour {
                     if (curPathIndex == targetPin.Length)
                     {
                         plus = true;
-                        curPathIndex += 2;
+                        curPathIndex = 1;
                     }
                 }
             }
-
-
 
             targetPoint = targetPin[curPathIndex].transform;
         }
@@ -162,5 +160,7 @@ public class BotScript : MonoBehaviour {
 
         isDetect = false;
         curPathIndex = 0;
+        targetPoint = targetPin[curPathIndex].transform;
+        transform.position = targetPin[curPathIndex].transform.position;
     }
 }
