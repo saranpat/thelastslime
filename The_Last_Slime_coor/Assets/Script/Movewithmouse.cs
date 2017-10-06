@@ -72,14 +72,26 @@ public class Movewithmouse : MonoBehaviour {
         if (other.tag == "Water")
         {
             cantDetect = true;
-            //print(cantDetect);
+            gameObject.GetComponent<CircleCollider2D>().isTrigger = true;
+            gameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         cantDetect = false;
-        //print(cantDetect);
+        gameObject.GetComponent<CircleCollider2D>().isTrigger = false;
+        gameObject.GetComponent<SpriteRenderer>().sortingOrder = 2;
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Water")
+        {
+            cantDetect = true;
+            gameObject.GetComponent<CircleCollider2D>().isTrigger = true;
+            gameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
+        }
     }
 
     IEnumerator Respawn()

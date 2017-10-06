@@ -130,7 +130,7 @@ public class BotScript : MonoBehaviour {
             {
                 isDetect = false;
             }
-            else if (hit.collider.tag == "Player")
+            else if (hit.collider.tag == "Player" && !Movewithmouse.cantDetect)
             {
                 isDetect = true;
                 player = GameObject.FindGameObjectWithTag("Player");
@@ -138,7 +138,7 @@ public class BotScript : MonoBehaviour {
         }
         if (hit2.collider != null)
         {
-            if (hit2.collider.tag == "Player")
+            if (hit2.collider.tag == "Player" && !Movewithmouse.cantDetect)
             {
                 isDetect = true;
                 player = GameObject.FindGameObjectWithTag("Player");
@@ -146,7 +146,7 @@ public class BotScript : MonoBehaviour {
         }
         if (hit3.collider != null)
         {
-            if (hit3.collider.tag == "Player")
+            if (hit3.collider.tag == "Player" && !Movewithmouse.cantDetect)
             {
                 isDetect = true;
                 player = GameObject.FindGameObjectWithTag("Player");
