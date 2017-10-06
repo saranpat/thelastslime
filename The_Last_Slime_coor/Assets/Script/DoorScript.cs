@@ -19,6 +19,8 @@ public class DoorScript : MonoBehaviour {
         {
             isOpen = true;
             gameObject.GetComponent<SpriteRenderer>().sprite = openSprite;
+            gameObject.tag = "Door";
+            gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
         }
 	}
 }
