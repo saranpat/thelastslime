@@ -10,6 +10,8 @@ TagManager:
   - Water
   - Wall
   - Lever
+  - Node
+  - Enemy
   layers:
   - Default
   - TransparentFX

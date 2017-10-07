@@ -92,7 +92,7 @@ public class BotScript : MonoBehaviour
                 transform.Translate(0, speed * Time.deltaTime, 0);
                 Debug.DrawRay(transform.position, transform.up, Color.white);
 
-            } ///////////////////////////////////////////////////////////////////////////////////////////////////////// //// End หลบ กำแพง
+            } ////////////////////////////////////////////////////////////////////////////////////////////////////// End หลบ กำแพง
             else if (Vector2.Distance(transform.position, player.transform.position) <= dist
                 && Vector2.Distance(transform.position, player.transform.position) > 0.7f)
             {
@@ -103,15 +103,7 @@ public class BotScript : MonoBehaviour
                 Quaternion dummyQ = Quaternion.AngleAxis(angle - 90, transform.forward); //เป็น Lerp แทนจ
                 transform.rotation = Quaternion.Lerp(transform.rotation, dummyQ, 0.05f);
                 //
-
-                if (ifNewtargetPoint)
-                {
-                    transform.position = Vector2.MoveTowards(transform.position, targetPoint.position, speed * Time.deltaTime);
-                }
-                else
-                {
-                    transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-                }
+                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
 
                 
             }
@@ -152,13 +144,12 @@ public class BotScript : MonoBehaviour
         {
             this.NodePosition = _AI_GetNode.NodePosition;
             float disNearest;
-            disNearest = Vector2.Distance(NodePosition[1].transform.position, this.transform.position)
-                       + Vector2.Distance(targetPoint.position, this.transform.position);
+            disNearest = disNearest = Mathf.Infinity;
             Transform Dummy = NodePosition[1];
             for (int i = 1; i < NodePosition.Length; i++)
             {
                 float Dummydis = Vector2.Distance(NodePosition[i].transform.position, this.transform.position);
-                float DummytargetPointDis = Vector2.Distance(targetPoint.position, this.transform.position);
+                float DummytargetPointDis = Vector2.Distance(targetPoint.position, NodePosition[i].transform.position);
                 float H = Dummydis + DummytargetPointDis;
 
                 RaycastHit2D Nothit = Physics2D.Raycast(transform.position, NodePosition[i].transform.position - this.transform.position, Dummydis);
@@ -278,6 +269,9 @@ public class BotScript : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, dist);
         RaycastHit2D hit2 = Physics2D.Raycast(transform.position, offsetR, dist);
         RaycastHit2D hit3 = Physics2D.Raycast(transform.position, offsetL, dist);
+
+        if (Movewithmouse.cantDetect)
+            isDetect = false;
 
         if (hit.collider != null)
         {

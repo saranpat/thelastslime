@@ -1,7 +1,4 @@
 sceneSetups:
-- path: Assets/Scene/OnlymapWithCuteSlime.unity
-  isLoaded: 1
-  isActive: 0
-- path: Assets/Scene/Node_A_Star/A_star_node.unity
+- path: Assets/Scene/First_playable_0_99.unity
   isLoaded: 1
   isActive: 1
