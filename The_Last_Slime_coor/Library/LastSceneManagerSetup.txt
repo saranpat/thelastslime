@@ -1,4 +1,7 @@
 sceneSetups:
-- path: Assets/Scene/Scene_wadda.unity
+- path: Assets/Scene/OnlymapWithCuteSlime.unity
+  isLoaded: 1
+  isActive: 0
+- path: Assets/Scene/Node_A_Star/A_star_node.unity
   isLoaded: 1
   isActive: 1
