@@ -26,17 +26,17 @@ public class WardScript : MonoBehaviour {
             {
                 if (Vector2.Distance(bot[j].transform.position, transform.position) <= 10)
                 {
-
+                    bot[j].gameObject.GetComponent<WizardScript>().alertState = true;
                 }
             }
         }
 	}
 
-    void OnTriggerStay(Collider other)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if(other.tag == "Player")
+        if (collision.tag == "Player")
         {
-            print("Alerttttt");
+            isAlarm = true;
         }
     }
 }

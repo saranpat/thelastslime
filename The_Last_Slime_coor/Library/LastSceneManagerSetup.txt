@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scene/First_playable_0_99.unity
+- path: Assets/Scene/Test_Ball.unity
   isLoaded: 1
   isActive: 1

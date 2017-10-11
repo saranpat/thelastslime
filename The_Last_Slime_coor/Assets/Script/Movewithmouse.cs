@@ -94,7 +94,13 @@ public class Movewithmouse : MonoBehaviour {
             }
         }
     }
-
+    void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            print("Alerttttt");
+        }
+    }
     IEnumerator Respawn()
     {
         yield return new WaitForSeconds(2f);

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class WizardScript : MonoBehaviour {
 
+    public bool alertState; //เตือนจาก ward ถ้าผู้เล่นเข้าใกล้
+
     public GameObject[] targetPin;
     public float speed;
     public float dist; // distance the enemy can "see" in front of him
@@ -41,13 +43,15 @@ public class WizardScript : MonoBehaviour {
 
         isDetect = false;
         plus = true;
+
+        alertState = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         // check if we have somewere to walk
-        if (curPathIndex < targetPin.Length && !isDetect)
+        if (curPathIndex < targetPin.Length && !isDetect && !alertState)
         {
             if (targetPoint == null)
                 targetPoint = targetPin[curPathIndex].transform;
@@ -127,6 +131,11 @@ public class WizardScript : MonoBehaviour {
                 TimeDetect = 0;
             }
 
+        }
+
+        if (alertState)
+        {
+            //pathfinding to player
         }
     }
 
