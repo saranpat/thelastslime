@@ -26,11 +26,29 @@ public class WardScript : MonoBehaviour {
             {
                 if (Vector2.Distance(bot[j].transform.position, transform.position) <= 10)
                 {
-                    bot[j].gameObject.GetComponent<WizardScript>().alertState = true;
+                    bot[j].gameObject.GetComponent<WizardScript>().Set_alertState(this.gameObject);
+                    //bot[j].gameObject.GetComponent<WizardScript>().alertState_Point = this.transform;
+                    
                 }
             }
+
+            //isAlarm = false;
         }
 	}
+
+    public bool Get_isAlarm()
+    {
+        return isAlarm;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            isAlarm = false;
+        }
+    }
+
 
     private void OnTriggerStay2D(Collider2D collision)
     {

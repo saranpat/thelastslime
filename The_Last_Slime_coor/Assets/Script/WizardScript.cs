@@ -5,6 +5,8 @@ using UnityEngine;
 public class WizardScript : MonoBehaviour {
 
     public bool alertState; //เตือนจาก ward ถ้าผู้เล่นเข้าใกล้
+    public GameObject alertState_Obj; //รับตำแหน่งของ ward มาเพื่อให้บอทเดินไปดูตรง Ward นั้นๆ
+
 
     public GameObject[] targetPin;
     public float speed;
@@ -32,12 +34,15 @@ public class WizardScript : MonoBehaviour {
     private bool ifNewtargetPoint = false;
     /// </BackToTheOriginal>
 
-    private bool isDetect_ButWall;
     private float TimeDetect;
+    public float Time_for_Chase = 15;
+
+    
 
     // Use this for initialization
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         _AI_GetNode = GameObject.FindGameObjectWithTag("Node").GetComponent<AI_GetNode>();
         curPathIndex = 0;
 
@@ -45,6 +50,17 @@ public class WizardScript : MonoBehaviour {
         plus = true;
 
         alertState = false;
+    }
+
+
+    public void Set_alertState(GameObject WardTransfrom)
+    {
+        if(alertState == false)
+        {
+            alertState_Obj = WardTransfrom;
+            targetPoint = WardTransfrom.transform;
+            alertState = true;
+        }
     }
 
     // Update is called once per frame
@@ -58,85 +74,54 @@ public class WizardScript : MonoBehaviour {
             walk();
         }
 
+        if (alertState && !isDetect)
+        {
+            //pathfinding to ward
+            walkToWard();
+            
+        }
+
         DetectPlayer();
 
         if (isDetect)
         {
-            //// เพิ่ม หลบ กำแพง
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, player.transform.position - transform.position, 0.5f);
-            Debug.DrawRay(transform.position, player.transform.position - transform.position, Color.red);
-            if (hit.collider != null)
+            
+            // rotate towards the target
+            dir = targetPoint.position - transform.position;
+            angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+            transform.rotation = Quaternion.AngleAxis(angle - 90, transform.forward);
+            // move towards the target
+            transform.position = Vector3.MoveTowards(transform.position, targetPoint.position, speed * Time.deltaTime);
+
+            if (transform.position == targetPoint.position)
             {
-                if (hit.collider.tag == "Wall" || hit.collider.tag == "Fire")
-                {
-                    isDetect_ButWall = true;
-                }
-                else
-                {
-                    isDetect_ButWall = false;
-                }
-
-            }
-            else
-            {
-                isDetect_ButWall = false;
-            }
-
-            if (isDetect_ButWall)
-            {
-                Debug.Log("Wall");
-                dir = player.transform.position - transform.position;
-                //angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-                //angle += Time.deltaTime * speed;
-                Quaternion dummyQ = Quaternion.AngleAxis(angle, transform.forward);
-
-
-                transform.rotation = Quaternion.Lerp(transform.rotation, dummyQ, 0.05f);
-                transform.Translate(0, speed * Time.deltaTime, 0);
-                Debug.DrawRay(transform.position, transform.up, Color.white);
-
-            } ////////////////////////////////////////////////////////////////////////////////////////////////////// End หลบ กำแพง
-            else if (Vector2.Distance(transform.position, player.transform.position) <= dist
-                && Vector2.Distance(transform.position, player.transform.position) > 0.7f)
-            {
-                dir = player.transform.position - transform.position;
-                angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-
-                //แก้ไข transform.rotation = Quaternion.AngleAxis(angle - 90, transform.forward); 
-                Quaternion dummyQ = Quaternion.AngleAxis(angle - 90, transform.forward); //เป็น Lerp แทนจ
-                transform.rotation = Quaternion.Lerp(transform.rotation, dummyQ, 0.05f);
-                //
-
+                //targetPoint = player.transform;
                 if (ifNewtargetPoint)
                 {
-                    transform.position = Vector2.MoveTowards(transform.position, targetPoint.position, speed * Time.deltaTime);
+                    targetPoint = player.transform;
+                    ifNewtargetPoint = false;
+                }
+            }
+            
+            BackToTheOriginal_AIGoToPlayer();
+
+            TimeDetect += Time.deltaTime;
+            if (TimeDetect > Time_for_Chase || Vector2.Distance(transform.position, player.transform.position) > dist + 1)
+            {
+                //ถ้าเวลาตามหมดแต่ยังเห็นผู้เล่นอยู่ก็ตามไปจนกว่าผู้เล่นจะหลบมุม
+                if (targetPoint.position == player.transform.position)
+                {
+                    
                 }
                 else
                 {
-                    transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+                    isDetect = false;
+                    TimeDetect = 0;
                 }
-
-
             }
-            else
-            {
-                StartCoroutine(ReturnToPatrol());
-            }
-
-            TimeDetect += Time.deltaTime;
-            if (TimeDetect > 10 || Vector2.Distance(transform.position, player.transform.position) > dist + 1)
-            {
-                isDetect = false;
-                isDetect_ButWall = false;
-                TimeDetect = 0;
-            }
-
         }
 
-        if (alertState)
-        {
-            //pathfinding to player
-        }
     }
 
     void BackToTheOriginal()
@@ -144,8 +129,10 @@ public class WizardScript : MonoBehaviour {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, targetPoint.position - transform.position, 0.5f); //ชนกำแพงมากว่ากี่วิ
         Debug.DrawRay(transform.position, targetPoint.position - transform.position, Color.white);
 
-        if (hit.collider != null && ifNewtargetPoint == false)
+        if (hit.collider != null)// && ifNewtargetPoint == false
         {
+            //Debug.Log(hit.collider.gameObject.name);
+
             if (hit.collider.tag == "Wall" || hit.collider.tag == "Fire")
             {
 
@@ -155,26 +142,31 @@ public class WizardScript : MonoBehaviour {
 
         }
         Old_targetPoint = targetPoint;
-
+        
         if (DummyTime > 0.01f)
         {
             this.NodePosition = _AI_GetNode.NodePosition;
             float disNearest;
-            disNearest = Vector2.Distance(NodePosition[1].transform.position, this.transform.position)
-                       + Vector2.Distance(targetPoint.position, this.transform.position);
+            disNearest = Mathf.Infinity;
             Transform Dummy = NodePosition[1];
+            int DummyOldPoint = 0;
+
             for (int i = 1; i < NodePosition.Length; i++)
             {
-                float Dummydis = Vector2.Distance(NodePosition[i].transform.position, this.transform.position);
-                float DummytargetPointDis = Vector2.Distance(targetPoint.position, this.transform.position);
-                float H = Dummydis + DummytargetPointDis;
-
-                RaycastHit2D Nothit = Physics2D.Raycast(transform.position, NodePosition[i].transform.position - this.transform.position, Dummydis);
+                Debug.Log(Old_DummytargetPoint);
                 if (i == Old_DummytargetPoint)
                 {
+                    Debug.Log("OldPoint");
                     Old_DummytargetPoint = 0;
                     continue;
                 }
+
+                float Dummydis = Vector2.Distance(NodePosition[i].transform.position, this.transform.position);
+                float DummytargetPointDis = Vector2.Distance(targetPoint.position, NodePosition[i].transform.position);
+                float H = Dummydis + DummytargetPointDis;
+
+                RaycastHit2D Nothit = Physics2D.Raycast(transform.position, NodePosition[i].transform.position - this.transform.position, Dummydis);
+                
                 if (Nothit.collider != null)
                 {
                     if (Nothit.collider.tag == "Wall" || Nothit.collider.tag == "Fire")
@@ -185,9 +177,9 @@ public class WizardScript : MonoBehaviour {
                     {
                         if (H < disNearest)
                         {
-                            disNearest = Dummydis;
+                            disNearest = H;
                             Dummy = NodePosition[i];
-                            Old_DummytargetPoint = i;
+                            DummyOldPoint = i;
                         }
                     }
                 }
@@ -195,9 +187,9 @@ public class WizardScript : MonoBehaviour {
                 {
                     if (H < disNearest)
                     {
-                        disNearest = Dummydis;
+                        disNearest = H;
                         Dummy = NodePosition[i];
-                        Old_DummytargetPoint = i;
+                        DummyOldPoint = i;
                     }
                 }
             }
@@ -205,10 +197,129 @@ public class WizardScript : MonoBehaviour {
             {
                 ifNewtargetPoint = true;
                 targetPoint = Dummy;
+                Old_DummytargetPoint = DummyOldPoint;
             }
             DummyTime = 0;
         }
     }
+
+    void BackToTheOriginal_AIGoToPlayer()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, targetPoint.position - transform.position, 0.5f); //ชนกำแพงมากว่ากี่วิ
+
+        if (targetPoint.position == player.transform.position)
+        {
+            Debug.DrawRay(transform.position, targetPoint.position - transform.position, Color.red);
+        }
+        else
+        {
+            Debug.DrawRay(transform.position, targetPoint.position - transform.position, Color.yellow);
+        }
+        
+
+        if (hit.collider != null&& ifNewtargetPoint == false) //
+        {
+            if (hit.collider.tag == "Wall" || hit.collider.tag == "Fire")
+            {
+                DummyTime += Time.deltaTime;
+            }
+
+        }
+        else if (hit.collider != null && targetPoint.position == player.transform.position)
+        {
+            if (hit.collider.tag == "Wall" || hit.collider.tag == "Fire")
+            {
+                DummyTime += Time.deltaTime;
+            }
+        }
+
+
+
+        Old_targetPoint = targetPoint;
+
+        if (DummyTime > 0.1f)
+        {
+            this.NodePosition = _AI_GetNode.NodePosition;
+            float disNearest;
+            disNearest = Mathf.Infinity;
+            Transform Dummy = NodePosition[1];
+            int DummyOldPoint = 0;
+
+            for (int i = 1; i < NodePosition.Length; i++)
+            {
+                //Debug.Log(Old_DummytargetPoint);
+                if (i == Old_DummytargetPoint)
+                {
+                    //Debug.Log("OldPoint");
+                    Old_DummytargetPoint = 0;
+                    continue;
+                }
+
+                float Dummydis = Vector2.Distance(NodePosition[i].transform.position, this.transform.position);
+                float DummytargetPointDis = Vector2.Distance(NodePosition[i].transform.position, player.transform.position);
+                
+                float H = Dummydis + DummytargetPointDis;
+
+                RaycastHit2D I_hit_wall = Physics2D.Raycast(NodePosition[i].transform.position, NodePosition[i].transform.position - player.transform.position, DummytargetPointDis);
+                if(I_hit_wall.collider != null)
+                {
+                    if (I_hit_wall.collider.tag == "Wall" || I_hit_wall.collider.tag == "Fire")
+                    {
+                        H += DummytargetPointDis;
+                        //H += Dummydis;
+                        /*if (H < disNearest)
+                        {
+                            disNearest = H;
+                            Dummy = NodePosition[i];
+                            DummyOldPoint = i;
+                        }*/
+                    }
+                }
+
+
+
+                //Debug.Log("I : " + i + " : " +H);
+
+                RaycastHit2D Nothit = Physics2D.Raycast(transform.position, NodePosition[i].transform.position - this.transform.position, Dummydis);
+
+                if (Nothit.collider != null)
+                {
+                    if (Nothit.collider.tag == "Wall" || Nothit.collider.tag == "Fire")
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        if (H < disNearest)
+                        {
+                            disNearest = H;
+                            Dummy = NodePosition[i];
+                            DummyOldPoint = i;
+                        }
+                       
+                    }
+                }
+                else
+                {
+                    if (H < disNearest)
+                    {
+                        disNearest = H;
+                        Dummy = NodePosition[i];
+                        DummyOldPoint = i;
+                    }
+                    
+                }
+            }
+            if (targetPoint != Dummy)
+            {
+                ifNewtargetPoint = true;
+                targetPoint = Dummy;
+                Old_DummytargetPoint = DummyOldPoint;
+            }
+            DummyTime = 0;
+        }
+    }
+
 
 
     void walk()
@@ -236,6 +347,84 @@ public class WizardScript : MonoBehaviour {
             }
             /// </BackToTheOriginal>
 
+            if (isLoop)
+            {
+                curPathIndex++;
+
+                if (curPathIndex == targetPin.Length)
+                {
+                    curPathIndex = 0;
+                }
+            }
+            else
+            {
+                if (plus)
+                {
+                    curPathIndex++;
+
+                    if (curPathIndex == targetPin.Length)
+                    {
+                        plus = false;
+                        curPathIndex = targetPin.Length - 2;
+                    }
+                }
+                else
+                {
+                    curPathIndex--;
+
+                    if (curPathIndex == -1)
+                    {
+                        plus = true;
+                        curPathIndex = 1;
+                    }
+                }
+            }
+            targetPoint = targetPin[curPathIndex].transform;
+
+
+        }
+    }
+
+    void walkToWard()
+    {
+
+        BackToTheOriginal(); // เดินกลับไปหาเส้นของมัน
+
+        // rotate towards the target
+        dir = targetPoint.position - transform.position;
+        angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+        transform.rotation = Quaternion.AngleAxis(angle - 90, transform.forward);
+
+        // move towards the target
+        transform.position = Vector3.MoveTowards(transform.position, targetPoint.position, speed * Time.deltaTime);
+
+        if (transform.position == alertState_Obj.transform.position)
+        {
+            if (alertState_Obj.GetComponent<WardScript>().Get_isAlarm())
+            {
+                ifNewtargetPoint = true;
+                isDetect = true;
+                targetPoint = player.transform;
+                alertState = false;
+            }
+            else
+            {
+                alertState = false;
+                targetPoint = targetPin[curPathIndex].transform;
+            }
+            
+        }
+        else if (transform.position == targetPoint.position)
+        {
+
+            /// <BackToTheOriginal>
+            if (ifNewtargetPoint)
+            {
+                targetPoint = Old_targetPoint;
+                ifNewtargetPoint = false;
+            }
+            /// </BackToTheOriginal>
 
             if (isLoop)
             {
@@ -270,7 +459,15 @@ public class WizardScript : MonoBehaviour {
                 }
             }
 
-            targetPoint = targetPin[curPathIndex].transform;
+            if(alertState == false)
+            {
+                targetPoint = targetPin[curPathIndex].transform;
+            }
+            else
+            {
+                targetPoint = alertState_Obj.transform;
+            }
+            
         }
     }
 
@@ -299,24 +496,27 @@ public class WizardScript : MonoBehaviour {
             }
             else if (hit.collider.tag == "Player" && !Movewithmouse.cantDetect)
             {
+                targetPoint = player.transform;
                 isDetect = true;
-                player = GameObject.FindGameObjectWithTag("Player");
+                
             }
         }
         if (hit2.collider != null)
         {
             if (hit2.collider.tag == "Player" && !Movewithmouse.cantDetect)
             {
+                targetPoint = player.transform;
                 isDetect = true;
-                player = GameObject.FindGameObjectWithTag("Player");
+                
             }
         }
         if (hit3.collider != null)
         {
             if (hit3.collider.tag == "Player" && !Movewithmouse.cantDetect)
             {
+                targetPoint = player.transform;
                 isDetect = true;
-                player = GameObject.FindGameObjectWithTag("Player");
+                
             }
         }
     }

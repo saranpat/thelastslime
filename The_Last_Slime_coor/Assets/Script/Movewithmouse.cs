@@ -86,6 +86,7 @@ public class Movewithmouse : MonoBehaviour {
             gameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
         }
 
+
         if (collision.tag == "Lever")
         {
             if (Input.GetMouseButtonDown(0))
