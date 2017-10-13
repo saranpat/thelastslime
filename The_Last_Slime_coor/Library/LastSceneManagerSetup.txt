@@ -1,4 +1,7 @@
 sceneSetups:
-- path: Assets/Dandy-2 Change Sprite/From Test_Ball.unity
+- path: Assets/Dandy-2 Change Sprite/Scenes/From Test_Ball.unity
   isLoaded: 1
   isActive: 1
+- path: Assets/Dandy-2 Change Sprite/Scenes/Dandy-2.unity
+  isLoaded: 1
+  isActive: 0
