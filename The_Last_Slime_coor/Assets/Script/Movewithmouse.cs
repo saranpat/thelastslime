@@ -30,7 +30,7 @@ public class Movewithmouse : MonoBehaviour {
 			target.z = transform.position.z;
 			target2d = new Vector2 (target.x, target.y);
 
-			var dir = target - transform.position;
+            var dir = target - transform.position;
 			var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
 			transform.rotation = Quaternion.AngleAxis(angle-90, transform.forward); //-90 for face toward mouse

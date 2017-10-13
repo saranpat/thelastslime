@@ -20,8 +20,6 @@ public class WardScript : MonoBehaviour {
 	void Update () {
 		if (isAlarm)
         {
-            int i;
-
             for (int j = 0; j < bot.Length; j++)
             {
                 if (Vector2.Distance(bot[j].transform.position, transform.position) <= 10)
