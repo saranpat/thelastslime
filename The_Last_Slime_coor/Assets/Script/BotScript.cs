@@ -100,7 +100,10 @@ public class BotScript : MonoBehaviour
             if (Vector2.Distance(transform.position, player.transform.position) <= dist
                 && Vector2.Distance(transform.position, player.transform.position) > 0.7f)
             {
-                AI_Chase();
+                if (StopMoveing == false) 
+                { 
+                    AI_Chase();
+                }
             }
             else
             {
@@ -394,8 +397,11 @@ public class BotScript : MonoBehaviour
             }
             else if (hit.collider.tag == "Player" && !Movewithmouse.cantDetect)
             {
-                targetPoint = player.transform;
-                isDetect = true;  
+                if (!isDetect)
+                {
+                    targetPoint = player.transform;
+                    isDetect = true;
+                }  
                 
             }
         }
@@ -403,8 +409,11 @@ public class BotScript : MonoBehaviour
         {
             if (hit2.collider.tag == "Player" && !Movewithmouse.cantDetect)
             {
-                targetPoint = player.transform;
-                isDetect = true;
+                if (!isDetect)
+                {
+                    targetPoint = player.transform;
+                    isDetect = true;
+                } 
                 
             }
         }
@@ -412,19 +421,23 @@ public class BotScript : MonoBehaviour
         {
             if (hit3.collider.tag == "Player" && !Movewithmouse.cantDetect)
             {
-                targetPoint = player.transform;
-                isDetect = true;
+                if (!isDetect)
+                {
+                    targetPoint = player.transform;
+                    isDetect = true;
+                } 
                 
             }
         }
     }
 
+    private bool StopMoveing;
     IEnumerator ReturnToPatrol()
     {
         Movewithmouse.isDead = true;
-
+        StopMoveing = true;
         yield return new WaitForSeconds(2.0f);
-
+        StopMoveing = false;
         isDetect = false;
         curPathIndex = 0;
         targetPoint = targetPin[curPathIndex].transform;
