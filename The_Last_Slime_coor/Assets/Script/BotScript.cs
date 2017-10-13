@@ -45,6 +45,43 @@ public class BotScript : MonoBehaviour
         plus = true;
     }
 
+    void AI_Chase()
+    {
+        // rotate towards the target
+        dir = targetPoint.position - transform.position;
+        angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+        transform.rotation = Quaternion.AngleAxis(angle - 90, transform.forward);
+        // move towards the target
+        transform.position = Vector3.MoveTowards(transform.position, targetPoint.position, speed * Time.deltaTime);
+
+        if (transform.position == targetPoint.position)
+        {
+            if (ifNewtargetPoint)
+            {
+                targetPoint = player.transform;
+                ifNewtargetPoint = false;
+            }
+        }
+
+        BackToTheOriginal_AIGoToPlayer();
+
+        TimeDetect += Time.deltaTime;
+        if (TimeDetect > Time_for_Chase || Vector2.Distance(transform.position, player.transform.position) > dist + 1)
+        {
+            //ถ้าเวลาตามหมดแต่ยังเห็นผู้เล่นอยู่ก็ตามไปจนกว่าผู้เล่นจะหลบมุม
+            if (targetPoint.position == player.transform.position)
+            {
+
+            }
+            else
+            {
+                isDetect = false;
+                TimeDetect = 0;
+            }
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -60,39 +97,16 @@ public class BotScript : MonoBehaviour
 
         if (isDetect)
         {
-            // rotate towards the target
-            dir = targetPoint.position - transform.position;
-            angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-
-            transform.rotation = Quaternion.AngleAxis(angle - 90, transform.forward);
-            // move towards the target
-            transform.position = Vector3.MoveTowards(transform.position, targetPoint.position, speed * Time.deltaTime);
-
-            if (transform.position == targetPoint.position)
+            if (Vector2.Distance(transform.position, player.transform.position) <= dist
+                && Vector2.Distance(transform.position, player.transform.position) > 0.7f)
             {
-                if (ifNewtargetPoint)
-                {
-                    targetPoint = player.transform;
-                    ifNewtargetPoint = false;
-                }
+                AI_Chase();
             }
-            
-            BackToTheOriginal_AIGoToPlayer();
-
-            TimeDetect += Time.deltaTime;
-            if (TimeDetect > Time_for_Chase || Vector2.Distance(transform.position, player.transform.position) > dist + 1)
+            else
             {
-                //ถ้าเวลาตามหมดแต่ยังเห็นผู้เล่นอยู่ก็ตามไปจนกว่าผู้เล่นจะหลบมุม
-                if (targetPoint.position == player.transform.position)
-                {
-
-                }
-                else
-                {
-                    isDetect = false;
-                    TimeDetect = 0;
-                }
+                StartCoroutine(ReturnToPatrol());
             }
+
         }
     }
 

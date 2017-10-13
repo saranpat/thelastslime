@@ -105,8 +105,9 @@ public class Movewithmouse : MonoBehaviour {
     IEnumerator Respawn()
     {
         yield return new WaitForSeconds(2f);
-
+        
         transform.position = startPos;
         isDead = false;
+        //Application.LoadLevel();
     }
 }
