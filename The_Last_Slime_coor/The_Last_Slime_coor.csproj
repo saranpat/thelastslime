@@ -79,8 +79,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Dandy-2 Change Sprite\readme.cs" />
-    <Compile Include="Assets\Dandy-2 Change Sprite\Scripts\DoorScript2.cs" />
-    <Compile Include="Assets\Dandy-2 Change Sprite\Scripts\Movewithmouse2.cs" />
     <Compile Include="Assets\Script\AI_GetNode.cs" />
     <Compile Include="Assets\Script\BotScript.cs" />
     <Compile Include="Assets\Script\CameraScript.cs" />

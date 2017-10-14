@@ -53,7 +53,7 @@ GameObject:
   - component: {fileID: 4755183285640384}
   - component: {fileID: 50156772420384152}
   - component: {fileID: 61479463116750330}
-  - component: {fileID: 114748817500699962}
+  - component: {fileID: 114266882447953986}
   m_Layer: 0
   m_Name: Iron Door
   m_TagString: Wall
@@ -147,7 +147,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.98, y: 0.97}
   m_EdgeRadius: 0
---- !u!114 &114748817500699962
+--- !u!114 &114266882447953986
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1865791973628674}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cff2e477fd44d5458bddc551cc051df, type: 3}
+  m_Script: {fileID: 11500000, guid: 42d931b01f1475e429320e930368f002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   keyToOpen: {fileID: 0}

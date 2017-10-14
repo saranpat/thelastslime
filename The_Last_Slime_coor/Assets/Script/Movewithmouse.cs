@@ -66,7 +66,8 @@ public class Movewithmouse : MonoBehaviour {
         {
             cantDetect = true;
             gameObject.GetComponent<CircleCollider2D>().isTrigger = true;
-            gameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
+            //gameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
+            gameObject.transform.GetChild(0).gameObject.SetActive(false);//Dandy: แก้ให้ใช้ Sprite ใน child ได้
         }
     }
 
@@ -74,7 +75,8 @@ public class Movewithmouse : MonoBehaviour {
     {
         cantDetect = false;
         gameObject.GetComponent<CircleCollider2D>().isTrigger = false;
-        gameObject.GetComponent<SpriteRenderer>().sortingOrder = 2;
+        //gameObject.GetComponent<SpriteRenderer>().sortingOrder = 2;
+        gameObject.transform.GetChild(0).gameObject.SetActive(true);//Dandy: แก้ให้ใช้ Sprite ใน child ได้
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -83,7 +85,8 @@ public class Movewithmouse : MonoBehaviour {
         {
             cantDetect = true;
             gameObject.GetComponent<CircleCollider2D>().isTrigger = true;
-            gameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
+            //gameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
+            gameObject.transform.GetChild(0).gameObject.SetActive(false);//Dandy: แก้ให้ใช้ Sprite ใน child ได้
         }
 
 

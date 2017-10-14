@@ -5,7 +5,7 @@ using UnityEngine;
 public class DoorScript : MonoBehaviour {
 
     public GameObject keyToOpen;
-    public Sprite openSprite;
+    //public Sprite openSprite; ไปใช้ child component แทน
     public bool isOpen;
 
 	// Use this for initialization
@@ -18,7 +18,9 @@ public class DoorScript : MonoBehaviour {
 		if (!keyToOpen.activeSelf)
         {
             isOpen = true;
-            gameObject.GetComponent<SpriteRenderer>().sprite = openSprite;
+            //gameObject.GetComponent<SpriteRenderer>().sprite = openSprite;
+            gameObject.transform.GetChild(0).gameObject.SetActive(false);
+            gameObject.transform.GetChild(1).gameObject.SetActive(true);
             gameObject.tag = "Door";
             gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
             gameObject.layer = 2;
