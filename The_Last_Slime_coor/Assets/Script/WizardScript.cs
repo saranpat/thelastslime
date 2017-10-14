@@ -7,11 +7,14 @@ public class WizardScript : MonoBehaviour {
     public bool alertState; //เตือนจาก ward ถ้าผู้เล่นเข้าใกล้
     public GameObject alertState_Obj; //รับตำแหน่งของ ward มาเพื่อให้บอทเดินไปดูตรง Ward นั้นๆ
 
+    public GameObject firePrefab; // magic shot prefab
+    public float fireSpeed; //magic shot speed
 
     public GameObject[] targetPin;
     public float speed;
     public float dist; // distance the enemy can "see" in front of him
     public float visionAngle;
+    public float fireRange; // shooting distance
     public bool isLoop;
 
     private int curPathIndex;
@@ -37,7 +40,7 @@ public class WizardScript : MonoBehaviour {
     private float TimeDetect;
     public float Time_for_Chase = 15;
 
-    
+    private bool isRecharge; //recharge magic
 
     // Use this for initialization
     void Start()
@@ -50,6 +53,8 @@ public class WizardScript : MonoBehaviour {
         plus = true;
 
         alertState = false;
+
+        isRecharge = false;
     }
 
 
@@ -100,6 +105,7 @@ public class WizardScript : MonoBehaviour {
         }
     }
     // Update is called once per frame
+
     void Update()
     {
         // check if we have somewere to walk
@@ -121,18 +127,29 @@ public class WizardScript : MonoBehaviour {
 
         if (isDetect)
         {
+            if (Movewithmouse.isDead)
+            {
+                StartCoroutine(ReturnToPatrol());
+            }
+
+            if (Vector2.Distance(transform.position, player.transform.position) <= fireRange && !isRecharge)
+            {
+                dir = targetPoint.position - transform.position;
+                angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+                transform.rotation = Quaternion.AngleAxis(angle - 90, transform.forward);
+
+                StartCoroutine(Fire());
+            }
+
             if (Vector2.Distance(transform.position, player.transform.position) <= dist
-                            && Vector2.Distance(transform.position, player.transform.position) > 0.7f)
+                            && Vector2.Distance(transform.position, player.transform.position) >= fireRange - 1)
             {
                 if (StopMoveing == false)
                 {
                     AI_Chase();
                 }
                     
-            }
-            else
-            {
-                StartCoroutine(ReturnToPatrol());
             }
         }
 
@@ -544,7 +561,6 @@ public class WizardScript : MonoBehaviour {
     private bool StopMoveing;
     IEnumerator ReturnToPatrol()
     {
-        Movewithmouse.isDead = true;
         StopMoveing = true;
         yield return new WaitForSeconds(2.0f);
         StopMoveing = false;
@@ -552,5 +568,20 @@ public class WizardScript : MonoBehaviour {
         curPathIndex = 0;
         targetPoint = targetPin[curPathIndex].transform;
         transform.position = targetPin[curPathIndex].transform.position;
+    }
+
+    IEnumerator Fire()
+    {
+        isRecharge = true;
+
+        var bullet = (GameObject)Instantiate(firePrefab, transform.position, transform.rotation);
+
+        bullet.GetComponent<Rigidbody2D>().velocity = dir * fireSpeed;
+
+        Destroy(bullet, 2.0f);
+
+        yield return new WaitForSeconds(2.0f);
+
+        isRecharge = false;
     }
 }
