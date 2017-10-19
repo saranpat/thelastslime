@@ -17,7 +17,11 @@ public class BotScript : MonoBehaviour
     private float angle;
     private bool plus;
 
-    private bool isDetect;
+    public bool JeeTest;
+    FieldOfView _FieldOfView;
+
+
+    public bool isDetect;
     private GameObject player;
     private RaycastHit checkWall;
 
@@ -37,6 +41,9 @@ public class BotScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        if(this.gameObject.GetComponent<FieldOfView>()!= null)
+            _FieldOfView = this.gameObject.GetComponent<FieldOfView>();
+
         player = GameObject.FindGameObjectWithTag("Player");
         _AI_GetNode = GameObject.FindGameObjectWithTag("Node").GetComponent<AI_GetNode>();
         curPathIndex = 0;
@@ -93,24 +100,58 @@ public class BotScript : MonoBehaviour
             walk();
         }
 
-        DetectPlayer();
-
-        if (isDetect)
+        if(!JeeTest) //กันไว้ก่อนเดี๋ยวบัค ซีนอื่นๆจะยังใช้ได้เหมือนเดิมยกเว้นซีนของเรา จะให้ไปจับผู้เล่นจากอีกโค้ดแทน
         {
-            if (Vector2.Distance(transform.position, player.transform.position) <= dist
-                && Vector2.Distance(transform.position, player.transform.position) > 0.7f)
+            DetectPlayer();
+
+            if (isDetect)
             {
-                if (StopMoveing == false) 
-                { 
-                    AI_Chase();
+                if (Vector2.Distance(transform.position, player.transform.position) <= dist
+                    && Vector2.Distance(transform.position, player.transform.position) > 0.7f)
+                {
+                    if (StopMoveing == false)
+                    {
+                        AI_Chase();
+                    }
                 }
+                else
+                {
+                    StartCoroutine(ReturnToPatrol());
+                }
+
+            }
+        }
+        else // เพิ่ม
+        {
+
+            if(_FieldOfView.visibleTargets.Count > 0)
+            {
+                Debug.Log(_FieldOfView.visibleTargets.Count);
+                targetPoint = player.transform;
+                isDetect = true;
             }
             else
             {
-                StartCoroutine(ReturnToPatrol());
+                isDetect = false;
             }
 
+            if (isDetect)
+            {
+                if (Vector2.Distance(transform.position, player.transform.position) > 0.7f)
+                {
+                    if (StopMoveing == false)
+                    {
+                        AI_Chase();
+                    }
+                }
+                else
+                {
+                    StartCoroutine(ReturnToPatrol());
+                }
+
+            }
         }
+
     }
 
     void BackToTheOriginal()
@@ -142,10 +183,10 @@ public class BotScript : MonoBehaviour
 
             for (int i = 1; i < NodePosition.Length; i++)
             {
-                Debug.Log(Old_DummytargetPoint);
+                //Debug.Log(Old_DummytargetPoint);
                 if (i == Old_DummytargetPoint)
                 {
-                    Debug.Log("OldPoint");
+                    //Debug.Log("OldPoint");
                     Old_DummytargetPoint = 0;
                     continue;
                 }
