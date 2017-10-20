@@ -16,9 +16,9 @@ public class SplitBlockScript : MonoBehaviour {
 		
 	}
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player" && Movewithmouse.bulkUp)
+        if (collision.tag == "Player" && Movewithmouse.bulkUp && StageController.slimeCnt < 3)
         {
             GameObject miniMe = Instantiate(slimePrefab, transform.position, transform.rotation);
 
