@@ -117,13 +117,14 @@ public class Movewithmouse : MonoBehaviour {
 
     IEnumerator LeavingWater()
     {
+        gameObject.GetComponent<CircleCollider2D>().isTrigger = false;
+
         yield return new WaitForSeconds(0.1f);
 
         if (isLeavingWater)
         {
             cantDetect = false;
             bulkUp = true;
-            gameObject.GetComponent<CircleCollider2D>().isTrigger = false;
             gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/big_slime");
             transform.localScale = new Vector2(0.6f, 0.6f);
             isLeavingWater = false;
