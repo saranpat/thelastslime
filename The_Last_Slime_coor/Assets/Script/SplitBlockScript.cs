@@ -22,6 +22,8 @@ public class SplitBlockScript : MonoBehaviour {
         {
             GameObject miniMe = Instantiate(slimePrefab, transform.position, transform.rotation);
 
+            GameObject.Destroy(miniMe, 10.0f);
+
             Movewithmouse.bulkUp = false;
         }
     }
