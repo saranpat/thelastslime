@@ -8,11 +8,15 @@ public class Movewithmouse : MonoBehaviour {
     public static bool cantDetect;
     public static bool isDead;
 
+    public static bool bulkUp; //check state of slime (small or big)
+
     private Vector3 target;
 	private Vector2 target2d;
     private Vector2 startPos;
 
 	private Rigidbody2D rb2d;
+
+    private bool isLeavingWater; // check if out of water
 
 	void Start () {
 		target = transform.position;
@@ -22,6 +26,10 @@ public class Movewithmouse : MonoBehaviour {
 
         isDead = false;
         cantDetect = false;
+
+        bulkUp = false;
+
+        isLeavingWater = false;
 	}
 
 	void Update () {
@@ -40,6 +48,16 @@ public class Movewithmouse : MonoBehaviour {
 
         if (isDead)
             StartCoroutine(Respawn());
+
+        if (isLeavingWater)
+            StartCoroutine(LeavingWater());
+
+        if (!bulkUp) //Return to normal size
+        {
+            gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/Slime");
+            transform.localScale = new Vector2(0.3f, 0.3f);
+        }
+
 	}
 
     void OnTriggerEnter2D (Collider2D other)
@@ -74,11 +92,16 @@ public class Movewithmouse : MonoBehaviour {
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        cantDetect = false;
-        this.gameObject.layer = 10; // layer 10 Player
+        if (collision.tag == "Water")
+        {
+            isLeavingWater = true;
 
-        gameObject.GetComponent<CircleCollider2D>().isTrigger = false;
-        gameObject.GetComponent<SpriteRenderer>().sortingOrder = 2;
+            cantDetect = false;
+            this.gameObject.layer = 10; // layer 10 Player
+
+            gameObject.GetComponent<CircleCollider2D>().isTrigger = false;
+            gameObject.GetComponent<SpriteRenderer>().sortingOrder = 2;
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -116,4 +139,25 @@ public class Movewithmouse : MonoBehaviour {
         isDead = false;
         //Application.LoadLevel();
     }
+
+    IEnumerator LeavingWater()
+    {
+        gameObject.GetComponent<CircleCollider2D>().isTrigger = false;
+
+        yield return new WaitForSeconds(0.1f);
+
+        if (isLeavingWater)
+        {
+            cantDetect = false;
+            bulkUp = true;
+            gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/big_slime");
+            transform.localScale = new Vector2(0.6f, 0.6f);
+            isLeavingWater = false;
+
+            yield return new WaitForSeconds(5.0f);
+
+            bulkUp = false;
+        }
+    }
+
 }
