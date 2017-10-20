@@ -6,10 +6,11 @@ public class LeverScript : MonoBehaviour {
 
     public GameObject[] Trap;
     public static bool switchOff;
-
+	private SpriteRenderer mysprite;
 	// Use this for initialization
 	void Start () {
         switchOff = false;
+		mysprite = GetComponent<SpriteRenderer>();
 	}
 	
 	// Update is called once per frame
@@ -22,6 +23,7 @@ public class LeverScript : MonoBehaviour {
                 {
                     Trap[i].SetActive(false);
                 }
+				mysprite.flipX = true;
             }
         }
 	}
