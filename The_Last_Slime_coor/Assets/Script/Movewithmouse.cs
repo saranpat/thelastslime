@@ -14,6 +14,8 @@ public class Movewithmouse : MonoBehaviour {
 
 	private Rigidbody2D rb2d;
 
+    private bool isLeavingWater; // check if out of water
+
 	void Start () {
 		target = transform.position;
         startPos = target;
@@ -22,6 +24,8 @@ public class Movewithmouse : MonoBehaviour {
 
         isDead = false;
         cantDetect = false;
+
+        isLeavingWater = false;
 	}
 
 	void Update () {
@@ -40,6 +44,9 @@ public class Movewithmouse : MonoBehaviour {
 
         if (isDead)
             StartCoroutine(Respawn());
+
+        if (isLeavingWater)
+            StartCoroutine(LeavingWater());
 	}
 
     void OnTriggerEnter2D (Collider2D other)
@@ -64,29 +71,22 @@ public class Movewithmouse : MonoBehaviour {
 
         if (other.tag == "Water")
         {
+            isLeavingWater = false;
             cantDetect = true;
             gameObject.GetComponent<CircleCollider2D>().isTrigger = true;
-            gameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        cantDetect = false;
-        gameObject.GetComponent<CircleCollider2D>().isTrigger = false;
-        gameObject.GetComponent<SpriteRenderer>().sortingOrder = 2;
+        if (collision.tag == "Water")
+        {
+            isLeavingWater = true;
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.tag == "Water")
-        {
-            cantDetect = true;
-            gameObject.GetComponent<CircleCollider2D>().isTrigger = true;
-            gameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
-        }
-
-
         if (collision.tag == "Lever")
         {
             if (Input.GetMouseButtonDown(0))
@@ -109,5 +109,24 @@ public class Movewithmouse : MonoBehaviour {
         transform.position = startPos;
         isDead = false;
         //Application.LoadLevel();
+    }
+
+    IEnumerator LeavingWater()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        if (isLeavingWater)
+        {
+            cantDetect = false;
+            gameObject.GetComponent<CircleCollider2D>().isTrigger = false;
+            gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/big_slime");
+            transform.localScale = new Vector2(0.6f, 0.6f);
+            isLeavingWater = false;
+
+            yield return new WaitForSeconds(5.0f);
+
+            gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/Slime");
+            transform.localScale = new Vector2(0.3f, 0.3f);
+        }
     }
 }
