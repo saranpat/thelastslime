@@ -62,7 +62,7 @@ public class AI_Move : MonoBehaviour {
         transform.rotation = Quaternion.Slerp(this.transform.rotation, dummyRotation, 0.05f);
         // move towards the target
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, targetPoint.position - transform.position, 0.35f);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, targetPoint.position - transform.position, 0.75f);
         if (hit.collider != null) //
         {
             if (hit.collider.tag != "Water")
@@ -432,11 +432,17 @@ public class AI_Move : MonoBehaviour {
             }
             else if (Dummy == null)
             {
+                Debug.Log("Null");
                 disNearest = Mathf.Infinity;
                 for (int i = 1; i < NodePosition.Length; i++)
                 {
-                    float Dummydis = Vector2.Distance(NodePosition[i].transform.position, this.transform.position);
-                    float H = Dummydis;
+                    float Dummydis = Vector2.Distance(NodePosition[i].transform.position, this.transform.position)*2;
+                    //float H = Dummydis;
+
+                    float DummytargetPointDis = Vector2.Distance(NodePosition[i].transform.position, player.transform.position);
+
+                    float H = Dummydis + DummytargetPointDis;
+
                     RaycastHit2D Nothit = Physics2D.Raycast(transform.position, NodePosition[i].transform.position - this.transform.position, Dummydis);
                     if (Nothit.collider != null)
                     {
@@ -467,7 +473,7 @@ public class AI_Move : MonoBehaviour {
                     }
                 }
 
-                if (targetPoint != Dummy && Dummy != null && _FieldOfView.visibleTargets.Count >= 0)
+                if (targetPoint != Dummy && Dummy != null && _FieldOfView.visibleTargets.Count >= 0)// 
                 {
                     ifNewtargetPoint = true;
                     targetPoint = Dummy;
