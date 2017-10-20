@@ -11,15 +11,20 @@ public class FieldOfView : MonoBehaviour {
     public LayerMask targetMask;
     public LayerMask obstacleMask;
 
+    [HideInInspector]
     public List<Transform> visibleTargets = new List<Transform>();
 
+    [HideInInspector]
+    public float AddDebugViewAngle = 0.135f;
 
     private float meshResolution = 1;
     private int edgeResolveIterations = 4;
     private float edgeDstThreshold = 0.5f;
 
     public MeshFilter viewMeshFilter;
+    public Material[] _Material;
     Mesh viewMesh;
+    MeshRenderer viewMeshRenderer;
 
 	// Use this for initialization
 	void Start () {
@@ -27,7 +32,9 @@ public class FieldOfView : MonoBehaviour {
         viewMesh.name = "View Mesh";
         viewMeshFilter.mesh = viewMesh;
 
-        StartCoroutine("FindTargetsWithDelay", .2f);
+        viewMeshRenderer = viewMeshFilter.gameObject.GetComponent<MeshRenderer>();
+
+        StartCoroutine("FindTargetsWithDelay", .02f);
 	}
 
     IEnumerator FindTargetsWithDelay(float delay)
@@ -51,7 +58,7 @@ public class FieldOfView : MonoBehaviour {
             Transform target = targetsInViewRadius[i].transform;
             Vector2 dirToTarget = (target.position - transform.position).normalized;
 
-            if (Vector2.Angle(transform.up, dirToTarget) < viewAngle / 2) 
+            if (Vector2.Angle(transform.up, dirToTarget) < viewAngle / 1.75f)// /2
             {
                 float dstToTarget = Vector3.Distance(transform.position, target.position);
                 if (!Physics2D.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask))
@@ -62,6 +69,17 @@ public class FieldOfView : MonoBehaviour {
                 }
             }
         }
+        // เปลี่ยนสีเมื่อเจอผยู้เล่น
+        if (visibleTargets.Count > 0)
+        {
+            viewMeshRenderer.material = _Material[1];
+        }
+        else
+        {
+            viewMeshRenderer.material = _Material[0];
+        }
+
+
     }
 
     public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal)
@@ -130,7 +148,6 @@ public class FieldOfView : MonoBehaviour {
         }
 
         viewMesh.Clear();
-
         viewMesh.vertices = vertices;
         viewMesh.triangles = triangles;
         viewMesh.RecalculateNormals();
@@ -169,15 +186,15 @@ public class FieldOfView : MonoBehaviour {
     ViewCastInfo ViewCast(float globalAngle)
     {
         Vector3 dir = DirFromAngle(globalAngle, true);
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, viewRadius, obstacleMask);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, viewRadius + AddDebugViewAngle, obstacleMask);
 
-        if (Physics2D.Raycast(transform.position, dir, viewRadius, obstacleMask))
+        if (Physics2D.Raycast(transform.position, dir, viewRadius + AddDebugViewAngle, obstacleMask))
         {
             return new ViewCastInfo(true, hit.point, hit.distance, globalAngle);
         }
         else
         {
-            return new ViewCastInfo(false, transform.position + dir * viewRadius, viewRadius, globalAngle);
+            return new ViewCastInfo(false, transform.position + dir * (viewRadius + AddDebugViewAngle), viewRadius + AddDebugViewAngle, globalAngle);
         }
     }
 

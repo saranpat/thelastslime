@@ -65,6 +65,8 @@ public class Movewithmouse : MonoBehaviour {
         if (other.tag == "Water")
         {
             cantDetect = true;
+            this.gameObject.layer = 11; // layer 11 PlayerInWater
+
             gameObject.GetComponent<CircleCollider2D>().isTrigger = true;
             gameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
         }
@@ -73,6 +75,8 @@ public class Movewithmouse : MonoBehaviour {
     private void OnTriggerExit2D(Collider2D collision)
     {
         cantDetect = false;
+        this.gameObject.layer = 10; // layer 10 Player
+
         gameObject.GetComponent<CircleCollider2D>().isTrigger = false;
         gameObject.GetComponent<SpriteRenderer>().sortingOrder = 2;
     }
@@ -82,6 +86,8 @@ public class Movewithmouse : MonoBehaviour {
         if (collision.tag == "Water")
         {
             cantDetect = true;
+            this.gameObject.layer = 11; // layer 11 PlayerInWater
+
             gameObject.GetComponent<CircleCollider2D>().isTrigger = true;
             gameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
         }
