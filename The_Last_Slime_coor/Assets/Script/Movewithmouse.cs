@@ -8,6 +8,8 @@ public class Movewithmouse : MonoBehaviour {
     public static bool cantDetect;
     public static bool isDead;
 
+    public static bool bulkUp; //check state of slime (small or big)
+
     private Vector3 target;
 	private Vector2 target2d;
     private Vector2 startPos;
@@ -24,6 +26,8 @@ public class Movewithmouse : MonoBehaviour {
 
         isDead = false;
         cantDetect = false;
+
+        bulkUp = false;
 
         isLeavingWater = false;
 	}
@@ -47,6 +51,12 @@ public class Movewithmouse : MonoBehaviour {
 
         if (isLeavingWater)
             StartCoroutine(LeavingWater());
+
+        if (!bulkUp) //Return to normal size
+        {
+            gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/Slime");
+            transform.localScale = new Vector2(0.3f, 0.3f);
+        }
 	}
 
     void OnTriggerEnter2D (Collider2D other)
@@ -95,13 +105,7 @@ public class Movewithmouse : MonoBehaviour {
             }
         }
     }
-    void OnTriggerStay(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            print("Alerttttt");
-        }
-    }
+
     IEnumerator Respawn()
     {
         yield return new WaitForSeconds(2f);
@@ -118,6 +122,7 @@ public class Movewithmouse : MonoBehaviour {
         if (isLeavingWater)
         {
             cantDetect = false;
+            bulkUp = true;
             gameObject.GetComponent<CircleCollider2D>().isTrigger = false;
             gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/big_slime");
             transform.localScale = new Vector2(0.6f, 0.6f);
@@ -125,8 +130,7 @@ public class Movewithmouse : MonoBehaviour {
 
             yield return new WaitForSeconds(5.0f);
 
-            gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/Slime");
-            transform.localScale = new Vector2(0.3f, 0.3f);
+            bulkUp = false;
         }
     }
 }
