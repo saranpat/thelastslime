@@ -135,7 +135,7 @@ public class Movewithmouse : MonoBehaviour {
 
         if (isLeavingWater)
         {
-            cantDetect = false;
+            //cantDetect = false;
             bulkUp = true;
             gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/big_slime");
             transform.localScale = new Vector2(0.6f, 0.6f);
