@@ -84,9 +84,7 @@ public class Movewithmouse : MonoBehaviour {
         {
             cantDetect = true;
             this.gameObject.layer = 11; // layer 11 PlayerInWater
-
-            gameObject.GetComponent<CircleCollider2D>().isTrigger = true;
-            gameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
+            isLeavingWater = false;
         }
     }
 
@@ -98,9 +96,6 @@ public class Movewithmouse : MonoBehaviour {
 
             cantDetect = false;
             this.gameObject.layer = 10; // layer 10 Player
-
-            gameObject.GetComponent<CircleCollider2D>().isTrigger = false;
-            gameObject.GetComponent<SpriteRenderer>().sortingOrder = 2;
         }
     }
 
@@ -110,9 +105,7 @@ public class Movewithmouse : MonoBehaviour {
         {
             cantDetect = true;
             this.gameObject.layer = 11; // layer 11 PlayerInWater
-
-            gameObject.GetComponent<CircleCollider2D>().isTrigger = true;
-            gameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
+            isLeavingWater = false;
         }
 
 
@@ -124,13 +117,7 @@ public class Movewithmouse : MonoBehaviour {
             }
         }
     }
-    void OnTriggerStay(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            print("Alerttttt");
-        }
-    }
+
     IEnumerator Respawn()
     {
         yield return new WaitForSeconds(2f);
