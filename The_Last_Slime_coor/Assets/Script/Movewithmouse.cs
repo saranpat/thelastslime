@@ -10,6 +10,7 @@ public class Movewithmouse : MonoBehaviour {
 
     public bool bulkUp; //check state of slime (small or big)
     public bool theRealOne;
+    public bool isControl;
 
     private Vector3 target;
 	private Vector2 target2d;
@@ -34,7 +35,7 @@ public class Movewithmouse : MonoBehaviour {
 	}
 
 	void Update () {
-		if (Input.GetMouseButton(0) && !isDead) {
+		if (Input.GetMouseButton(0) && !isDead && isControl) {
 			target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			target.z = transform.position.z;
 			target2d = new Vector2 (target.x, target.y);
@@ -89,6 +90,7 @@ public class Movewithmouse : MonoBehaviour {
             cantDetect = true;
             this.gameObject.layer = 11; // layer 11 PlayerInWater
             isLeavingWater = false;
+            StopAllCoroutines();
         }
     }
 
@@ -96,7 +98,8 @@ public class Movewithmouse : MonoBehaviour {
     {
         if (collision.tag == "Water")
         {
-            isLeavingWater = true;
+            if (theRealOne)
+                isLeavingWater = true;
 
             cantDetect = false;
             this.gameObject.layer = 10; // layer 10 Player
@@ -136,9 +139,9 @@ public class Movewithmouse : MonoBehaviour {
 
     IEnumerator LeavingWater()
     {
-        gameObject.GetComponent<CircleCollider2D>().isTrigger = false;
+        //gameObject.GetComponent<CircleCollider2D>().isTrigger = false;
 
-        yield return new WaitForSeconds(0.1f);
+        //yield return new WaitForSeconds(0.1f);
 
         if (isLeavingWater)
         {

@@ -23,6 +23,7 @@ public class SplitBlockScript : MonoBehaviour {
             GameObject miniMe = Instantiate(slimePrefab, transform.position, transform.rotation);
 
             miniMe.gameObject.GetComponent<Movewithmouse>().theRealOne = false;
+            miniMe.gameObject.GetComponent<Movewithmouse>().isControl = false;
 
             GameObject.Destroy(miniMe, 10.0f);
 
