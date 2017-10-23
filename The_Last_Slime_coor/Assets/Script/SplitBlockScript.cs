@@ -18,13 +18,15 @@ public class SplitBlockScript : MonoBehaviour {
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player" && Movewithmouse.bulkUp && StageController.slimeCnt < 3)
+        if (collision.tag == "Player" && collision.gameObject.GetComponent<Movewithmouse>().bulkUp && StageController.slimeCnt < 3)
         {
             GameObject miniMe = Instantiate(slimePrefab, transform.position, transform.rotation);
 
+            miniMe.gameObject.GetComponent<Movewithmouse>().theRealOne = false;
+
             GameObject.Destroy(miniMe, 10.0f);
 
-            Movewithmouse.bulkUp = false;
+            collision.gameObject.GetComponent<Movewithmouse>().bulkUp= false;
         }
     }
 }

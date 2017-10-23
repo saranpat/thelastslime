@@ -8,7 +8,8 @@ public class Movewithmouse : MonoBehaviour {
     public static bool cantDetect;
     public static bool isDead;
 
-    public static bool bulkUp; //check state of slime (small or big)
+    public bool bulkUp; //check state of slime (small or big)
+    public bool theRealOne;
 
     private Vector3 target;
 	private Vector2 target2d;
@@ -46,8 +47,11 @@ public class Movewithmouse : MonoBehaviour {
 			//rb2d.velocity =target2d.normalized * speed;
 		}
 
-        if (isDead)
+        if (isDead & theRealOne)
             StartCoroutine(Respawn());
+
+        if (isDead & !theRealOne)
+            Destroy(this.gameObject);
 
         if (isLeavingWater)
             StartCoroutine(LeavingWater());
