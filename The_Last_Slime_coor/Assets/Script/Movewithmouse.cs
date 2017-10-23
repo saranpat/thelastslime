@@ -55,7 +55,7 @@ public class Movewithmouse : MonoBehaviour {
         if (!bulkUp) //Return to normal size
         {
             gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/Slime");
-            transform.localScale = new Vector2(0.3f, 0.3f);
+            transform.localScale = new Vector2(0.25f, 0.25f);
         }
 
 	}
@@ -138,7 +138,7 @@ public class Movewithmouse : MonoBehaviour {
             //cantDetect = false;
             bulkUp = true;
             gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/big_slime");
-            transform.localScale = new Vector2(0.6f, 0.6f);
+            transform.localScale = new Vector2(0.4f, 0.4f);
             isLeavingWater = false;
 
             yield return new WaitForSeconds(5.0f);
