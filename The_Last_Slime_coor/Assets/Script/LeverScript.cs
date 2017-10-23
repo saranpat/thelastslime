@@ -5,7 +5,7 @@ using UnityEngine;
 public class LeverScript : MonoBehaviour {
 
     public GameObject[] Trap;
-    public static bool switchOff;
+    public bool switchOff;
 	private SpriteRenderer mysprite;
 	// Use this for initialization
 	void Start () {
@@ -24,6 +24,17 @@ public class LeverScript : MonoBehaviour {
                     Trap[i].SetActive(false);
                 }
 				mysprite.flipX = true;
+            }
+        }
+        else
+        {
+            if (Trap != null)
+            {
+                for (int i = 0; i < Trap.Length; i++)
+                {
+                    Trap[i].SetActive(true);
+                }
+                mysprite.flipX = false;
             }
         }
 	}

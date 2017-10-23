@@ -117,7 +117,10 @@ public class Movewithmouse : MonoBehaviour {
         {
             if (Input.GetMouseButtonDown(0))
             {
-                LeverScript.switchOff = true;
+                if (!collision.gameObject.GetComponent<LeverScript>().switchOff)
+                    collision.gameObject.GetComponent<LeverScript>().switchOff = true;
+                else
+                    collision.gameObject.GetComponent<LeverScript>().switchOff = false;
             }
         }
     }
