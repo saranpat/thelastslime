@@ -8235,6 +8235,7 @@ MonoBehaviour:
   speed: 2
   bulkUp: 0
   theRealOne: 0
+  isControl: 0
 --- !u!212 &1672068823
 SpriteRenderer:
   m_ObjectHideFlags: 0
