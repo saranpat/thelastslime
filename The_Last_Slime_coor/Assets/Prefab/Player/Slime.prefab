@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1111104281638686}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -90,6 +90,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  normalSlime: {fileID: 21300000, guid: a0f0e0443f2cd2c4ca429d1ef90841e1, type: 3}
+  camouflage: {fileID: 21300000, guid: 6ec99835d45887b479c73b2fd1a3098d, type: 3}
+  bigSlime: {fileID: 21300000, guid: 2576a9104a8020b42b3101e75b5a7624, type: 3}
   bulkUp: 0
   theRealOne: 1
   isControl: 1

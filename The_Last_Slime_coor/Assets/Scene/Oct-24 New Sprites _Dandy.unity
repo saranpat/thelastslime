@@ -5643,6 +5643,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114617062418296832, guid: ae121e91dffbfe246b353dc61c5716b2,
+        type: 2}
+      propertyPath: normalSlimeSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a0f0e0443f2cd2c4ca429d1ef90841e1,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ae121e91dffbfe246b353dc61c5716b2, type: 2}
   m_IsPrefabParent: 0

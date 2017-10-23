@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Movewithmouse : MonoBehaviour {
 	public float speed = 1.5f;
+    public Sprite normalSlime, camouflage, bigSlime;
 
     public static bool cantDetect;
     public static bool isDead;
@@ -20,7 +21,10 @@ public class Movewithmouse : MonoBehaviour {
 
     private bool isLeavingWater; // check if out of water
 
-	void Start () {
+    private SpriteRenderer spriteRenderer;
+    private Color camouflageAlpha, normalColor;
+
+    void Start () {
 		target = transform.position;
         startPos = target;
 
@@ -32,9 +36,34 @@ public class Movewithmouse : MonoBehaviour {
         bulkUp = false;
 
         isLeavingWater = false;
-	}
 
-	void Update () {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        normalColor = spriteRenderer.color;
+        camouflageAlpha = normalColor;
+        camouflageAlpha.a = 0.6f;
+
+    }
+
+    private void FixedUpdate()
+    {
+        if (Input.GetMouseButton(0) && !isDead && isControl)
+        {
+            target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            target.z = transform.position.z;
+            target2d = new Vector2(target.x, target.y);
+
+            var dir = target - transform.position;
+            var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+            transform.rotation = Quaternion.AngleAxis(angle - 90, transform.forward); //-90 for face toward mouse
+            transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+            //rb2d.velocity =target2d.normalized * speed;
+        }
+    }
+
+    void Update () {
+        /* Dandy: ย้ายไป FixedUpdate เพราะเป็นการ Update position & physic ความเร็ว
+         * 
 		if (Input.GetMouseButton(0) && !isDead && isControl) {
 			target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			target.z = transform.position.z;
@@ -46,7 +75,7 @@ public class Movewithmouse : MonoBehaviour {
 			transform.rotation = Quaternion.AngleAxis(angle-90, transform.forward); //-90 for face toward mouse
 			transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
 			//rb2d.velocity =target2d.normalized * speed;
-		}
+		}*/
 
         if (isDead & theRealOne)
             StartCoroutine(Respawn());
@@ -57,10 +86,12 @@ public class Movewithmouse : MonoBehaviour {
         if (isLeavingWater)
             StartCoroutine(LeavingWater());
 
-        if (!bulkUp) //Return to normal size
+        if (!bulkUp & !cantDetect) //Return to normal size while not swimming
         {
-            gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/Slime");
-            transform.localScale = new Vector2(0.25f, 0.25f);
+            //gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/Slime");
+            spriteRenderer.sprite = normalSlime;
+            //transform.localScale = new Vector2(0.25f, 0.25f);
+            //transform.localScale = new Vector2(0.4f, 0.4f);
         }
 
 	}
@@ -91,6 +122,8 @@ public class Movewithmouse : MonoBehaviour {
             this.gameObject.layer = 11; // layer 11 PlayerInWater
             isLeavingWater = false;
             StopAllCoroutines();
+            spriteRenderer.sprite = camouflage;
+            spriteRenderer.color = camouflageAlpha;
         }
     }
 
@@ -103,6 +136,7 @@ public class Movewithmouse : MonoBehaviour {
 
             cantDetect = false;
             this.gameObject.layer = 10; // layer 10 Player
+            spriteRenderer.color = normalColor;
         }
     }
 
@@ -147,8 +181,9 @@ public class Movewithmouse : MonoBehaviour {
         {
             //cantDetect = false;
             bulkUp = true;
-            gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/big_slime");
-            transform.localScale = new Vector2(0.4f, 0.4f);
+            //gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/big_slime");
+            spriteRenderer.sprite = bigSlime;
+            //transform.localScale = new Vector2(0.55f, 0.55f);
             isLeavingWater = false;
 
             yield return new WaitForSeconds(5.0f);
