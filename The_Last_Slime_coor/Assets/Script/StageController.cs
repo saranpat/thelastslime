@@ -37,6 +37,12 @@ public class StageController : MonoBehaviour {
             else
                 splitSprite[i].gameObject.SetActive(false);
         }
+
+        if (maincamera.gameObject.GetComponent<CameraScript>().target == null)
+        {
+            maincamera.gameObject.GetComponent<CameraScript>().target = slime[0];
+            slime[0].GetComponent<Movewithmouse>().isControl = true;
+        }
 	}
 
     public void SpriteButtonClick(Button btn)
