@@ -83,16 +83,16 @@ public class Movewithmouse : MonoBehaviour {
 			//rb2d.velocity =target2d.normalized * speed;
 		}*/
 
-        if (isDead & theRealOne)
+        if (isDead && theRealOne)
             StartCoroutine(Respawn());
 
-        if (isDead & !theRealOne)
+        if (isDead && !theRealOne)
             Destroy(this.gameObject);
 
-        if (isLeavingWater)
+        if (isLeavingWater && theRealOne)
             StartCoroutine(LeavingWater());
 
-        if (!bulkUp & !cantDetect) //Return to normal size while not swimming
+        if (!bulkUp && !cantDetect) //Return to normal size while not swimming
         {
             //gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/Slime");
             spriteRenderer.sprite = normalSlime;
@@ -137,11 +137,8 @@ public class Movewithmouse : MonoBehaviour {
     {
         if (collision.tag == "Water")
         {
-            if (theRealOne)
-            {
                CheckAgainIfInWater = false;
                StartCoroutine(DelayGetOffTheWater());
-            }
         }
     }
 
