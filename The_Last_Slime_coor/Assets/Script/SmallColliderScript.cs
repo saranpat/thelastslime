@@ -3,23 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SmallColliderScript : MonoBehaviour {
+public class SmallColliderScript : MonoBehaviour
+{
 
+    private GameObject leverBtnObj;
     private Button leverBtn;
 
     private Collider2D lever;
+    private bool OneTimes = false;
+    // Use this for initialization
+    void Start()
+    {
+        leverBtnObj = GameObject.FindGameObjectWithTag("LeverBtn");
+    }
 
-	// Use this for initialization
-	void Start () {
-        leverBtn = GameObject.Find("LeverBtn").gameObject.GetComponent<Button>();
-
-        leverBtn.gameObject.SetActive(false);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    // Update is called once per frame
+    void Update()
+    {
+        if (leverBtnObj != null && OneTimes == false)
+        {
+            leverBtn = leverBtnObj.GetComponent<Button>();
+            leverBtn.gameObject.SetActive(false);
+            OneTimes = true;
+        }
+    }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
