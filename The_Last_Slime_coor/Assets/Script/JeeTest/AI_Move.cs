@@ -498,6 +498,8 @@ public class AI_Move : MonoBehaviour {
         }
     }
 
+    public bool rotating;
+
     void walk()
     {
 
@@ -506,13 +508,25 @@ public class AI_Move : MonoBehaviour {
         // rotate towards the target
         dir = targetPoint.position - transform.position;
         angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-
         Quaternion dummyRotation = Quaternion.AngleAxis(angle - 90, transform.forward);
-        transform.rotation = Quaternion.Slerp(this.transform.rotation, dummyRotation, 0.05f);
+        Vector2 dirToTarget = (targetPoint.position - transform.position).normalized;
 
-        // move towards the target
-        transform.position = Vector3.MoveTowards(transform.position, targetPoint.position, speed * Time.deltaTime);
+        if (Vector2.Angle(transform.up, dirToTarget) < 1)
+        {
+            rotating = false;
+        }
+        else
+        {
+            //Debug.Log((int)dummyRotation.eulerAngles.z + "  " + (int)transform.rotation.eulerAngles.z);
+            rotating = true;
+        }
+        
+        if (rotating == false)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPoint.position, speed * Time.deltaTime);
+        }
 
+        transform.rotation = Quaternion.Slerp(this.transform.rotation, dummyRotation, 0.07f);
 
 
         if (transform.position == targetPoint.position)
