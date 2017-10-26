@@ -26,6 +26,13 @@ public class Movewithmouse : MonoBehaviour {
     private SpriteRenderer spriteRenderer;
     private Color camouflageAlpha, normalColor;
 
+    private Animator _Animator;
+    private string Ani_Move = "Move";
+    private string Ani_IsCamouflage = "IsCamouflage";
+    private string Ani_IsBig = "IsBig";
+    private Vector2 S_Big = new Vector2(1.4f, 1.4f);
+    private Vector2 S_Normal = new Vector2(1.0f, 1.0f);
+    
     LayerMask targetMask;
 
     void Start () {
@@ -47,6 +54,12 @@ public class Movewithmouse : MonoBehaviour {
         camouflageAlpha.a = 0.6f;
 
         targetMask = 11; // layer 11 PlayerInWater
+
+        if (this.gameObject.GetComponentInChildren<Animator>() != null)
+        {
+            _Animator = this.gameObject.GetComponentInChildren<Animator>();
+        }
+
     }
 
     private void FixedUpdate()
@@ -63,6 +76,15 @@ public class Movewithmouse : MonoBehaviour {
             transform.rotation = Quaternion.AngleAxis(angle - 90, transform.forward); //-90 for face toward mouse
             transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
             //rb2d.velocity =target2d.normalized * speed;
+
+            if (_Animator != null)
+                _Animator.SetBool(Ani_Move, true);
+
+        }
+        else
+        {
+            if (_Animator != null)
+                _Animator.SetBool(Ani_Move, false);
         }
     }
 
@@ -90,6 +112,13 @@ public class Movewithmouse : MonoBehaviour {
 
         if (isLeavingWater && theRealOne)
             StartCoroutine(LeavingWater());
+        else if (isLeavingWater && !theRealOne)
+        {
+            if (_Animator != null)
+            {
+                _Animator.SetTrigger(Ani_IsBig); //กลับร่างเดิมสำหรับตัวปลอม
+            }
+        }
 
         if (!bulkUp && !cantDetect) //Return to normal size while not swimming
         {
@@ -121,6 +150,12 @@ public class Movewithmouse : MonoBehaviour {
             StopAllCoroutines();
             spriteRenderer.sprite = camouflage;
             spriteRenderer.color = camouflageAlpha;
+
+            if (_Animator != null)
+            {
+                transform.localScale = S_Normal;
+            }
+
         }
     }
 
@@ -143,6 +178,9 @@ public class Movewithmouse : MonoBehaviour {
             CheckAgainIfInWater = true;
             spriteRenderer.sprite = camouflage;
             spriteRenderer.color = camouflageAlpha;
+
+            if (_Animator != null)
+                _Animator.SetBool(Ani_IsCamouflage, true);
         }
     }
 
@@ -175,6 +213,9 @@ public class Movewithmouse : MonoBehaviour {
             cantDetect = false;
             this.gameObject.layer = 10; // layer 10 Player
             spriteRenderer.color = normalColor;
+
+            if (_Animator != null)
+                _Animator.SetBool(Ani_IsCamouflage, false);
         }
 
     }
@@ -187,6 +228,12 @@ public class Movewithmouse : MonoBehaviour {
 
         if (isLeavingWater)
         {
+            if (_Animator != null)
+            {
+                _Animator.SetTrigger(Ani_IsBig);
+                transform.localScale = S_Big;
+            }
+                
             //cantDetect = false;
             bulkUp = true;
             //gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/big_slime");
@@ -195,8 +242,12 @@ public class Movewithmouse : MonoBehaviour {
             isLeavingWater = false;
 
             yield return new WaitForSeconds(5.0f);
-
+            if (_Animator != null)
+            {
+                transform.localScale = S_Normal;
+            }
             bulkUp = false;
+
         }
     }
 
