@@ -147,7 +147,7 @@ public class AI_Move : MonoBehaviour {
 
             if (_FieldOfView.visibleTargets.Count > 0)
             {
-                Debug.Log(_FieldOfView.visibleTargets.Count);
+                //Debug.Log(_FieldOfView.visibleTargets.Count);
                 
 
                 if (Movewithmouse.cantDetect)
@@ -432,7 +432,7 @@ public class AI_Move : MonoBehaviour {
             }
             else if (Dummy == null)
             {
-                Debug.Log("Null");
+                //Debug.Log("Null");
                 disNearest = Mathf.Infinity;
                 for (int i = 1; i < NodePosition.Length; i++)
                 {
