@@ -24,17 +24,10 @@ public class SplitBlockScript : MonoBehaviour {
 
             miniMe.gameObject.GetComponent<Movewithmouse>().theRealOne = false;
             miniMe.gameObject.GetComponent<Movewithmouse>().isControl = false;
-            Collider2D dummy = miniMe.gameObject.GetComponentInChildren<Collider2D>();
-            StartCoroutine(offCollider2D(dummy));
+
+            GameObject.Destroy(miniMe, 10.0f);
+
             collision.gameObject.GetComponent<Movewithmouse>().bulkUp= false;
         }
-    }
-
-    IEnumerator offCollider2D(Collider2D dummy)
-    {
-        yield return new WaitForSeconds(9.9f);
-        dummy.enabled = false;
-        yield return new WaitForSeconds(0.1f);
-        Destroy(dummy.gameObject);
     }
 }
