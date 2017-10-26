@@ -151,10 +151,7 @@ public class Movewithmouse : MonoBehaviour {
             spriteRenderer.sprite = camouflage;
             spriteRenderer.color = camouflageAlpha;
 
-            if (_Animator != null)
-            {
-                transform.localScale = S_Normal;
-            }
+            GoToNormalSize();
 
         }
     }
@@ -220,6 +217,14 @@ public class Movewithmouse : MonoBehaviour {
 
     }
 
+    public void GoToNormalSize()
+    {
+        if (_Animator != null)
+        {
+            transform.localScale = S_Normal;
+        }
+    }
+
     IEnumerator LeavingWater()
     {
         //gameObject.GetComponent<CircleCollider2D>().isTrigger = false;
@@ -242,10 +247,7 @@ public class Movewithmouse : MonoBehaviour {
             isLeavingWater = false;
 
             yield return new WaitForSeconds(5.0f);
-            if (_Animator != null)
-            {
-                transform.localScale = S_Normal;
-            }
+            GoToNormalSize();
             bulkUp = false;
 
         }

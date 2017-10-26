@@ -30,6 +30,7 @@ public class SplitBlockScript : MonoBehaviour
             Collider2D dummy = miniMe.gameObject.GetComponentInChildren<Collider2D>();
             StartCoroutine(offCollider2D(dummy));
             collision.gameObject.GetComponent<Movewithmouse>().bulkUp = false;
+            collision.gameObject.GetComponent<Movewithmouse>().GoToNormalSize();
         }
     }
 
