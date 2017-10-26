@@ -7,6 +7,8 @@ public class SmallColliderScript : MonoBehaviour {
 
     private Button leverBtn;
 
+    private Collider2D lever;
+
 	// Use this for initialization
 	void Start () {
         leverBtn = GameObject.Find("LeverBtn").gameObject.GetComponent<Button>();
@@ -24,6 +26,7 @@ public class SmallColliderScript : MonoBehaviour {
         if (collision.tag == "Lever")
         {
             leverBtn.gameObject.SetActive(true);
+            lever = collision;
         }
     }
 
@@ -35,7 +38,7 @@ public class SmallColliderScript : MonoBehaviour {
         }
     }
 
-    public void LeverTrigger(Collider2D lever)
+    public void LeverTrigger()
     {
         if (!lever.gameObject.GetComponent<LeverScript>().switchOff)
             lever.gameObject.GetComponent<LeverScript>().switchOff = true;
