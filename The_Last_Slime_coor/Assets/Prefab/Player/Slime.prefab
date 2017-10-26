@@ -39,6 +39,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4871187726153848}
   - component: {fileID: 58909389416135588}
+  - component: {fileID: 114040841063322990}
   m_Layer: 12
   m_Name: CheckWater
   m_TagString: Untagged
@@ -123,6 +124,17 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.7
+--- !u!114 &114040841063322990
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1412587027348260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce49f2631cde76044acea8caabbfe88e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114617062418296832
 MonoBehaviour:
   m_ObjectHideFlags: 1
