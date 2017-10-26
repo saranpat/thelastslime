@@ -20,9 +20,13 @@ public class Movewithmouse : MonoBehaviour {
 	private Rigidbody2D rb2d;
 
     private bool isLeavingWater; // check if out of water
+    private bool CheckAgainIfInWater;
+
 
     private SpriteRenderer spriteRenderer;
     private Color camouflageAlpha, normalColor;
+
+    LayerMask targetMask;
 
     void Start () {
 		target = transform.position;
@@ -41,6 +45,8 @@ public class Movewithmouse : MonoBehaviour {
         normalColor = spriteRenderer.color;
         camouflageAlpha = normalColor;
         camouflageAlpha.a = 0.6f;
+
+        targetMask = 11; // layer 11 PlayerInWater
 
     }
 
@@ -93,7 +99,6 @@ public class Movewithmouse : MonoBehaviour {
             //transform.localScale = new Vector2(0.25f, 0.25f);
             //transform.localScale = new Vector2(0.4f, 0.4f);
         }
-
 	}
 
     void OnTriggerEnter2D (Collider2D other)
@@ -121,6 +126,7 @@ public class Movewithmouse : MonoBehaviour {
             cantDetect = true;
             this.gameObject.layer = 11; // layer 11 PlayerInWater
             isLeavingWater = false;
+            CheckAgainIfInWater = true;
             StopAllCoroutines();
             spriteRenderer.sprite = camouflage;
             spriteRenderer.color = camouflageAlpha;
@@ -132,11 +138,10 @@ public class Movewithmouse : MonoBehaviour {
         if (collision.tag == "Water")
         {
             if (theRealOne)
-                isLeavingWater = true;
-
-            cantDetect = false;
-            this.gameObject.layer = 10; // layer 10 Player
-            spriteRenderer.color = normalColor;
+            {
+               CheckAgainIfInWater = false;
+               StartCoroutine(DelayGetOffTheWater());
+            }
         }
     }
 
@@ -147,6 +152,9 @@ public class Movewithmouse : MonoBehaviour {
             cantDetect = true;
             this.gameObject.layer = 11; // layer 11 PlayerInWater
             isLeavingWater = false;
+            CheckAgainIfInWater = true;
+            spriteRenderer.sprite = camouflage;
+            spriteRenderer.color = camouflageAlpha;
         }
 
 
@@ -169,6 +177,20 @@ public class Movewithmouse : MonoBehaviour {
         transform.position = startPos;
         isDead = false;
         //Application.LoadLevel();
+    }
+
+    IEnumerator DelayGetOffTheWater()
+    {
+
+        yield return new WaitForSeconds(0.05f);
+        if(CheckAgainIfInWater == false)
+        {
+            isLeavingWater = true;
+            cantDetect = false;
+            this.gameObject.layer = 10; // layer 10 Player
+            spriteRenderer.color = normalColor;
+        }
+
     }
 
     IEnumerator LeavingWater()
