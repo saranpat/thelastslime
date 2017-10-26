@@ -13,6 +13,7 @@ TagManager:
   - Node
   - Enemy
   - Plate
+  - LeverBtn
   layers:
   - Default
   - TransparentFX

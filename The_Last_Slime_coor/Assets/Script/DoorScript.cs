@@ -22,6 +22,7 @@ public class DoorScript : MonoBehaviour {
 
         if (isOpen)
         {
+            Debug.Log("Open");
             gameObject.GetComponent<SpriteRenderer>().sprite = openSprite;
             gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
             gameObject.layer = 2;
