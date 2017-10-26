@@ -8,6 +8,7 @@ public class Movewithmouse : MonoBehaviour {
 
     public static bool cantDetect;
     public static bool isDead;
+    public static bool OnUI; //check if on any ui
 
     public bool bulkUp; //check state of slime (small or big)
     public bool theRealOne;
@@ -21,8 +22,6 @@ public class Movewithmouse : MonoBehaviour {
 
     private bool isLeavingWater; // check if out of water
     private bool CheckAgainIfInWater;
-
-    private bool OnUI; //check if on any ui
 
     private SpriteRenderer spriteRenderer;
     private Color camouflageAlpha, normalColor;
@@ -111,14 +110,6 @@ public class Movewithmouse : MonoBehaviour {
         if (other.tag == "Key")
         {
             other.gameObject.SetActive(false);
-        }
-
-        if (other.tag == "Door")
-        {
-            if (other.gameObject.GetComponent<DoorScript>().isOpen == true)
-            {
-                //print("To the next Level");
-            }
         }
 
         if (other.tag == "Water")

@@ -6,6 +6,7 @@ public class DoorScript : MonoBehaviour {
 
     public GameObject keyToOpen;
     public Sprite openSprite;
+    public Sprite closeSprite;
     public bool isOpen;
 
 	// Use this for initialization
@@ -15,13 +16,21 @@ public class DoorScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (!keyToOpen.activeSelf)
+        if (keyToOpen != null)
+            if (!keyToOpen.activeSelf)
+                isOpen = true;
+
+        if (isOpen)
         {
-            isOpen = true;
             gameObject.GetComponent<SpriteRenderer>().sprite = openSprite;
-            gameObject.tag = "Door";
             gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
             gameObject.layer = 2;
+        }
+        else
+        {
+            gameObject.GetComponent<SpriteRenderer>().sprite = closeSprite;
+            gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+            gameObject.layer = 0;
         }
 	}
 }

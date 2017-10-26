@@ -12,6 +12,7 @@ TagManager:
   - Lever
   - Node
   - Enemy
+  - Plate
   layers:
   - Default
   - TransparentFX
