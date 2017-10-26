@@ -8,6 +8,7 @@ public class Movewithmouse : MonoBehaviour {
 
     public static bool cantDetect;
     public static bool isDead;
+    public static bool OnUI; //check if on any ui
 
     public bool bulkUp; //check state of slime (small or big)
     public bool theRealOne;
@@ -21,7 +22,6 @@ public class Movewithmouse : MonoBehaviour {
 
     private bool isLeavingWater; // check if out of water
     private bool CheckAgainIfInWater;
-
 
     private SpriteRenderer spriteRenderer;
     private Color camouflageAlpha, normalColor;
@@ -47,12 +47,11 @@ public class Movewithmouse : MonoBehaviour {
         camouflageAlpha.a = 0.6f;
 
         targetMask = 11; // layer 11 PlayerInWater
-
     }
 
     private void FixedUpdate()
     {
-        if (Input.GetMouseButton(0) && !isDead && isControl)
+        if (Input.GetMouseButton(0) && !isDead && isControl && !OnUI)
         {
             target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             target.z = transform.position.z;
@@ -113,14 +112,6 @@ public class Movewithmouse : MonoBehaviour {
             other.gameObject.SetActive(false);
         }
 
-        if (other.tag == "Door")
-        {
-            if (other.gameObject.GetComponent<DoorScript>().isOpen == true)
-            {
-                //print("To the next Level");
-            }
-        }
-
         if (other.tag == "Water")
         {
             cantDetect = true;
@@ -153,18 +144,16 @@ public class Movewithmouse : MonoBehaviour {
             spriteRenderer.sprite = camouflage;
             spriteRenderer.color = camouflageAlpha;
         }
+    }
 
+    public void IsOverUI()
+    {
+        OnUI = true;
+    }
 
-        if (collision.tag == "Lever")
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (!collision.gameObject.GetComponent<LeverScript>().switchOff)
-                    collision.gameObject.GetComponent<LeverScript>().switchOff = true;
-                else
-                    collision.gameObject.GetComponent<LeverScript>().switchOff = false;
-            }
-        }
+    public void OutOfUI()
+    {
+        OnUI = false;
     }
 
     IEnumerator Respawn()
