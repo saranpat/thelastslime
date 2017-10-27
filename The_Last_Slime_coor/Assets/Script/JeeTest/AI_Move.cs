@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class AI_Move : MonoBehaviour {
+public class AI_Move : MonoBehaviour
+{
 
     public GameObject[] targetPin;
     public float speed;
@@ -104,7 +105,7 @@ public class AI_Move : MonoBehaviour {
             }
         }
 
-        
+
 
         TimeDetect += Time.deltaTime;
         if (TimeDetect > Time_for_Chase || Vector2.Distance(transform.position, player.transform.position) > dist + 1)
@@ -182,7 +183,7 @@ public class AI_Move : MonoBehaviour {
                     Debug.Log("2");
                     float A1 = Vector2.Distance(_FieldOfView.visibleTargets[0].transform.position, this.transform.position);
                     float A2 = Vector2.Distance(_FieldOfView.visibleTargets[1].transform.position, this.transform.position);
-                    if(A1 < A2)
+                    if (A1 < A2)
                     {
                         NearPlayer = _FieldOfView.visibleTargets[0].gameObject;
                     }
@@ -264,29 +265,29 @@ public class AI_Move : MonoBehaviour {
             if (isDetect)
             {
                 if (player != null)
-                if (Vector2.Distance(transform.position, player.transform.position) > 0.7f)
-                {
-                    if (StopMoveing == false)
+                    if (Vector2.Distance(transform.position, player.transform.position) > 0.7f)
                     {
-                        AI_Chase();
-                    }
-                }
-                else
-                {
-                    if (player.gameObject.GetComponent<Movewithmouse>().theRealOne == true)
-                    {
-                        StartCoroutine(ReturnToPatrol());
+                        if (StopMoveing == false)
+                        {
+                            AI_Chase();
+                        }
                     }
                     else
                     {
-                        Destroy(player.GetComponent<Collider2D>());
-                        Destroy(player.gameObject, 0.1f);
-                        StopMoveing = false;
-                        isDetect = false;
-                        curPathIndex = 0;
-                        targetPoint = targetPin[curPathIndex].transform;
+                        if (player.gameObject.GetComponent<Movewithmouse>().theRealOne == true)
+                        {
+                            StartCoroutine(ReturnToPatrol());
+                        }
+                        else
+                        {
+                            Destroy(player.GetComponent<Collider2D>());
+                            Destroy(player.gameObject, 0.1f);
+                            StopMoveing = false;
+                            isDetect = false;
+                            curPathIndex = 0;
+                            targetPoint = targetPin[curPathIndex].transform;
+                        }
                     }
-                }
 
             }
         }
@@ -295,18 +296,58 @@ public class AI_Move : MonoBehaviour {
 
     void BackToTheOriginal()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, targetPoint.position - transform.position, 0.5f); //ชนกำแพงมากว่ากี่วิ
+        float LengthForRay = 0.5f;
+        for (int k = 0; k < targetPin.Length; k++)
+        {
+            if (targetPoint.position == targetPin[k].transform.position)
+            {
+                LengthForRay = 0.5f;
+                break;
+            }
+            else
+            {
+                LengthForRay = 0.5f;
+                continue;
+            }
+        }
+
+        Vector2 offsetR = Quaternion.AngleAxis(30, transform.forward) * dir;
+        Vector2 offsetL = Quaternion.AngleAxis(-30, transform.forward) * dir;
+
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, targetPoint.position - transform.position, LengthForRay); //ชนกำแพงมากว่ากี่วิ
+        RaycastHit2D hit2 = Physics2D.Raycast(transform.position, offsetR, LengthForRay);
+        RaycastHit2D hit3 = Physics2D.Raycast(transform.position, offsetL, LengthForRay);
+
+
         Debug.DrawRay(transform.position, targetPoint.position - transform.position, Color.white);
+        //Debug.DrawRay(transform.position, offsetR, Color.green);
+        //Debug.DrawRay(transform.position, offsetL, Color.blue);
 
         if (hit.collider != null)// && ifNewtargetPoint == false
         {
             if (hit.collider.tag == "Wall" || hit.collider.tag == "Fire" || hit.collider.tag == "Water")
             {
-                DummyTime += Time.deltaTime;
-                Debug.Log(DummyTime);
+                DummyTime = 50;
             }
-
         }
+        if (hit2.collider != null)// && ifNewtargetPoint == false
+        {
+            if (hit2.collider.tag == "Wall" || hit2.collider.tag == "Fire" || hit2.collider.tag == "Water")
+            {
+                DummyTime = 50;
+            }
+        }
+        if (hit3.collider != null)// && ifNewtargetPoint == false
+        {
+            if (hit3.collider.tag == "Wall" || hit3.collider.tag == "Fire" || hit3.collider.tag == "Water")
+            {
+                DummyTime = 50;
+            }
+        }
+
+
+
         Old_targetPoint = targetPoint;
 
         if (DummyTime > 0.01f)
@@ -329,7 +370,7 @@ public class AI_Move : MonoBehaviour {
                 float DummytargetPointDis = Vector2.Distance(targetPoint.position, NodePosition[i].transform.position);
                 float H = Dummydis + DummytargetPointDis;
 
-                RaycastHit2D I_hit_wall = Physics2D.Raycast(NodePosition[i].transform.position, targetPoint.position - NodePosition[i].transform.position , DummytargetPointDis);
+                RaycastHit2D I_hit_wall = Physics2D.Raycast(NodePosition[i].transform.position, targetPoint.position - NodePosition[i].transform.position, DummytargetPointDis);
                 if (I_hit_wall.collider != null)
                 {
                     if (I_hit_wall.collider.tag == "Wall" || I_hit_wall.collider.tag == "Fire" || I_hit_wall.collider.tag == "Water")
@@ -372,7 +413,7 @@ public class AI_Move : MonoBehaviour {
                 targetPoint = Dummy;
                 Old_DummytargetPoint = DummyOldPoint;
             }
-            else if(Dummy == null)
+            else if (Dummy == null)
             {
                 //targetPoint = targetPin[curPathIndex].transform;
 
@@ -415,20 +456,20 @@ public class AI_Move : MonoBehaviour {
 
                     }
                 }
-                if (targetPoint != Dummy && Dummy != null )// && _FieldOfView.visibleTargets.Count >= 0
+                if (targetPoint != Dummy && Dummy != null)// && _FieldOfView.visibleTargets.Count >= 0
                 {
                     ifNewtargetPoint = true;
                     targetPoint = Dummy;
                     Old_DummytargetPoint = DummyOldPoint;
                 }
-            
+
             }
             DummyTime = 0;
         }
     }
     void BackToTheOriginal_AIGoToPlayer()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, targetPoint.position - transform.position, 0.5f); //ชนกำแพงมากว่ากี่วิ
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, targetPoint.position - transform.position, 1f); //ชนกำแพงมากว่ากี่วิ
 
         if (targetPoint.position == player.transform.position)
         {
@@ -529,7 +570,7 @@ public class AI_Move : MonoBehaviour {
                 disNearest = Mathf.Infinity;
                 for (int i = 1; i < NodePosition.Length; i++)
                 {
-                    float Dummydis = Vector2.Distance(NodePosition[i].transform.position, this.transform.position)*2;
+                    float Dummydis = Vector2.Distance(NodePosition[i].transform.position, this.transform.position) * 2;
                     //float H = Dummydis;
 
                     float DummytargetPointDis = Vector2.Distance(NodePosition[i].transform.position, player.transform.position);
@@ -585,7 +626,7 @@ public class AI_Move : MonoBehaviour {
                 }
 
 
-               
+
             }
             DummyTime = 0;
         }
@@ -596,13 +637,15 @@ public class AI_Move : MonoBehaviour {
     void walk()
     {
 
-        BackToTheOriginal(); // เดินกลับไปหาเส้นของมัน
+
 
         // rotate towards the target
         dir = targetPoint.position - transform.position;
         angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         Quaternion dummyRotation = Quaternion.AngleAxis(angle - 90, transform.forward);
         Vector2 dirToTarget = (targetPoint.position - transform.position).normalized;
+
+        BackToTheOriginal(); // เดินกลับไปหาเส้นของมัน
 
         if (Vector2.Angle(transform.up, dirToTarget) < 1)
         {
@@ -613,7 +656,7 @@ public class AI_Move : MonoBehaviour {
             //Debug.Log((int)dummyRotation.eulerAngles.z + "  " + (int)transform.rotation.eulerAngles.z);
             rotating = true;
         }
-        
+
         if (rotating == false)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPoint.position, speed * Time.deltaTime);
@@ -624,6 +667,8 @@ public class AI_Move : MonoBehaviour {
 
         if (transform.position == targetPoint.position)
         {
+
+
             if (isLoop)
             {
                 curPathIndex++;
