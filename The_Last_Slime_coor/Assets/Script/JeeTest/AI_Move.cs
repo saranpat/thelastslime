@@ -75,7 +75,7 @@ public class AI_Move : MonoBehaviour
             }
             else
             {
-                DummyTime += Time.deltaTime;
+                //DummyTime += Time.deltaTime;
             }
         }
         else
@@ -96,6 +96,8 @@ public class AI_Move : MonoBehaviour
                     targetPoint = targetPin[curPathIndex].transform;
                     DummyTime = 0;
                     isDetect = false;
+                    TimeDetect = 0;
+                    ifNewtargetPoint = false;
                 }
                 else
                 {
@@ -218,50 +220,11 @@ public class AI_Move : MonoBehaviour
                     NearPlayerOld = NearPlayer;
                     player = NearPlayer.gameObject;
                     targetPoint = player.transform;
-
                 }
-
-
                 isDetect = true;
 
-                /*if (Movewithmouse.cantDetect && _FieldOfView.visibleTargets.Count >= 1)
-                {
-                    if (isDetect == true)
-                    {
-                        targetPoint = targetPin[curPathIndex].transform;
-                        //DummyTime = 0;
-                    }
-                    isDetect = false;
-                }
-                else 
-                {
-                    if (isDetect == false)
-                        targetPoint = player.transform;
-                    isDetect = true;
-                }*/
-
             }
-            else
-            {
-                /*if (isDetect == true)
-                {
-                    //targetPoint = targetPin[curPathIndex].transform;
-                    //DummyTime = 0;
-                }
-                //isDetect = false;
-                 if (Movewithmouse.cantDetect)
-                 {
-                     if (isDetect == true)
-                     {
-                         targetPoint = targetPin[curPathIndex].transform;
-                         //DummyTime = 0;
-                     }
-                     isDetect = false;
-                 }*/
-
-
-            }
-
+           
             if (isDetect)
             {
                 if (player != null)
@@ -284,6 +247,7 @@ public class AI_Move : MonoBehaviour
                             Destroy(player.gameObject, 0.1f);
                             StopMoveing = false;
                             isDetect = false;
+                            TimeDetect = 0;
                             curPathIndex = 0;
                             targetPoint = targetPin[curPathIndex].transform;
                         }
@@ -480,7 +444,7 @@ public class AI_Move : MonoBehaviour
             Debug.DrawRay(transform.position, targetPoint.position - transform.position, Color.yellow);
         }
 
-        if (hit.collider != null && ifNewtargetPoint == false) //
+        if (hit.collider != null ) //&& ifNewtargetPoint == false
         {
             if (hit.collider.tag == "Wall" || hit.collider.tag == "Fire" || hit.collider.tag == "Water")
             {
@@ -507,10 +471,8 @@ public class AI_Move : MonoBehaviour
 
             for (int i = 1; i < NodePosition.Length; i++)
             {
-                //Debug.Log(Old_DummytargetPoint);
                 if (i == Old_DummytargetPoint)
                 {
-                    //Debug.Log("OldPoint");
                     Old_DummytargetPoint = 0;
                     continue;
                 }
@@ -520,7 +482,7 @@ public class AI_Move : MonoBehaviour
 
                 float H = Dummydis + DummytargetPointDis;
 
-                RaycastHit2D I_hit_wall = Physics2D.Raycast(NodePosition[i].transform.position, NodePosition[i].transform.position - player.transform.position, DummytargetPointDis);
+                RaycastHit2D I_hit_wall = Physics2D.Raycast(NodePosition[i].transform.position,  player.transform.position - NodePosition[i].transform.position, DummytargetPointDis);
                 if (I_hit_wall.collider != null)
                 {
                     if (I_hit_wall.collider.tag == "Wall" || I_hit_wall.collider.tag == "Fire" || I_hit_wall.collider.tag == "Water")
@@ -528,7 +490,7 @@ public class AI_Move : MonoBehaviour
                         H += DummytargetPointDis;
                     }
                 }
-                RaycastHit2D Nothit = Physics2D.Raycast(transform.position, NodePosition[i].transform.position - this.transform.position, Dummydis);
+                RaycastHit2D Nothit = Physics2D.Raycast(this.transform.position, NodePosition[i].transform.position - this.transform.position, Dummydis);
 
                 if (Nothit.collider != null)
                 {
@@ -566,7 +528,7 @@ public class AI_Move : MonoBehaviour
             }
             else if (Dummy == null)
             {
-                //Debug.Log("Null");
+                Debug.Log("Null BackToTheOriginal_AI");
                 disNearest = Mathf.Infinity;
                 for (int i = 1; i < NodePosition.Length; i++)
                 {
@@ -577,7 +539,7 @@ public class AI_Move : MonoBehaviour
 
                     float H = Dummydis + DummytargetPointDis;
 
-                    RaycastHit2D Nothit = Physics2D.Raycast(transform.position, NodePosition[i].transform.position - this.transform.position, Dummydis);
+                    RaycastHit2D Nothit = Physics2D.Raycast(this.transform.position, NodePosition[i].transform.position - this.transform.position, Dummydis);
                     if (Nothit.collider != null)
                     {
                         if (Nothit.collider.tag == "Wall" || Nothit.collider.tag == "Fire" || Nothit.collider.tag == "Water")//
@@ -623,6 +585,7 @@ public class AI_Move : MonoBehaviour
                     targetPoint = targetPin[curPathIndex].transform;
                     DummyTime = 0;
                     isDetect = false;
+                    TimeDetect = 0;
                 }
 
 
@@ -636,9 +599,6 @@ public class AI_Move : MonoBehaviour
 
     void walk()
     {
-
-
-
         // rotate towards the target
         dir = targetPoint.position - transform.position;
         angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
@@ -784,6 +744,7 @@ public class AI_Move : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         StopMoveing = false;
         isDetect = false;
+        TimeDetect = 0;
         curPathIndex = 0;
         targetPoint = targetPin[curPathIndex].transform;
         transform.position = targetPin[curPathIndex].transform.position;

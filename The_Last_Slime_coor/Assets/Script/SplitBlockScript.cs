@@ -40,7 +40,7 @@ public class SplitBlockScript : MonoBehaviour
         if (dummy != null)
         dummy.enabled = false;
         yield return new WaitForSeconds(0.1f);
-        if (dummy.gameObject != null)
+        if (dummy != null)
         Destroy(dummy.gameObject);
     }
 }
