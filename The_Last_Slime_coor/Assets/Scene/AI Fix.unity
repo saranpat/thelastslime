@@ -2651,6 +2651,7 @@ MonoBehaviour:
   point:
   - {fileID: 1685118205}
   - {fileID: 271974957}
+  speed: 5
 --- !u!4 &362038737 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4759749627828298, guid: 0c2b4b41981fb274caf8661975a4cd02,
@@ -3349,6 +3350,21 @@ Prefab:
         type: 2}
       propertyPath: orthographic size
       value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 20677545467149950, guid: d7faa0cd5acb8a243b6d50b9ae04885d,
+        type: 2}
+      propertyPath: m_BackGroundColor.r
+      value: 0.62413496
+      objectReference: {fileID: 0}
+    - target: {fileID: 20677545467149950, guid: d7faa0cd5acb8a243b6d50b9ae04885d,
+        type: 2}
+      propertyPath: m_BackGroundColor.g
+      value: 0.69881773
+      objectReference: {fileID: 0}
+    - target: {fileID: 20677545467149950, guid: d7faa0cd5acb8a243b6d50b9ae04885d,
+        type: 2}
+      propertyPath: m_BackGroundColor.b
+      value: 0.8161765
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d7faa0cd5acb8a243b6d50b9ae04885d, type: 2}
@@ -6813,12 +6829,12 @@ Prefab:
     - target: {fileID: 224797745543448552, guid: 63b2b999ce677e84e895faa4a5914e50,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 342.5
+      value: 199.5
       objectReference: {fileID: 0}
     - target: {fileID: 224797745543448552, guid: 63b2b999ce677e84e895faa4a5914e50,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 192.5
+      value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 224797745543448552, guid: 63b2b999ce677e84e895faa4a5914e50,
         type: 2}

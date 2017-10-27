@@ -7,11 +7,12 @@ public class WardScript : MonoBehaviour {
     private FieldOfView _FieldOfView;
     private bool isAlarm;
     private GameObject NearPlayer;
-
+    private Transform targetPoint;
     private int curPathIndex = 0;
+    private bool rotating;
 
     public GameObject[] point;
-
+    public float speed = 5;
 
 	// Use this for initialization
 	void Start () {
@@ -71,7 +72,58 @@ public class WardScript : MonoBehaviour {
         }
         else
         {
+            if (isAlarm)
+                targetPoint = point[curPathIndex].transform;
             isAlarm = false;
+        }
+
+        if (curPathIndex < point.Length ) //&& !isAlarm
+        {
+            float CurSpeed = speed;
+
+            if (targetPoint == null)
+                targetPoint = point[curPathIndex].transform;
+
+            Vector2 dir = targetPoint.position - transform.position;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            Quaternion dummyRotation = Quaternion.AngleAxis(angle - 90, transform.forward);
+            Vector2 dirToTarget = (targetPoint.position - transform.position).normalized;
+
+            if (Vector2.Angle(transform.up, dirToTarget) < 1)
+            {
+                if (!isAlarm)
+                rotating = false;
+            }
+            else
+            {
+                rotating = true;
+            }
+
+
+            if (isAlarm && NearPlayer != null)
+            {
+                targetPoint = NearPlayer.transform;
+
+                CurSpeed = speed *2;
+            }
+            else if (rotating == false )//&& !isAlarm
+            {
+                curPathIndex++;
+                if (curPathIndex == point.Length)
+                {
+                    curPathIndex = 0;
+                }
+                targetPoint = point[curPathIndex].transform;
+                CurSpeed = speed / 50;
+            }
+
+            float FinalSpeed = CurSpeed / 100;
+
+            Debug.Log(speed);
+            transform.rotation = Quaternion.Lerp(this.transform.rotation, dummyRotation, FinalSpeed);
+
+
+
         }
 
 
