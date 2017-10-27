@@ -36,7 +36,7 @@ public class DoorScript : MonoBehaviour {
         {
             gameObject.GetComponent<SpriteRenderer>().sprite = closeSprite;
             gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
-            gameObject.layer = 0;
+            gameObject.layer = 9;
         }
 	}
 }
