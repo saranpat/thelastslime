@@ -14,7 +14,7 @@ public class WardScript : MonoBehaviour {
     public GameObject[] point;
     public LayerMask targetMask;
     public float speed = 5;
-
+    public float viewRadius = 5;
 	// Use this for initialization
 	void Start () {
 
@@ -70,10 +70,14 @@ public class WardScript : MonoBehaviour {
             }*/
             isAlarm = true;
 
-            Collider2D[] targetsInViewRadius = Physics2D.OverlapCircleAll(transform.position, _FieldOfView.viewRadius, targetMask);
+            Collider2D[] targetsInViewRadius = Physics2D.OverlapCircleAll(this.transform.position, viewRadius, targetMask);
             for (int i = 0; i < targetsInViewRadius.Length; i++)
             {
-
+                if(targetsInViewRadius[i].tag == "Enemy")
+                {
+                    Debug.Log(targetsInViewRadius[i].gameObject.name);
+                    targetsInViewRadius[i].gameObject.SendMessage("Set_alertState",this.gameObject);
+                }
             }
 
 

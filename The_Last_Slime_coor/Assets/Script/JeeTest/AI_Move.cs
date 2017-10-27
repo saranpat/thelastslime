@@ -794,14 +794,22 @@ public class AI_Move : MonoBehaviour
 
         transform.rotation = Quaternion.Slerp(this.transform.rotation, dummyRotation, 0.07f);
 
-
-        if (alertState_Obj != null && transform.position == alertState_Obj.transform.position && alertState)
+        float AI_Dis_Ward = 0;
+        if (alertState_Obj != null && alertState)
         {
+            AI_Dis_Ward = Vector2.Distance(alertState_Obj.transform.position, this.transform.position);
+        }
+
+
+        if (alertState_Obj != null && AI_Dis_Ward <= 0.7f && alertState)
+        {
+            Debug.Log("asdadasdsad");
             if (alertState_Obj.GetComponent<WardScript>().Get_isAlarm())
             {
                 ifNewtargetPoint = true;
                 isDetect = true;
                 //targetPoint = player.transform;
+                targetPoint = targetPin[curPathIndex].transform;
                 alertState = false;
             }
             else

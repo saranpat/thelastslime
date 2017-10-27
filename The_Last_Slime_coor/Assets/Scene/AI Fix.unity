@@ -2653,8 +2653,9 @@ MonoBehaviour:
   - {fileID: 271974957}
   targetMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4
   speed: 5
+  viewRadius: 10
 --- !u!4 &362038737 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4759749627828298, guid: 0c2b4b41981fb274caf8661975a4cd02,
