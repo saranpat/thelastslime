@@ -15,15 +15,34 @@ public class LeverScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (switchOff)
+		
+	}
+
+    public void PullLever()
+    {
+        if (switchOff)
         {
             if (Trap != null)
             {
                 for (int i = 0; i < Trap.Length; i++)
                 {
-                    Trap[i].SetActive(false);
+                    if (Trap[i].tag == "Fire")
+                    {
+                        if (Trap[i].activeSelf)
+                        {
+                            Trap[i].SetActive(false);
+                        }
+                        else
+                        {
+                            Trap[i].SetActive(true);
+                        }
+                    }
+                    else
+                    {
+                        Trap[i].GetComponent<DoorScript>().isOpen = !Trap[i].GetComponent<DoorScript>().isOpen;
+                    }
                 }
-				mysprite.flipX = true;
+                mysprite.flipX = true;
             }
         }
         else
@@ -32,10 +51,22 @@ public class LeverScript : MonoBehaviour {
             {
                 for (int i = 0; i < Trap.Length; i++)
                 {
-                    Trap[i].SetActive(true);
+                    if (Trap[i].tag == "Fire")
+                    {
+                        if (Trap[i].activeSelf)
+                        {
+                            Trap[i].SetActive(false);
+                        }
+                        else
+                        {
+                            Trap[i].SetActive(true);
+                        }
+                    }
+                    else
+                        Trap[i].GetComponent<DoorScript>().isOpen = !Trap[i].GetComponent<DoorScript>().isOpen;
                 }
                 mysprite.flipX = false;
             }
         }
-	}
+    }
 }
