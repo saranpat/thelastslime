@@ -44,6 +44,7 @@ public class AI_Move : MonoBehaviour
     public bool Hero_AI;
 
     private bool playDetectSound;
+    private bool playDeadSound;
 
     // Use this for initialization
     void Start()
@@ -60,6 +61,7 @@ public class AI_Move : MonoBehaviour
         plus = true;
 
         playDetectSound = false;
+        playDeadSound = false;
     }
 
     void AI_Chase()
@@ -893,6 +895,10 @@ public class AI_Move : MonoBehaviour
     private bool StopMoveing;
     IEnumerator ReturnToPatrol()
     {
+        if (!playDeadSound)
+            SoundManager.DeadRea = true;
+
+        playDeadSound = true;
         Movewithmouse.isDead = true;
         StopMoveing = true;
         yield return new WaitForSeconds(2.0f);

@@ -52,7 +52,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -139,3 +139,4 @@ MonoBehaviour:
   Lever: {fileID: 8300000, guid: 1a8d89cff27f3e24b975ca1854ea7d56, type: 3}
   SlimeSplit: {fileID: 8300000, guid: 8b0a7ca0b284f524187257c728f157ed, type: 3}
   Detected: {fileID: 8300000, guid: 788b677260755294ca99f771b8deadb3, type: 3}
+  BGM: {fileID: 8300000, guid: 7bfde91f2c8ba3940acbe1bbe7f127bc, type: 3}
