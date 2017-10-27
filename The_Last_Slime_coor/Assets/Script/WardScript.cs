@@ -68,7 +68,7 @@ public class WardScript : MonoBehaviour {
             {
 
             }*/
-            isAlarm = true;
+            
 
             Collider2D[] targetsInViewRadius = Physics2D.OverlapCircleAll(this.transform.position, viewRadius, targetMask);
             for (int i = 0; i < targetsInViewRadius.Length; i++)
@@ -76,10 +76,16 @@ public class WardScript : MonoBehaviour {
                 if(targetsInViewRadius[i].tag == "Enemy")
                 {
                     Debug.Log(targetsInViewRadius[i].gameObject.name);
-                    targetsInViewRadius[i].gameObject.SendMessage("Set_alertState",this.gameObject);
+                    bool alertState = targetsInViewRadius[i].gameObject.GetComponent<AI_Move>().Get_alertState();
+                    if (!alertState && !isAlarm)
+                    {
+                        Debug.Log("Send");
+                        targetsInViewRadius[i].gameObject.SendMessage("Set_alertState", this.gameObject);
+                    }
+                    
                 }
             }
-
+            isAlarm = true;
 
         }
         else
@@ -138,7 +144,13 @@ public class WardScript : MonoBehaviour {
 
 
 	}
-
+    public GameObject Get_GameObject()
+    {
+        if (NearPlayer != null)
+            return NearPlayer;
+        else
+            return null;
+    }
     public bool Get_isAlarm()
     {
         return isAlarm;

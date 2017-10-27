@@ -62,6 +62,7 @@ public class AI_Move : MonoBehaviour
         curPathIndex = 0;
 
         isDetect = false;
+        alertState = false;
         plus = true;
 
         playDetectSound = false;
@@ -77,7 +78,10 @@ public class AI_Move : MonoBehaviour
             alertState = true;
         }
     }
-
+    public bool Get_alertState()
+    {
+       return alertState;
+    }
     void AI_Chase()
     {
         // rotate towards the target
@@ -118,6 +122,7 @@ public class AI_Move : MonoBehaviour
                     targetPoint = targetPin[curPathIndex].transform;
                     DummyTime = 0;
                     isDetect = false;
+                    alertState = false;
                     TimeDetect = 0;
                     ifNewtargetPoint = false;
 
@@ -147,6 +152,7 @@ public class AI_Move : MonoBehaviour
             else
             {
                 isDetect = false;
+                alertState = false;
                 TimeDetect = 0;
 
                 if (playDetectSound)
@@ -248,6 +254,7 @@ public class AI_Move : MonoBehaviour
                         Destroy(player.gameObject, 0.1f);
                         StopMoveing = false;
                         isDetect = false;
+                        alertState = false;
 
                         if (playDetectSound)
                             SoundManager.NormalRea = true;
@@ -263,6 +270,7 @@ public class AI_Move : MonoBehaviour
             {
                 StopMoveing = false;
                 isDetect = false;
+                alertState = false;
                 TimeDetect = 0;
                 curPathIndex = 0;
                 targetPoint = targetPin[curPathIndex].transform;
@@ -755,6 +763,7 @@ public class AI_Move : MonoBehaviour
                     targetPoint = targetPin[curPathIndex].transform;
                     DummyTime = 0;
                     isDetect = false;
+                    alertState = false;
                     TimeDetect = 0;
                 }
 
@@ -806,14 +815,22 @@ public class AI_Move : MonoBehaviour
             Debug.Log("asdadasdsad");
             if (alertState_Obj.GetComponent<WardScript>().Get_isAlarm())
             {
-                ifNewtargetPoint = true;
+                //ifNewtargetPoint = true;
+                if (player != null)
+                {
+                    targetPoint = player.transform;
+                }
+                else
+                {
+                    targetPoint = alertState_Obj.GetComponent<WardScript>().Get_GameObject().transform;
+                }
+                alertState = false;  
                 isDetect = true;
-                //targetPoint = player.transform;
-                targetPoint = targetPin[curPathIndex].transform;
-                alertState = false;
+
             }
             else
             {
+                Debug.Log("false");
                 alertState = false;
                 targetPoint = targetPin[curPathIndex].transform;
             }
@@ -949,6 +966,7 @@ public class AI_Move : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         StopMoveing = false;
         isDetect = false;
+        alertState = false;
         TimeDetect = 0;
         curPathIndex = 0;
         targetPoint = targetPin[curPathIndex].transform;
