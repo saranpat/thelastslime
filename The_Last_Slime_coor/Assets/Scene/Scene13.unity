@@ -317,7 +317,7 @@ Prefab:
         type: 2}
       propertyPath: openSprite
       value: 
-      objectReference: {fileID: 21300000, guid: e38a7e6fdc3dcd8469bd295701df9b75,
+      objectReference: {fileID: 21300000, guid: b19787b44a42ba04ea5ff9a3daacac1d,
         type: 3}
     - target: {fileID: 1696044061104740, guid: 078617a243bfebb46a3672674b39e9bd, type: 2}
       propertyPath: m_Layer
@@ -632,7 +632,7 @@ Prefab:
         type: 2}
       propertyPath: openSprite
       value: 
-      objectReference: {fileID: 21300000, guid: e38a7e6fdc3dcd8469bd295701df9b75,
+      objectReference: {fileID: 21300000, guid: b19787b44a42ba04ea5ff9a3daacac1d,
         type: 3}
     - target: {fileID: 4606093816977226, guid: 078617a243bfebb46a3672674b39e9bd, type: 2}
       propertyPath: m_LocalScale.x
@@ -4372,12 +4372,12 @@ Prefab:
     - target: {fileID: 224797745543448552, guid: 63b2b999ce677e84e895faa4a5914e50,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 192.5
+      value: 113.5
       objectReference: {fileID: 0}
     - target: {fileID: 224797745543448552, guid: 63b2b999ce677e84e895faa4a5914e50,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 108.5
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 224797745543448552, guid: 63b2b999ce677e84e895faa4a5914e50,
         type: 2}
@@ -5279,7 +5279,7 @@ Prefab:
         type: 2}
       propertyPath: openSprite
       value: 
-      objectReference: {fileID: 21300000, guid: e38a7e6fdc3dcd8469bd295701df9b75,
+      objectReference: {fileID: 21300000, guid: b19787b44a42ba04ea5ff9a3daacac1d,
         type: 3}
     - target: {fileID: 114987670579107228, guid: 078617a243bfebb46a3672674b39e9bd,
         type: 2}
@@ -8008,6 +8008,11 @@ Prefab:
       propertyPath: obstacleMask.m_Bits
       value: 512
       objectReference: {fileID: 0}
+    - target: {fileID: 114440566436185722, guid: f502a701d03cf944e8bbc5ae19e9e94e,
+        type: 2}
+      propertyPath: Hero_AI
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f502a701d03cf944e8bbc5ae19e9e94e, type: 2}
   m_IsPrefabParent: 0
@@ -9358,7 +9363,7 @@ Prefab:
         type: 2}
       propertyPath: openSprite
       value: 
-      objectReference: {fileID: 21300000, guid: e38a7e6fdc3dcd8469bd295701df9b75,
+      objectReference: {fileID: 21300000, guid: b19787b44a42ba04ea5ff9a3daacac1d,
         type: 3}
     - target: {fileID: 114987670579107228, guid: 078617a243bfebb46a3672674b39e9bd,
         type: 2}
@@ -9526,7 +9531,7 @@ Prefab:
         type: 2}
       propertyPath: openSprite
       value: 
-      objectReference: {fileID: 21300000, guid: e38a7e6fdc3dcd8469bd295701df9b75,
+      objectReference: {fileID: 21300000, guid: b19787b44a42ba04ea5ff9a3daacac1d,
         type: 3}
     - target: {fileID: 114987670579107228, guid: 078617a243bfebb46a3672674b39e9bd,
         type: 2}
