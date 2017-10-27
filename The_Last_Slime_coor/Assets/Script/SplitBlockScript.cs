@@ -36,7 +36,7 @@ public class SplitBlockScript : MonoBehaviour
 
     IEnumerator offCollider2D(Collider2D dummy)
     {
-        yield return new WaitForSeconds(109.9f);
+        yield return new WaitForSeconds(9.9f);
         if (dummy != null)
         dummy.enabled = false;
         yield return new WaitForSeconds(0.1f);
