@@ -164,7 +164,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alertState: 0
   alertState_Obj: {fileID: 0}
-  targetPin: []
+  targetPin:
+  - {fileID: 0}
+  - {fileID: 0}
   speed: 5
   dist: 10
   visionAngle: 30
@@ -198,6 +200,7 @@ MonoBehaviour:
   _Material:
   - {fileID: 2100000, guid: 0c30afe534b52b74ea6dad1fb9aaa173, type: 2}
   - {fileID: 2100000, guid: d6c0891bdcb973546a2026292ff66fc4, type: 2}
+  - {fileID: 2100000, guid: 950b4ff2df7681f40a561963368af870, type: 2}
 --- !u!212 &212597557266300910
 SpriteRenderer:
   m_ObjectHideFlags: 1

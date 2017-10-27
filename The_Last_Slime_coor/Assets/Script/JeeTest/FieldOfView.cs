@@ -89,6 +89,10 @@ public class FieldOfView : MonoBehaviour {
             {
                 viewMeshRenderer.material = _Material[1];
             }
+            else if (_AI_Move.alertState)//(visibleTargets.Count > 0)
+            {
+                viewMeshRenderer.material = _Material[2];
+            }
             else
             {
                 viewMeshRenderer.material = _Material[0];
