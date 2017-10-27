@@ -23,7 +23,7 @@ public class SplitBlockScript : MonoBehaviour
     {
         if (collision.tag == "Player" && collision.gameObject.GetComponent<Movewithmouse>().bulkUp && StageController.slimeCnt < 3 && collision.gameObject.GetComponent<Movewithmouse>().theRealOne == true)
         {
-            GameObject miniMe = Instantiate(slimePrefab, transform.position, transform.rotation);
+            GameObject miniMe = Instantiate(slimePrefab, transform.position, transform.rotation) as GameObject;
             SoundManager.SlimeSplitRea = true;
             miniMe.gameObject.GetComponent<Movewithmouse>().theRealOne = false;
             miniMe.gameObject.GetComponent<Movewithmouse>().isControl = false;
@@ -36,7 +36,7 @@ public class SplitBlockScript : MonoBehaviour
 
     IEnumerator offCollider2D(Collider2D dummy)
     {
-        yield return new WaitForSeconds(9.9f);
+        yield return new WaitForSeconds(109.9f);
         if (dummy != null)
         dummy.enabled = false;
         yield return new WaitForSeconds(0.1f);

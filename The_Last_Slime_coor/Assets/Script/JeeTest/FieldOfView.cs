@@ -58,27 +58,27 @@ public class FieldOfView : MonoBehaviour {
     {
         visibleTargets.Clear();
         Collider2D[] targetsInViewRadius = Physics2D.OverlapCircleAll(transform.position, viewRadius, targetMask);
-
+        
         for (int i = 0; i < targetsInViewRadius.Length; i++)
         {
             //Debug.Log(targetsInViewRadius[i].gameObject.name + " stay in Radius");
             Transform target = targetsInViewRadius[i].transform;
             Vector2 dirToTarget = (target.position - transform.position).normalized;
-            //float nearest;
+
+            
             if (Vector2.Angle(transform.up, dirToTarget) < viewAngle / 1.75f)// /2
             {
                 float dstToTarget = Vector3.Distance(transform.position, target.position);
                 if (!Physics2D.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask))
                 {
-                    
-
-
                     visibleTargets.Add(target);
-
                     Debug.Log(target.gameObject.name);
                 }
             }
         }
+
+
+
         // เปลี่ยนสีเมื่อเจอผยู้เล่น
         if (_AI_Move != null)
         if (_AI_Move.isDetect)//(visibleTargets.Count > 0)

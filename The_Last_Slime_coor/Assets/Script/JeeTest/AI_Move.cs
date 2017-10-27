@@ -24,6 +24,7 @@ public class AI_Move : MonoBehaviour {
     public bool isDetect;
     private GameObject player;
     private GameObject NearPlayer;
+    private GameObject NearPlayerOld;
     private RaycastHit checkWall;
 
     /// <BackToTheOriginal>
@@ -89,8 +90,17 @@ public class AI_Move : MonoBehaviour {
         {
             if (ifNewtargetPoint)
             {
-                targetPoint = player.transform;
-                ifNewtargetPoint = false;
+                if (player.transform.gameObject.layer == 11)
+                {
+                    targetPoint = targetPin[curPathIndex].transform;
+                    DummyTime = 0;
+                    isDetect = false;
+                }
+                else
+                {
+                    targetPoint = player.transform;
+                    ifNewtargetPoint = false;
+                }
             }
         }
 
@@ -139,7 +149,20 @@ public class AI_Move : MonoBehaviour {
                 }
                 else
                 {
-                    StartCoroutine(ReturnToPatrol());
+                    if (player.gameObject.GetComponent<Movewithmouse>().theRealOne == true)
+                    {
+                        StartCoroutine(ReturnToPatrol());
+                    }
+                    else
+                    {
+                        Destroy(player.GetComponent<Collider2D>());
+                        Destroy(player.gameObject, 0.1f);
+                        StopMoveing = false;
+                        isDetect = false;
+                        curPathIndex = 0;
+                        targetPoint = targetPin[curPathIndex].transform;
+                    }
+
                 }
 
             }
@@ -149,13 +172,55 @@ public class AI_Move : MonoBehaviour {
 
             if (_FieldOfView.visibleTargets.Count > 0)
             {
+                if (_FieldOfView.visibleTargets.Count == 1)
+                {
+                    Debug.Log("1");
+                    NearPlayer = _FieldOfView.visibleTargets[0].gameObject;
+                }
+                else if (_FieldOfView.visibleTargets.Count == 2)
+                {
+                    Debug.Log("2");
+                    float A1 = Vector2.Distance(_FieldOfView.visibleTargets[0].transform.position, this.transform.position);
+                    float A2 = Vector2.Distance(_FieldOfView.visibleTargets[1].transform.position, this.transform.position);
+                    if(A1 < A2)
+                    {
+                        NearPlayer = _FieldOfView.visibleTargets[0].gameObject;
+                    }
+                    else
+                    {
+                        NearPlayer = _FieldOfView.visibleTargets[1].gameObject;
+                    }
 
-                NearPlayer = _FieldOfView.visibleTargets[0].gameObject;
-                
-                player = NearPlayer.gameObject;
+                }
+                else if (_FieldOfView.visibleTargets.Count == 3)
+                {
+                    Debug.Log("2");
+                    float A1 = Vector2.Distance(_FieldOfView.visibleTargets[0].transform.position, this.transform.position);
+                    float A2 = Vector2.Distance(_FieldOfView.visibleTargets[1].transform.position, this.transform.position);
+                    float A3 = Vector2.Distance(_FieldOfView.visibleTargets[2].transform.position, this.transform.position);
+                    if (A1 < A2 && A1 < A3)
+                    {
+                        NearPlayer = _FieldOfView.visibleTargets[0].gameObject;
+                    }
+                    else if (A2 < A1 && A2 < A3)
+                    {
+                        NearPlayer = _FieldOfView.visibleTargets[1].gameObject;
+                    }
+                    else
+                    {
+                        NearPlayer = _FieldOfView.visibleTargets[2].gameObject;
+                    }
 
-                if (isDetect == false)
+                }
+                if (isDetect == false || NearPlayer != NearPlayerOld)
+                {
+                    NearPlayerOld = NearPlayer;
+                    player = NearPlayer.gameObject;
                     targetPoint = player.transform;
+
+                }
+
+
                 isDetect = true;
 
                 /*if (Movewithmouse.cantDetect && _FieldOfView.visibleTargets.Count >= 1)
@@ -208,7 +273,19 @@ public class AI_Move : MonoBehaviour {
                 }
                 else
                 {
-                    StartCoroutine(ReturnToPatrol());
+                    if (player.gameObject.GetComponent<Movewithmouse>().theRealOne == true)
+                    {
+                        StartCoroutine(ReturnToPatrol());
+                    }
+                    else
+                    {
+                        Destroy(player.GetComponent<Collider2D>());
+                        Destroy(player.gameObject, 0.1f);
+                        StopMoveing = false;
+                        isDetect = false;
+                        curPathIndex = 0;
+                        targetPoint = targetPin[curPathIndex].transform;
+                    }
                 }
 
             }
