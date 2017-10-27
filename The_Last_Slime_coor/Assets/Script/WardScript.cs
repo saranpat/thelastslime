@@ -4,34 +4,135 @@ using UnityEngine;
 
 public class WardScript : MonoBehaviour {
 
-    private GameObject[] bot;
-    private GameObject[] botNearby;
-
+    private FieldOfView _FieldOfView;
     private bool isAlarm;
+    private GameObject NearPlayer;
+    private Transform targetPoint;
+    private int curPathIndex = 0;
+    private bool rotating;
+
+    public GameObject[] point;
+    public LayerMask targetMask;
+    public float speed = 5;
 
 	// Use this for initialization
 	void Start () {
-        bot = GameObject.FindGameObjectsWithTag("Enemy");
 
+        _FieldOfView = this.gameObject.GetComponent<FieldOfView>();
         isAlarm = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (isAlarm)
+
+
+        if (_FieldOfView.visibleTargets.Count > 0)
         {
-            for (int j = 0; j < bot.Length; j++)
+            if (_FieldOfView.visibleTargets.Count == 1)
             {
-                if (Vector2.Distance(bot[j].transform.position, transform.position) <= 10)
+                NearPlayer = _FieldOfView.visibleTargets[0].gameObject;
+            }
+            else if (_FieldOfView.visibleTargets.Count == 2)
+            {
+                float A1 = Vector2.Distance(_FieldOfView.visibleTargets[0].transform.position, this.transform.position);
+                float A2 = Vector2.Distance(_FieldOfView.visibleTargets[1].transform.position, this.transform.position);
+                if (A1 < A2)
                 {
-                    bot[j].gameObject.GetComponent<WizardScript>().Set_alertState(this.gameObject);
-                    //bot[j].gameObject.GetComponent<WizardScript>().alertState_Point = this.transform;
-                    
+                    NearPlayer = _FieldOfView.visibleTargets[0].gameObject;
+                }
+                else
+                {
+                    NearPlayer = _FieldOfView.visibleTargets[1].gameObject;
+                }
+
+            }
+            else if (_FieldOfView.visibleTargets.Count == 3)
+            {
+                float A1 = Vector2.Distance(_FieldOfView.visibleTargets[0].transform.position, this.transform.position);
+                float A2 = Vector2.Distance(_FieldOfView.visibleTargets[1].transform.position, this.transform.position);
+                float A3 = Vector2.Distance(_FieldOfView.visibleTargets[2].transform.position, this.transform.position);
+                if (A1 < A2 && A1 < A3)
+                {
+                    NearPlayer = _FieldOfView.visibleTargets[0].gameObject;
+                }
+                else if (A2 < A1 && A2 < A3)
+                {
+                    NearPlayer = _FieldOfView.visibleTargets[1].gameObject;
+                }
+                else
+                {
+                    NearPlayer = _FieldOfView.visibleTargets[2].gameObject;
                 }
             }
+            /*if (isAlarm == false)
+            {
 
-            //isAlarm = false;
+            }*/
+            isAlarm = true;
+
+            Collider2D[] targetsInViewRadius = Physics2D.OverlapCircleAll(transform.position, _FieldOfView.viewRadius, targetMask);
+            for (int i = 0; i < targetsInViewRadius.Length; i++)
+            {
+
+            }
+
+
         }
+        else
+        {
+            if (isAlarm)
+                targetPoint = point[curPathIndex].transform;
+            isAlarm = false;
+        }
+
+        if (curPathIndex < point.Length ) //&& !isAlarm
+        {
+            float CurSpeed = speed;
+
+            if (targetPoint == null)
+                targetPoint = point[curPathIndex].transform;
+
+            Vector2 dir = targetPoint.position - transform.position;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            Quaternion dummyRotation = Quaternion.AngleAxis(angle - 90, transform.forward);
+            Vector2 dirToTarget = (targetPoint.position - transform.position).normalized;
+
+            if (Vector2.Angle(transform.up, dirToTarget) < 1)
+            {
+                if (!isAlarm)
+                rotating = false;
+            }
+            else
+            {
+                rotating = true;
+            }
+
+
+            if (isAlarm && NearPlayer != null)
+            {
+                targetPoint = NearPlayer.transform;
+
+                CurSpeed = speed *2;
+            }
+            else if (rotating == false )//&& !isAlarm
+            {
+                curPathIndex++;
+                if (curPathIndex == point.Length)
+                {
+                    curPathIndex = 0;
+                }
+                targetPoint = point[curPathIndex].transform;
+                CurSpeed = speed / 50;
+            }
+
+            float FinalSpeed = CurSpeed / 100;
+            transform.rotation = Quaternion.Lerp(this.transform.rotation, dummyRotation, FinalSpeed);
+
+
+
+        }
+
+
 	}
 
     public bool Get_isAlarm()
@@ -39,7 +140,7 @@ public class WardScript : MonoBehaviour {
         return isAlarm;
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    /*private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {
@@ -54,5 +155,5 @@ public class WardScript : MonoBehaviour {
         {
             isAlarm = true;
         }
-    }
+    }*/
 }

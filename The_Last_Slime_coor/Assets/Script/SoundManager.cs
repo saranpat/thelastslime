@@ -11,6 +11,8 @@ public class SoundManager : MonoBehaviour {
     public static bool LeverRea;
     public static bool SlimeSplitRea;
     public static bool DetectedRea;
+    public static bool NormalRea;
+    public static bool UIOverRea;
 
     public AudioClip Dead;
     public AudioClip Unlocked;
@@ -19,10 +21,12 @@ public class SoundManager : MonoBehaviour {
     public AudioClip Lever;
     public AudioClip SlimeSplit;
     public AudioClip Detected;
-   
+    public AudioClip BGM;
+    public AudioClip UIOver;
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
         monk = GetComponent<AudioSource>();
         DeadRea = false;
         UnlockedRea = false;
@@ -32,7 +36,10 @@ public class SoundManager : MonoBehaviour {
         SlimeSplitRea = false;
         DetectedRea = false;
 
-	}
+        monk.clip = BGM;
+        monk.loop = true;
+        monk.Play();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -58,6 +65,11 @@ public class SoundManager : MonoBehaviour {
             ButtonRea = false;
             monk.PlayOneShot(Button);
         }
+        if (UIOverRea)
+        {
+            UIOverRea = false;
+            monk.PlayOneShot(UIOver);
+        }
         if(LeverRea)
         {
             LeverRea = false;
@@ -71,10 +83,18 @@ public class SoundManager : MonoBehaviour {
         if(DetectedRea)
         {
             DetectedRea = false;
-            monk.PlayOneShot(Detected);
+            monk.clip = Detected;
+            monk.loop = true;
+            monk.Play();
         }
-
-	}
+        if (NormalRea)
+        {
+            NormalRea = false;
+            monk.clip = BGM;
+            monk.loop = true;
+            monk.Play();
+        }
+    }
 
     IEnumerator Waitsound(float length)
     {

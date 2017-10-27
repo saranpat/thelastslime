@@ -47,6 +47,8 @@ public class StageController : MonoBehaviour {
 
     public void SpriteButtonClick(Button btn)
     {
+        SoundManager.ButtonRea = true;
+
         if(btn.name == "Split1")
         {
             slime[0].GetComponent<Movewithmouse>().isControl = true;

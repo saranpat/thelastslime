@@ -47,6 +47,8 @@ public class SmallColliderScript : MonoBehaviour
 
     public void LeverTrigger()
     {
+        SoundManager.ButtonRea = true;
+
         if (!lever.gameObject.GetComponent<LeverScript>().switchOff)
         {
             lever.gameObject.GetComponent<LeverScript>().switchOff = true;

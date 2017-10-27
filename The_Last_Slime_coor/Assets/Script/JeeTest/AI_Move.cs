@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class AI_Move : MonoBehaviour {
+public class AI_Move : MonoBehaviour
+{
+    //[HideInInspector]
+    public bool alertState; //เตือนจาก ward ถ้าผู้เล่นเข้าใกล้
+    [HideInInspector]
+    public GameObject alertState_Obj; //รับตำแหน่งของ ward มาเพื่อให้บอทเดินไปดูตรง Ward นั้นๆ
 
     public GameObject[] targetPin;
     public float speed;
@@ -17,10 +22,9 @@ public class AI_Move : MonoBehaviour {
     private float angle;
     private bool plus;
 
-    public bool JeeTest;
     FieldOfView _FieldOfView;
 
-
+    [HideInInspector]
     public bool isDetect;
     private GameObject player;
     private GameObject NearPlayer;
@@ -40,6 +44,12 @@ public class AI_Move : MonoBehaviour {
     private float TimeDetect;
     public float Time_for_Chase = 15;
 
+
+    public bool Hero_AI;
+
+    private bool playDetectSound;
+    private bool playDeadSound;
+
     // Use this for initialization
     void Start()
     {
@@ -53,6 +63,19 @@ public class AI_Move : MonoBehaviour {
 
         isDetect = false;
         plus = true;
+
+        playDetectSound = false;
+        playDeadSound = false;
+    }
+
+    public void Set_alertState(GameObject WardTransfrom)
+    {
+        if (alertState == false && isDetect == false)
+        {
+            alertState_Obj = WardTransfrom;
+            targetPoint = WardTransfrom.transform;
+            alertState = true;
+        }
     }
 
     void AI_Chase()
@@ -74,7 +97,7 @@ public class AI_Move : MonoBehaviour {
             }
             else
             {
-                DummyTime += Time.deltaTime;
+                //DummyTime += Time.deltaTime;
             }
         }
         else
@@ -95,6 +118,13 @@ public class AI_Move : MonoBehaviour {
                     targetPoint = targetPin[curPathIndex].transform;
                     DummyTime = 0;
                     isDetect = false;
+                    TimeDetect = 0;
+                    ifNewtargetPoint = false;
+
+                    if (playDetectSound)
+                        SoundManager.NormalRea = true;
+
+                    playDetectSound = false;
                 }
                 else
                 {
@@ -104,7 +134,7 @@ public class AI_Move : MonoBehaviour {
             }
         }
 
-        
+
 
         TimeDetect += Time.deltaTime;
         if (TimeDetect > Time_for_Chase || Vector2.Distance(transform.position, player.transform.position) > dist + 1)
@@ -118,6 +148,11 @@ public class AI_Move : MonoBehaviour {
             {
                 isDetect = false;
                 TimeDetect = 0;
+
+                if (playDetectSound)
+                    SoundManager.NormalRea = true;
+
+                playDetectSound = false;
             }
         }
     }
@@ -128,142 +163,72 @@ public class AI_Move : MonoBehaviour {
         // check if we have somewere to walk
         if (curPathIndex < targetPin.Length && !isDetect)
         {
-            if (targetPoint == null)
+            if (targetPoint == null && !alertState)
                 targetPoint = targetPin[curPathIndex].transform;
             walk();
         }
 
-        if (!JeeTest) //กันไว้ก่อนเดี๋ยวบัค ซีนอื่นๆจะยังใช้ได้เหมือนเดิมยกเว้นซีนของเรา จะให้ไปจับผู้เล่นจากอีกโค้ดแทน
+        if (_FieldOfView.visibleTargets.Count > 0)
         {
-            DetectPlayer();
-
-            if (isDetect)
+            if (_FieldOfView.visibleTargets.Count == 1)
             {
-                if (Vector2.Distance(transform.position, player.transform.position) <= dist
-                    && Vector2.Distance(transform.position, player.transform.position) > 0.7f)
+                Debug.Log("1");
+                NearPlayer = _FieldOfView.visibleTargets[0].gameObject;
+            }
+            else if (_FieldOfView.visibleTargets.Count == 2)
+            {
+                Debug.Log("2");
+                float A1 = Vector2.Distance(_FieldOfView.visibleTargets[0].transform.position, this.transform.position);
+                float A2 = Vector2.Distance(_FieldOfView.visibleTargets[1].transform.position, this.transform.position);
+                if (A1 < A2)
                 {
-                    if (StopMoveing == false)
-                    {
-                        AI_Chase();
-                    }
+                    NearPlayer = _FieldOfView.visibleTargets[0].gameObject;
                 }
                 else
                 {
-                    if (player.gameObject.GetComponent<Movewithmouse>().theRealOne == true)
-                    {
-                        StartCoroutine(ReturnToPatrol());
-                    }
-                    else
-                    {
-                        Destroy(player.GetComponent<Collider2D>());
-                        Destroy(player.gameObject, 0.1f);
-                        StopMoveing = false;
-                        isDetect = false;
-                        curPathIndex = 0;
-                        targetPoint = targetPin[curPathIndex].transform;
-                    }
-
+                    NearPlayer = _FieldOfView.visibleTargets[1].gameObject;
                 }
 
             }
-        }
-        else // เพิ่ม
-        {
-
-            if (_FieldOfView.visibleTargets.Count > 0)
+            else if (_FieldOfView.visibleTargets.Count == 3)
             {
-                if (_FieldOfView.visibleTargets.Count == 1)
+                Debug.Log("2");
+                float A1 = Vector2.Distance(_FieldOfView.visibleTargets[0].transform.position, this.transform.position);
+                float A2 = Vector2.Distance(_FieldOfView.visibleTargets[1].transform.position, this.transform.position);
+                float A3 = Vector2.Distance(_FieldOfView.visibleTargets[2].transform.position, this.transform.position);
+                if (A1 < A2 && A1 < A3)
                 {
-                    Debug.Log("1");
                     NearPlayer = _FieldOfView.visibleTargets[0].gameObject;
                 }
-                else if (_FieldOfView.visibleTargets.Count == 2)
+                else if (A2 < A1 && A2 < A3)
                 {
-                    Debug.Log("2");
-                    float A1 = Vector2.Distance(_FieldOfView.visibleTargets[0].transform.position, this.transform.position);
-                    float A2 = Vector2.Distance(_FieldOfView.visibleTargets[1].transform.position, this.transform.position);
-                    if(A1 < A2)
-                    {
-                        NearPlayer = _FieldOfView.visibleTargets[0].gameObject;
-                    }
-                    else
-                    {
-                        NearPlayer = _FieldOfView.visibleTargets[1].gameObject;
-                    }
-
+                    NearPlayer = _FieldOfView.visibleTargets[1].gameObject;
                 }
-                else if (_FieldOfView.visibleTargets.Count == 3)
+                else
                 {
-                    Debug.Log("2");
-                    float A1 = Vector2.Distance(_FieldOfView.visibleTargets[0].transform.position, this.transform.position);
-                    float A2 = Vector2.Distance(_FieldOfView.visibleTargets[1].transform.position, this.transform.position);
-                    float A3 = Vector2.Distance(_FieldOfView.visibleTargets[2].transform.position, this.transform.position);
-                    if (A1 < A2 && A1 < A3)
-                    {
-                        NearPlayer = _FieldOfView.visibleTargets[0].gameObject;
-                    }
-                    else if (A2 < A1 && A2 < A3)
-                    {
-                        NearPlayer = _FieldOfView.visibleTargets[1].gameObject;
-                    }
-                    else
-                    {
-                        NearPlayer = _FieldOfView.visibleTargets[2].gameObject;
-                    }
-
+                    NearPlayer = _FieldOfView.visibleTargets[2].gameObject;
                 }
-                if (isDetect == false || NearPlayer != NearPlayerOld)
-                {
-                    NearPlayerOld = NearPlayer;
-                    player = NearPlayer.gameObject;
-                    targetPoint = player.transform;
-
-                }
-
-
-                isDetect = true;
-
-                /*if (Movewithmouse.cantDetect && _FieldOfView.visibleTargets.Count >= 1)
-                {
-                    if (isDetect == true)
-                    {
-                        targetPoint = targetPin[curPathIndex].transform;
-                        //DummyTime = 0;
-                    }
-                    isDetect = false;
-                }
-                else 
-                {
-                    if (isDetect == false)
-                        targetPoint = player.transform;
-                    isDetect = true;
-                }*/
 
             }
-            else
+            if (isDetect == false || NearPlayer != NearPlayerOld)
             {
-                /*if (isDetect == true)
-                {
-                    //targetPoint = targetPin[curPathIndex].transform;
-                    //DummyTime = 0;
-                }
-                //isDetect = false;
-                 if (Movewithmouse.cantDetect)
-                 {
-                     if (isDetect == true)
-                     {
-                         targetPoint = targetPin[curPathIndex].transform;
-                         //DummyTime = 0;
-                     }
-                     isDetect = false;
-                 }*/
-
-
+                NearPlayerOld = NearPlayer;
+                player = NearPlayer.gameObject;
+                targetPoint = player.transform;
             }
+            isDetect = true;
 
-            if (isDetect)
+        }
+           
+        if (isDetect)
+        {
+            if (player != null)
             {
-                if (player != null)
+                if (!playDetectSound)
+                    SoundManager.DetectedRea = true;
+
+                playDetectSound = true;
+
                 if (Vector2.Distance(transform.position, player.transform.position) > 0.7f)
                 {
                     if (StopMoveing == false)
@@ -283,30 +248,120 @@ public class AI_Move : MonoBehaviour {
                         Destroy(player.gameObject, 0.1f);
                         StopMoveing = false;
                         isDetect = false;
+
+                        if (playDetectSound)
+                            SoundManager.NormalRea = true;
+
+                        playDetectSound = false;
+                        TimeDetect = 0;
                         curPathIndex = 0;
                         targetPoint = targetPin[curPathIndex].transform;
                     }
                 }
-
             }
-        }
+            else
+            {
+                StopMoveing = false;
+                isDetect = false;
+                TimeDetect = 0;
+                curPathIndex = 0;
+                targetPoint = targetPin[curPathIndex].transform;
 
+                if (playDetectSound)
+                    SoundManager.NormalRea = true;
+
+                playDetectSound = false;
+            }
+
+
+        }
     }
 
     void BackToTheOriginal()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, targetPoint.position - transform.position, 0.5f); //ชนกำแพงมากว่ากี่วิ
+        float LengthForRay = 0.5f;
+        for (int k = 0; k < targetPin.Length; k++)
+        {
+            if (targetPoint.position == targetPin[k].transform.position)
+            {
+                LengthForRay = 0.5f;
+                break;
+            }
+            else
+            {
+                LengthForRay = 0.5f;
+                continue;
+            }
+        }
+
+        Vector2 offsetR = Quaternion.AngleAxis(30, transform.forward) * dir;
+        Vector2 offsetL = Quaternion.AngleAxis(-30, transform.forward) * dir;
+
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, targetPoint.position - transform.position, LengthForRay); //ชนกำแพงมากว่ากี่วิ
+        RaycastHit2D hit2 = Physics2D.Raycast(transform.position, offsetR, LengthForRay);
+        RaycastHit2D hit3 = Physics2D.Raycast(transform.position, offsetL, LengthForRay);
+
+
         Debug.DrawRay(transform.position, targetPoint.position - transform.position, Color.white);
+        //Debug.DrawRay(transform.position, offsetR, Color.green);
+        //Debug.DrawRay(transform.position, offsetL, Color.blue);
 
         if (hit.collider != null)// && ifNewtargetPoint == false
         {
-            if (hit.collider.tag == "Wall" || hit.collider.tag == "Fire" || hit.collider.tag == "Water")
+            if(Hero_AI)
             {
-                DummyTime += Time.deltaTime;
-                Debug.Log(DummyTime);
+                if (hit.collider.tag == "Wall" || hit.collider.tag == "Water")
+                {
+                    DummyTime = 50;
+                }
+            }
+            else
+            {
+                if (hit.collider.tag == "Wall" || hit.collider.tag == "Fire" || hit.collider.tag == "Water")
+                {
+                    DummyTime = 50;
+                }
             }
 
         }
+        if (hit2.collider != null)// && ifNewtargetPoint == false
+        {
+            if (Hero_AI)
+            {
+                if (hit2.collider.tag == "Wall" || hit2.collider.tag == "Water")
+                {
+                    DummyTime = 50;
+                }
+            }
+            else
+            {
+                if (hit2.collider.tag == "Wall" || hit2.collider.tag == "Fire" || hit2.collider.tag == "Water")
+                {
+                    DummyTime = 50;
+                }
+            }
+        }
+        if (hit3.collider != null)// && ifNewtargetPoint == false
+        {
+            if (Hero_AI)
+            {
+                if (hit3.collider.tag == "Wall" || hit3.collider.tag == "Water")
+                {
+                    DummyTime = 50;
+                }
+            }
+            else
+            {
+                if (hit3.collider.tag == "Wall" || hit3.collider.tag == "Fire" || hit3.collider.tag == "Water")
+                {
+                    DummyTime = 50;
+                }
+            }
+        }
+
+
+
         Old_targetPoint = targetPoint;
 
         if (DummyTime > 0.01f)
@@ -329,30 +384,60 @@ public class AI_Move : MonoBehaviour {
                 float DummytargetPointDis = Vector2.Distance(targetPoint.position, NodePosition[i].transform.position);
                 float H = Dummydis + DummytargetPointDis;
 
-                RaycastHit2D I_hit_wall = Physics2D.Raycast(NodePosition[i].transform.position, targetPoint.position - NodePosition[i].transform.position , DummytargetPointDis);
+                RaycastHit2D I_hit_wall = Physics2D.Raycast(NodePosition[i].transform.position, targetPoint.position - NodePosition[i].transform.position, DummytargetPointDis);
                 if (I_hit_wall.collider != null)
                 {
-                    if (I_hit_wall.collider.tag == "Wall" || I_hit_wall.collider.tag == "Fire" || I_hit_wall.collider.tag == "Water")
+                    if (Hero_AI)
                     {
-                        H += DummytargetPointDis;
+                        if (I_hit_wall.collider.tag == "Wall" || I_hit_wall.collider.tag == "Water")
+                        {
+                            H += DummytargetPointDis;
+                        }
                     }
+                    else
+                    {
+                        if (I_hit_wall.collider.tag == "Wall" || I_hit_wall.collider.tag == "Fire" || I_hit_wall.collider.tag == "Water")
+                        {
+                            H += DummytargetPointDis;
+                        }
+                    }
+
                 }
 
                 RaycastHit2D Nothit = Physics2D.Raycast(transform.position, NodePosition[i].transform.position - this.transform.position, Dummydis);
 
                 if (Nothit.collider != null)
                 {
-                    if (Nothit.collider.tag == "Wall" || Nothit.collider.tag == "Fire" || Nothit.collider.tag == "Water")
+                    if (Hero_AI)
                     {
-                        continue;
+                        if (Nothit.collider.tag == "Wall" || Nothit.collider.tag == "Water")
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            if (H < disNearest)
+                            {
+                                disNearest = H;
+                                Dummy = NodePosition[i];
+                                DummyOldPoint = i;
+                            }
+                        }
                     }
                     else
                     {
-                        if (H < disNearest)
+                        if (Nothit.collider.tag == "Wall" || Nothit.collider.tag == "Fire" || Nothit.collider.tag == "Water")
                         {
-                            disNearest = H;
-                            Dummy = NodePosition[i];
-                            DummyOldPoint = i;
+                            continue;
+                        }
+                        else
+                        {
+                            if (H < disNearest)
+                            {
+                                disNearest = H;
+                                Dummy = NodePosition[i];
+                                DummyOldPoint = i;
+                            }
                         }
                     }
                 }
@@ -372,7 +457,7 @@ public class AI_Move : MonoBehaviour {
                 targetPoint = Dummy;
                 Old_DummytargetPoint = DummyOldPoint;
             }
-            else if(Dummy == null)
+            else if (Dummy == null)
             {
                 //targetPoint = targetPin[curPathIndex].transform;
 
@@ -389,7 +474,159 @@ public class AI_Move : MonoBehaviour {
                     RaycastHit2D Nothit = Physics2D.Raycast(transform.position, NodePosition[i].transform.position - this.transform.position, Dummydis);
                     if (Nothit.collider != null)
                     {
-                        if (Nothit.collider.tag == "Wall" || Nothit.collider.tag == "Fire" || Nothit.collider.tag == "Water")//
+                        if (Hero_AI)
+                        {
+                            if (Nothit.collider.tag == "Wall" || Nothit.collider.tag == "Water")//
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                if (H < disNearest)
+                                {
+                                    disNearest = H;
+                                    Dummy = NodePosition[i];
+                                    DummyOldPoint = i;
+                                }
+
+                            }
+                        }
+                        else
+                        {
+                            if (Nothit.collider.tag == "Wall" || Nothit.collider.tag == "Fire" || Nothit.collider.tag == "Water")//
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                if (H < disNearest)
+                                {
+                                    disNearest = H;
+                                    Dummy = NodePosition[i];
+                                    DummyOldPoint = i;
+                                }
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (H < disNearest)
+                        {
+                            disNearest = H;
+                            Dummy = NodePosition[i];
+                            DummyOldPoint = i;
+                        }
+
+                    }
+                }
+                if (targetPoint != Dummy && Dummy != null)// && _FieldOfView.visibleTargets.Count >= 0
+                {
+                    ifNewtargetPoint = true;
+                    targetPoint = Dummy;
+                    Old_DummytargetPoint = DummyOldPoint;
+                }
+
+            }
+            DummyTime = 0;
+        }
+    }
+    void BackToTheOriginal_AIGoToPlayer()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, targetPoint.position - transform.position, 1f); //ชนกำแพงมากว่ากี่วิ
+
+        if (targetPoint.position == player.transform.position)
+        {
+            Debug.DrawRay(transform.position, targetPoint.position - transform.position, Color.red);
+        }
+        else
+        {
+            Debug.DrawRay(transform.position, targetPoint.position - transform.position, Color.yellow);
+        }
+
+        if (hit.collider != null ) //&& ifNewtargetPoint == false
+        {
+            if (Hero_AI)
+            {
+                if (hit.collider.tag == "Wall" || hit.collider.tag == "Water")
+                {
+                    DummyTime += Time.deltaTime;
+                }
+            }
+            else
+            {
+                if (hit.collider.tag == "Wall" || hit.collider.tag == "Fire" || hit.collider.tag == "Water")
+                {
+                    DummyTime += Time.deltaTime;
+                }
+            }
+        }
+        else if (hit.collider != null && targetPoint.position == player.transform.position)
+        {
+            if (Hero_AI)
+            {
+                if (hit.collider.tag == "Wall" || hit.collider.tag == "Water")
+                {
+                    DummyTime += Time.deltaTime;
+                }
+            }
+            else
+            {
+                if (hit.collider.tag == "Wall" || hit.collider.tag == "Fire" || hit.collider.tag == "Water")
+                {
+                    DummyTime += Time.deltaTime;
+                }
+            }
+        }
+
+        Old_targetPoint = targetPoint;
+
+        if (DummyTime > 0.1f)
+        {
+            this.NodePosition = _AI_GetNode.NodePosition;
+            float disNearest;
+            disNearest = Mathf.Infinity;
+            Transform Dummy = null;//NodePosition[1];
+            int DummyOldPoint = 0;
+
+            for (int i = 1; i < NodePosition.Length; i++)
+            {
+                if (i == Old_DummytargetPoint)
+                {
+                    Old_DummytargetPoint = 0;
+                    continue;
+                }
+
+                float Dummydis = Vector2.Distance(NodePosition[i].transform.position, this.transform.position);
+                float DummytargetPointDis = Vector2.Distance(NodePosition[i].transform.position, player.transform.position);
+
+                float H = Dummydis + DummytargetPointDis;
+
+                RaycastHit2D I_hit_wall = Physics2D.Raycast(NodePosition[i].transform.position,  player.transform.position - NodePosition[i].transform.position, DummytargetPointDis);
+                if (I_hit_wall.collider != null)
+                {
+                    if (Hero_AI)
+                    {
+                        if (I_hit_wall.collider.tag == "Wall" || I_hit_wall.collider.tag == "Water")
+                        {
+                            H += DummytargetPointDis;
+                        }
+                    }
+                    else
+                    {
+                        if (I_hit_wall.collider.tag == "Wall" || I_hit_wall.collider.tag == "Fire" || I_hit_wall.collider.tag == "Water")
+                        {
+                            H += DummytargetPointDis;
+                        }
+                    }
+                }
+                RaycastHit2D Nothit = Physics2D.Raycast(this.transform.position, NodePosition[i].transform.position - this.transform.position, Dummydis);
+
+                if (Nothit.collider != null)
+                {
+                    if (Hero_AI)
+                    {
+                        if (Nothit.collider.tag == "Wall" || Nothit.collider.tag == "Water")//
                         {
                             continue;
                         }
@@ -406,104 +643,20 @@ public class AI_Move : MonoBehaviour {
                     }
                     else
                     {
-                        if (H < disNearest)
+                        if (Nothit.collider.tag == "Wall" || Nothit.collider.tag == "Fire" || Nothit.collider.tag == "Water")//
                         {
-                            disNearest = H;
-                            Dummy = NodePosition[i];
-                            DummyOldPoint = i;
+                            continue;
                         }
-
-                    }
-                }
-                if (targetPoint != Dummy && Dummy != null )// && _FieldOfView.visibleTargets.Count >= 0
-                {
-                    ifNewtargetPoint = true;
-                    targetPoint = Dummy;
-                    Old_DummytargetPoint = DummyOldPoint;
-                }
-            
-            }
-            DummyTime = 0;
-        }
-    }
-    void BackToTheOriginal_AIGoToPlayer()
-    {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, targetPoint.position - transform.position, 0.5f); //ชนกำแพงมากว่ากี่วิ
-
-        if (targetPoint.position == player.transform.position)
-        {
-            Debug.DrawRay(transform.position, targetPoint.position - transform.position, Color.red);
-        }
-        else
-        {
-            Debug.DrawRay(transform.position, targetPoint.position - transform.position, Color.yellow);
-        }
-
-        if (hit.collider != null && ifNewtargetPoint == false) //
-        {
-            if (hit.collider.tag == "Wall" || hit.collider.tag == "Fire" || hit.collider.tag == "Water")
-            {
-                DummyTime += Time.deltaTime;
-            }
-        }
-        else if (hit.collider != null && targetPoint.position == player.transform.position)
-        {
-            if (hit.collider.tag == "Wall" || hit.collider.tag == "Fire" || hit.collider.tag == "Water")
-            {
-                DummyTime += Time.deltaTime;
-            }
-        }
-
-        Old_targetPoint = targetPoint;
-
-        if (DummyTime > 0.1f)
-        {
-            this.NodePosition = _AI_GetNode.NodePosition;
-            float disNearest;
-            disNearest = Mathf.Infinity;
-            Transform Dummy = null;//NodePosition[1];
-            int DummyOldPoint = 0;
-
-            for (int i = 1; i < NodePosition.Length; i++)
-            {
-                //Debug.Log(Old_DummytargetPoint);
-                if (i == Old_DummytargetPoint)
-                {
-                    //Debug.Log("OldPoint");
-                    Old_DummytargetPoint = 0;
-                    continue;
-                }
-
-                float Dummydis = Vector2.Distance(NodePosition[i].transform.position, this.transform.position);
-                float DummytargetPointDis = Vector2.Distance(NodePosition[i].transform.position, player.transform.position);
-
-                float H = Dummydis + DummytargetPointDis;
-
-                RaycastHit2D I_hit_wall = Physics2D.Raycast(NodePosition[i].transform.position, NodePosition[i].transform.position - player.transform.position, DummytargetPointDis);
-                if (I_hit_wall.collider != null)
-                {
-                    if (I_hit_wall.collider.tag == "Wall" || I_hit_wall.collider.tag == "Fire" || I_hit_wall.collider.tag == "Water")
-                    {
-                        H += DummytargetPointDis;
-                    }
-                }
-                RaycastHit2D Nothit = Physics2D.Raycast(transform.position, NodePosition[i].transform.position - this.transform.position, Dummydis);
-
-                if (Nothit.collider != null)
-                {
-                    if (Nothit.collider.tag == "Wall" || Nothit.collider.tag == "Fire" || Nothit.collider.tag == "Water")//
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        if (H < disNearest)
+                        else
                         {
-                            disNearest = H;
-                            Dummy = NodePosition[i];
-                            DummyOldPoint = i;
-                        }
+                            if (H < disNearest)
+                            {
+                                disNearest = H;
+                                Dummy = NodePosition[i];
+                                DummyOldPoint = i;
+                            }
 
+                        }
                     }
                 }
                 else
@@ -525,33 +678,53 @@ public class AI_Move : MonoBehaviour {
             }
             else if (Dummy == null)
             {
-                //Debug.Log("Null");
+                Debug.Log("Null BackToTheOriginal_AI");
                 disNearest = Mathf.Infinity;
                 for (int i = 1; i < NodePosition.Length; i++)
                 {
-                    float Dummydis = Vector2.Distance(NodePosition[i].transform.position, this.transform.position)*2;
+                    float Dummydis = Vector2.Distance(NodePosition[i].transform.position, this.transform.position) * 2;
                     //float H = Dummydis;
 
                     float DummytargetPointDis = Vector2.Distance(NodePosition[i].transform.position, player.transform.position);
 
                     float H = Dummydis + DummytargetPointDis;
 
-                    RaycastHit2D Nothit = Physics2D.Raycast(transform.position, NodePosition[i].transform.position - this.transform.position, Dummydis);
+                    RaycastHit2D Nothit = Physics2D.Raycast(this.transform.position, NodePosition[i].transform.position - this.transform.position, Dummydis);
                     if (Nothit.collider != null)
                     {
-                        if (Nothit.collider.tag == "Wall" || Nothit.collider.tag == "Fire" || Nothit.collider.tag == "Water")//
+                        if (Hero_AI)
                         {
-                            continue;
+                            if (Nothit.collider.tag == "Wall" || Nothit.collider.tag == "Water")//
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                if (H < disNearest)
+                                {
+                                    disNearest = H;
+                                    Dummy = NodePosition[i];
+                                    DummyOldPoint = i;
+                                }
+
+                            }
                         }
                         else
                         {
-                            if (H < disNearest)
+                            if (Nothit.collider.tag == "Wall" || Nothit.collider.tag == "Fire" || Nothit.collider.tag == "Water")//
                             {
-                                disNearest = H;
-                                Dummy = NodePosition[i];
-                                DummyOldPoint = i;
+                                continue;
                             }
+                            else
+                            {
+                                if (H < disNearest)
+                                {
+                                    disNearest = H;
+                                    Dummy = NodePosition[i];
+                                    DummyOldPoint = i;
+                                }
 
+                            }
                         }
                     }
                     else
@@ -582,27 +755,27 @@ public class AI_Move : MonoBehaviour {
                     targetPoint = targetPin[curPathIndex].transform;
                     DummyTime = 0;
                     isDetect = false;
+                    TimeDetect = 0;
                 }
 
 
-               
+
             }
             DummyTime = 0;
         }
     }
-
+    [HideInInspector]
     public bool rotating;
 
     void walk()
     {
-
-        BackToTheOriginal(); // เดินกลับไปหาเส้นของมัน
-
         // rotate towards the target
         dir = targetPoint.position - transform.position;
         angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         Quaternion dummyRotation = Quaternion.AngleAxis(angle - 90, transform.forward);
         Vector2 dirToTarget = (targetPoint.position - transform.position).normalized;
+
+        BackToTheOriginal(); // เดินกลับไปหาเส้นของมัน
 
         if (Vector2.Angle(transform.up, dirToTarget) < 1)
         {
@@ -613,7 +786,7 @@ public class AI_Move : MonoBehaviour {
             //Debug.Log((int)dummyRotation.eulerAngles.z + "  " + (int)transform.rotation.eulerAngles.z);
             rotating = true;
         }
-        
+
         if (rotating == false)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPoint.position, speed * Time.deltaTime);
@@ -622,55 +795,80 @@ public class AI_Move : MonoBehaviour {
         transform.rotation = Quaternion.Slerp(this.transform.rotation, dummyRotation, 0.07f);
 
 
-        if (transform.position == targetPoint.position)
+        if (alertState_Obj != null && transform.position == alertState_Obj.transform.position && alertState)
         {
-            if (isLoop)
+            if (alertState_Obj.GetComponent<WardScript>().Get_isAlarm())
             {
-                curPathIndex++;
-
-                if (curPathIndex == targetPin.Length)
-                {
-                    curPathIndex = 0;
-                }
+                ifNewtargetPoint = true;
+                isDetect = true;
+                //targetPoint = player.transform;
+                alertState = false;
             }
             else
             {
-                if (plus)
+                alertState = false;
+                targetPoint = targetPin[curPathIndex].transform;
+            }
+
+        }
+        else if (transform.position == targetPoint.position)
+        {
+            if(alertState)
+            {
+                targetPoint = alertState_Obj.transform;
+            }
+            else
+            {
+                if (isLoop)
                 {
                     curPathIndex++;
 
                     if (curPathIndex == targetPin.Length)
                     {
-                        plus = false;
-                        curPathIndex = targetPin.Length - 2;
+                        curPathIndex = 0;
                     }
                 }
                 else
                 {
-                    curPathIndex--;
-
-                    if (curPathIndex == -1)
+                    if (plus)
                     {
-                        plus = true;
-                        curPathIndex = 1;
+                        curPathIndex++;
+
+                        if (curPathIndex == targetPin.Length)
+                        {
+                            plus = false;
+                            curPathIndex = targetPin.Length - 2;
+                        }
+                    }
+                    else
+                    {
+                        curPathIndex--;
+
+                        if (curPathIndex == -1)
+                        {
+                            plus = true;
+                            curPathIndex = 1;
+                        }
                     }
                 }
+
+                targetPoint = targetPin[curPathIndex].transform;
+
+                /// <BackToTheOriginal>
+                if (ifNewtargetPoint)
+                {
+                    targetPoint = Old_targetPoint;
+                    ifNewtargetPoint = false;
+                }
+                /// </BackToTheOriginal>
             }
 
-            targetPoint = targetPin[curPathIndex].transform;
-
-            /// <BackToTheOriginal>
-            if (ifNewtargetPoint)
-            {
-                targetPoint = Old_targetPoint;
-                ifNewtargetPoint = false;
-            }
-            /// </BackToTheOriginal>
+            
 
         }
     }
 
-    void DetectPlayer()
+    /*void DetectPlayer()
     {
         Vector2 offsetR = Quaternion.AngleAxis(visionAngle, transform.forward) * dir;
         Vector2 offsetL = Quaternion.AngleAxis(-visionAngle, transform.forward) * dir;
@@ -729,16 +927,21 @@ public class AI_Move : MonoBehaviour {
 
             }
         }
-    }
+    }*/
 
     private bool StopMoveing;
     IEnumerator ReturnToPatrol()
     {
+        if (!playDeadSound)
+            SoundManager.DeadRea = true;
+
+        playDeadSound = true;
         Movewithmouse.isDead = true;
         StopMoveing = true;
         yield return new WaitForSeconds(2.0f);
         StopMoveing = false;
         isDetect = false;
+        TimeDetect = 0;
         curPathIndex = 0;
         targetPoint = targetPin[curPathIndex].transform;
         transform.position = targetPin[curPathIndex].transform.position;

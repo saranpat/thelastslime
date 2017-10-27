@@ -154,10 +154,12 @@ public class Movewithmouse : MonoBehaviour {
             spriteRenderer.color = camouflageAlpha;
 
             GoToNormalSize();
-
         }
 
-       
+        if (other.tag == "Door") //Win level door
+        {
+            Application.LoadLevel(1);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -188,6 +190,7 @@ public class Movewithmouse : MonoBehaviour {
     public void IsOverUI()
     {
         OnUI = true;
+        SoundManager.UIOverRea = true;
     }
 
     public void OutOfUI()
@@ -197,12 +200,11 @@ public class Movewithmouse : MonoBehaviour {
 
     IEnumerator Respawn()
     {
-               
         yield return new WaitForSeconds(2f);
-        
+
         transform.position = startPos;
         isDead = false;
-        //Application.LoadLevel();
+        Application.LoadLevel(1);
     }
 
     IEnumerator DelayGetOffTheWater()
