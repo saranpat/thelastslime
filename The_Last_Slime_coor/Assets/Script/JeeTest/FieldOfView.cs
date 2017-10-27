@@ -27,6 +27,7 @@ public class FieldOfView : MonoBehaviour {
     MeshRenderer viewMeshRenderer;
 
     private AI_Move _AI_Move;
+    private WardScript _WardScript;
 
 	// Use this for initialization
 	void Start () {
@@ -40,7 +41,10 @@ public class FieldOfView : MonoBehaviour {
         {
             _AI_Move = this.gameObject.GetComponent<AI_Move>();
         }
-
+        if (this.gameObject.GetComponent<WardScript>() != null)
+        {
+            _WardScript = this.gameObject.GetComponent<WardScript>();
+        }
         StartCoroutine("FindTargetsWithDelay", .02f);
 	}
 
@@ -81,15 +85,23 @@ public class FieldOfView : MonoBehaviour {
 
         // เปลี่ยนสีเมื่อเจอผยู้เล่น
         if (_AI_Move != null)
-        if (_AI_Move.isDetect)//(visibleTargets.Count > 0)
-        {
-            viewMeshRenderer.material = _Material[1];
-        }
-        else
-        {
-            viewMeshRenderer.material = _Material[0];
-        }
-
+            if (_AI_Move.isDetect)//(visibleTargets.Count > 0)
+            {
+                viewMeshRenderer.material = _Material[1];
+            }
+            else
+            {
+                viewMeshRenderer.material = _Material[0];
+            }
+        if (_WardScript != null)
+            if (_WardScript.Get_isAlarm())//(visibleTargets.Count > 0)
+            {
+                viewMeshRenderer.material = _Material[1];
+            }
+            else
+            {
+                viewMeshRenderer.material = _Material[0];
+            }
 
     }
 
