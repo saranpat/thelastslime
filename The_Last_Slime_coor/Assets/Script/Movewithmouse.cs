@@ -134,11 +134,13 @@ public class Movewithmouse : MonoBehaviour {
         if (other.tag == "Fire")
         {
             isDead = true;
+            SoundManager.DeadRea = true;
         }
 
         if (other.tag == "Key")
         {
             other.gameObject.SetActive(false);
+            SoundManager.UnlockedRea = true;
         }
 
         if (other.tag == "Water")
@@ -154,6 +156,8 @@ public class Movewithmouse : MonoBehaviour {
             GoToNormalSize();
 
         }
+
+       
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -193,6 +197,7 @@ public class Movewithmouse : MonoBehaviour {
 
     IEnumerator Respawn()
     {
+               
         yield return new WaitForSeconds(2f);
         
         transform.position = startPos;

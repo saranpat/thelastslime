@@ -10,6 +10,7 @@ public class BotScript : MonoBehaviour
     public float dist; // distance the enemy can "see" in front of him
     public float visionAngle;
     public bool isLoop;
+    public static bool returntopatrol;
 
     private int curPathIndex;
     private Transform targetPoint;
@@ -41,6 +42,7 @@ public class BotScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        returntopatrol = false;
         if(this.gameObject.GetComponent<FieldOfView>()!= null)
             _FieldOfView = this.gameObject.GetComponent<FieldOfView>();
 
@@ -114,9 +116,12 @@ public class BotScript : MonoBehaviour
                         AI_Chase();
                     }
                 }
-                else
+                else if ((Vector2.Distance(transform.position, player.transform.position) <= 0.7f))
                 {
-                    StartCoroutine(ReturnToPatrol());
+                    
+                        StartCoroutine(ReturnToPatrol());
+                    
+                    
                 }
 
             }
@@ -146,7 +151,10 @@ public class BotScript : MonoBehaviour
                 }
                 else
                 {
-                    StartCoroutine(ReturnToPatrol());
+                    
+                        StartCoroutine(ReturnToPatrol());
+                    
+
                 }
 
             }
@@ -475,7 +483,8 @@ public class BotScript : MonoBehaviour
     private bool StopMoveing;
     IEnumerator ReturnToPatrol()
     {
-        Movewithmouse.isDead = true;
+        Movewithmouse.isDead = true;    
+       // returntopatrol = false;          
         StopMoveing = true;
         yield return new WaitForSeconds(2.0f);
         StopMoveing = false;

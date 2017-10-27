@@ -17,11 +17,17 @@ public class DoorScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (keyToOpen != null)
+        {
             if (!keyToOpen.activeSelf)
+            {
                 isOpen = true;
+
+            }
+        }
 
         if (isOpen)
         {
+            
             gameObject.GetComponent<SpriteRenderer>().sprite = openSprite;
             gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
             gameObject.layer = 2;

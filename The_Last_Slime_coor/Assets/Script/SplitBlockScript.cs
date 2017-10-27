@@ -24,7 +24,7 @@ public class SplitBlockScript : MonoBehaviour
         if (collision.tag == "Player" && collision.gameObject.GetComponent<Movewithmouse>().bulkUp && StageController.slimeCnt < 3)
         {
             GameObject miniMe = Instantiate(slimePrefab, transform.position, transform.rotation);
-
+            SoundManager.SlimeSplitRea = true;
             miniMe.gameObject.GetComponent<Movewithmouse>().theRealOne = false;
             miniMe.gameObject.GetComponent<Movewithmouse>().isControl = false;
             Collider2D dummy = miniMe.gameObject.GetComponentInChildren<Collider2D>();

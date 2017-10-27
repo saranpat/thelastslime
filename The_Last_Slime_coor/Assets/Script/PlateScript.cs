@@ -13,6 +13,7 @@ public class PlateScript : MonoBehaviour
 
         if (DoorToOpen != null)
             _DoorScript = DoorToOpen.GetComponent<DoorScript>();
+
     }
 
     // Update is called once per frame
@@ -21,12 +22,23 @@ public class PlateScript : MonoBehaviour
 
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.name == "CheckWater")
+        {
+           
+            SoundManager.UnlockedRea = true;
+
+        }
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.name == "CheckWater")
         {
             //Debug.Log("GGGGGGGGGGGg");
             _DoorScript.isOpen = true;
+           
             //Debug.Log("GGGGGGGGGGGffffffffffg");
         }
         /*else //ถึงว่าติดบัคเพราะมันเข้า False ตลอดก่อนที่จะไป True
@@ -43,6 +55,7 @@ public class PlateScript : MonoBehaviour
         {
             //Debug.Log("False??");
             _DoorScript.isOpen = false;
+            SoundManager.UnlockedRea = true;
         }
     }
 
