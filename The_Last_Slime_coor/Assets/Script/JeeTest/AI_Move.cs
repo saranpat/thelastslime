@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class AI_Move : MonoBehaviour
 {
+    [HideInInspector]
+    public bool alertState; //เตือนจาก ward ถ้าผู้เล่นเข้าใกล้
+    [HideInInspector]
+    public GameObject alertState_Obj; //รับตำแหน่งของ ward มาเพื่อให้บอทเดินไปดูตรง Ward นั้นๆ
 
     public GameObject[] targetPin;
     public float speed;
@@ -20,7 +24,7 @@ public class AI_Move : MonoBehaviour
 
     FieldOfView _FieldOfView;
 
-
+    [HideInInspector]
     public bool isDetect;
     private GameObject player;
     private GameObject NearPlayer;
@@ -750,7 +754,7 @@ public class AI_Move : MonoBehaviour
             DummyTime = 0;
         }
     }
-
+    [HideInInspector]
     public bool rotating;
 
     void walk()
