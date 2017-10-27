@@ -23,6 +23,7 @@ public class AI_Move : MonoBehaviour {
 
     public bool isDetect;
     private GameObject player;
+    private GameObject NearPlayer;
     private RaycastHit checkWall;
 
     /// <BackToTheOriginal>
@@ -44,7 +45,8 @@ public class AI_Move : MonoBehaviour {
         if (this.gameObject.GetComponent<FieldOfView>() != null)
             _FieldOfView = this.gameObject.GetComponent<FieldOfView>();
 
-        player = GameObject.FindGameObjectWithTag("Player");
+        //player = GameObject.FindGameObjectWithTag("Player");
+
         _AI_GetNode = GameObject.FindGameObjectWithTag("Node").GetComponent<AI_GetNode>();
         curPathIndex = 0;
 
@@ -147,10 +149,16 @@ public class AI_Move : MonoBehaviour {
 
             if (_FieldOfView.visibleTargets.Count > 0)
             {
-                Debug.Log(_FieldOfView.visibleTargets.Count);
-                
 
-                if (Movewithmouse.cantDetect)
+                NearPlayer = _FieldOfView.visibleTargets[0].gameObject;
+                
+                player = NearPlayer.gameObject;
+
+                if (isDetect == false)
+                    targetPoint = player.transform;
+                isDetect = true;
+
+                /*if (Movewithmouse.cantDetect && _FieldOfView.visibleTargets.Count >= 1)
                 {
                     if (isDetect == true)
                     {
@@ -159,17 +167,17 @@ public class AI_Move : MonoBehaviour {
                     }
                     isDetect = false;
                 }
-                else
+                else 
                 {
                     if (isDetect == false)
                         targetPoint = player.transform;
                     isDetect = true;
-                }
+                }*/
 
             }
             else
             {
-                if (isDetect == true)
+                /*if (isDetect == true)
                 {
                     //targetPoint = targetPin[curPathIndex].transform;
                     //DummyTime = 0;
@@ -183,13 +191,14 @@ public class AI_Move : MonoBehaviour {
                          //DummyTime = 0;
                      }
                      isDetect = false;
-                 }
+                 }*/
 
 
             }
 
             if (isDetect)
             {
+                if (player != null)
                 if (Vector2.Distance(transform.position, player.transform.position) > 0.7f)
                 {
                     if (StopMoveing == false)
@@ -432,7 +441,7 @@ public class AI_Move : MonoBehaviour {
             }
             else if (Dummy == null)
             {
-                Debug.Log("Null");
+                //Debug.Log("Null");
                 disNearest = Mathf.Infinity;
                 for (int i = 1; i < NodePosition.Length; i++)
                 {
