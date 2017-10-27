@@ -9036,6 +9036,10 @@ Prefab:
       propertyPath: fireRange
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1016806751168590, guid: 9b01d3c64b1fec041a220b2cda26ef81, type: 2}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9b01d3c64b1fec041a220b2cda26ef81, type: 2}
   m_IsPrefabParent: 0
@@ -9716,6 +9720,10 @@ Prefab:
       propertyPath: targetPin.Array.data[1]
       value: 
       objectReference: {fileID: 2040154925}
+    - target: {fileID: 1016806751168590, guid: 9b01d3c64b1fec041a220b2cda26ef81, type: 2}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9b01d3c64b1fec041a220b2cda26ef81, type: 2}
   m_IsPrefabParent: 0
