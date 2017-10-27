@@ -8,7 +8,7 @@ public class DoorScript : MonoBehaviour {
     public Sprite openSprite;
     public Sprite closeSprite;
     public bool isOpen;
-
+    public bool isDoorOnFire;
 	// Use this for initialization
 	void Start () {
         isOpen = false;
@@ -29,13 +29,23 @@ public class DoorScript : MonoBehaviour {
         {
             
             gameObject.GetComponent<SpriteRenderer>().sprite = openSprite;
-            gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+            if (!isDoorOnFire)
+                gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+            else
+            {
+                gameObject.tag = "DoorOnFireOpen";
+            }
             gameObject.layer = 2;
         }
         else
         {
             gameObject.GetComponent<SpriteRenderer>().sprite = closeSprite;
-            gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+            if (!isDoorOnFire)
+                gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+            else
+            {
+                gameObject.tag = "Fire";
+            }
             gameObject.layer = 9;
         }
 	}
