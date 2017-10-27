@@ -100,7 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keyToOpen: {fileID: 0}
-  openSprite: {fileID: 21300000, guid: 74bb55a66e1170f4e8c1e6d1ec0f9c6f, type: 3}
+  openSprite: {fileID: 21300000, guid: b19787b44a42ba04ea5ff9a3daacac1d, type: 3}
+  closeSprite: {fileID: 21300000, guid: 8680d106bc0cf01499f8e6df3e4ed2d1, type: 3}
   isOpen: 0
 --- !u!212 &212284704486855918
 SpriteRenderer:
