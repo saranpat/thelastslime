@@ -7,11 +7,12 @@ public class Movewithmouse : MonoBehaviour {
     public Sprite normalSlime, camouflage, bigSlime;
 
     public static bool cantDetect;
-    public static bool isDead;
+	public static bool isDead;
     public static bool OnUI; //check if on any ui
 
     public bool bulkUp; //check state of slime (small or big)
-    public bool theRealOne;
+	public bool theRealOne;
+	//public static bool Real;
     public bool isControl;
 
     private Vector3 target;
@@ -158,7 +159,9 @@ public class Movewithmouse : MonoBehaviour {
 
         if (other.tag == "Door") //Win level door
         {
-            Application.LoadLevel(1);
+			//use scenecontrolscript
+           // Application.LoadLevel(1);
+
         }
     }
 
@@ -200,11 +203,13 @@ public class Movewithmouse : MonoBehaviour {
 
     IEnumerator Respawn()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
 
         transform.position = startPos;
         isDead = false;
-        Application.LoadLevel(1);
+		//use here to execute lose scene
+
+      //  Application.LoadLevel("Lose_UI");
     }
 
     IEnumerator DelayGetOffTheWater()
