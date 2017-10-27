@@ -46,6 +46,11 @@ public class AI_Move : MonoBehaviour
 
 
     public bool Hero_AI;
+    public bool Wizard_AI;
+    public GameObject firePrefab; // magic shot prefab
+    public float fireSpeed; //magic shot speed
+    public float fireRange; // shooting distance
+    private bool isRecharge; //recharge magic
 
     private bool playDetectSound;
     private bool playDeadSound;
@@ -112,7 +117,12 @@ public class AI_Move : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, targetPoint.position, speed * Time.deltaTime);
         }
 
-        //transform.position = Vector3.MoveTowards(transform.position, targetPoint.position, speed * Time.deltaTime);
+        if(Wizard_AI)
+            if (Vector2.Distance(transform.position, player.transform.position) <= fireRange && !isRecharge)
+            {
+                StartCoroutine(Fire());
+            }
+
 
         BackToTheOriginal_AIGoToPlayer();
 
@@ -1042,4 +1052,15 @@ public class AI_Move : MonoBehaviour
         targetPoint = targetPin[curPathIndex].transform;
         transform.position = targetPin[curPathIndex].transform.position;
     }
+
+    IEnumerator Fire()
+    {
+        isRecharge = true;
+        var bullet = (GameObject)Instantiate(firePrefab, transform.position, transform.rotation);
+        bullet.GetComponent<Rigidbody2D>().velocity = dir * fireSpeed;
+        Destroy(bullet, 2.0f);
+        yield return new WaitForSeconds(4.0f);
+        isRecharge = false;
+    }
+
 }

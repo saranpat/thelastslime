@@ -9170,16 +9170,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114106553247864252, guid: 9b01d3c64b1fec041a220b2cda26ef81,
-        type: 2}
-      propertyPath: targetPin.Array.data[0]
-      value: 
-      objectReference: {fileID: 1052838380}
-    - target: {fileID: 114106553247864252, guid: 9b01d3c64b1fec041a220b2cda26ef81,
-        type: 2}
-      propertyPath: targetPin.Array.data[1]
-      value: 
-      objectReference: {fileID: 2040154925}
     - target: {fileID: 114395554793234018, guid: 9b01d3c64b1fec041a220b2cda26ef81,
         type: 2}
       propertyPath: targetPin.Array.data[0]
@@ -9190,6 +9180,21 @@ Prefab:
       propertyPath: targetPin.Array.data[1]
       value: 
       objectReference: {fileID: 2040154925}
+    - target: {fileID: 114106553247864252, guid: 9b01d3c64b1fec041a220b2cda26ef81,
+        type: 2}
+      propertyPath: targetPin.Array.data[0]
+      value: 
+      objectReference: {fileID: 1052838380}
+    - target: {fileID: 114106553247864252, guid: 9b01d3c64b1fec041a220b2cda26ef81,
+        type: 2}
+      propertyPath: targetPin.Array.data[1]
+      value: 
+      objectReference: {fileID: 2040154925}
+    - target: {fileID: 114106553247864252, guid: 9b01d3c64b1fec041a220b2cda26ef81,
+        type: 2}
+      propertyPath: fireSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9b01d3c64b1fec041a220b2cda26ef81, type: 2}
   m_IsPrefabParent: 0
