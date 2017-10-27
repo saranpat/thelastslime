@@ -5,7 +5,12 @@ using UnityEngine;
 public class LeverScript : MonoBehaviour {
 
     public GameObject[] Trap;
+
     public bool switchOff;
+
+    public Sprite fireOn;
+    public Sprite fireOff;
+
 	private SpriteRenderer mysprite;
 	// Use this for initialization
 	void Start () {
@@ -26,15 +31,17 @@ public class LeverScript : MonoBehaviour {
             {
                 for (int i = 0; i < Trap.Length; i++)
                 {
-                    if (Trap[i].tag == "Fire")
+                    if (Trap[i].tag == "Fire" || Trap[i].tag == "Untagged")
                     {
-                        if (Trap[i].activeSelf)
+                        if (Trap[i].GetComponent<SpriteRenderer>().sprite == fireOn)
                         {
-                            Trap[i].SetActive(false);
+                            Trap[i].GetComponent<SpriteRenderer>().sprite = fireOff;
+                            Trap[i].tag = "Untagged";
                         }
                         else
                         {
-                            Trap[i].SetActive(true);
+                            Trap[i].GetComponent<SpriteRenderer>().sprite = fireOn;
+                            Trap[i].tag = "Fire";
                         }
                     }
                     else
@@ -51,15 +58,17 @@ public class LeverScript : MonoBehaviour {
             {
                 for (int i = 0; i < Trap.Length; i++)
                 {
-                    if (Trap[i].tag == "Fire")
+                    if (Trap[i].tag == "Fire" || Trap[i].tag == "Untagged")
                     {
-                        if (Trap[i].activeSelf)
+                        if (Trap[i].GetComponent<SpriteRenderer>().sprite == fireOn)
                         {
-                            Trap[i].SetActive(false);
+                            Trap[i].GetComponent<SpriteRenderer>().sprite = fireOff;
+                            Trap[i].tag = "Untagged";
                         }
                         else
                         {
-                            Trap[i].SetActive(true);
+                            Trap[i].GetComponent<SpriteRenderer>().sprite = fireOn;
+                            Trap[i].tag = "Fire";
                         }
                     }
                     else
