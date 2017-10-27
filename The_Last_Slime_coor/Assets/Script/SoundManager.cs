@@ -12,6 +12,7 @@ public class SoundManager : MonoBehaviour {
     public static bool SlimeSplitRea;
     public static bool DetectedRea;
     public static bool NormalRea;
+    public static bool UIOverRea;
 
     public AudioClip Dead;
     public AudioClip Unlocked;
@@ -21,6 +22,7 @@ public class SoundManager : MonoBehaviour {
     public AudioClip SlimeSplit;
     public AudioClip Detected;
     public AudioClip BGM;
+    public AudioClip UIOver;
 
 
     // Use this for initialization
@@ -62,6 +64,11 @@ public class SoundManager : MonoBehaviour {
         {
             ButtonRea = false;
             monk.PlayOneShot(Button);
+        }
+        if (UIOverRea)
+        {
+            UIOverRea = false;
+            monk.PlayOneShot(UIOver);
         }
         if(LeverRea)
         {

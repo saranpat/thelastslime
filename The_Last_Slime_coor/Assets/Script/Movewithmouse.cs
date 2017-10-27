@@ -190,6 +190,7 @@ public class Movewithmouse : MonoBehaviour {
     public void IsOverUI()
     {
         OnUI = true;
+        SoundManager.UIOverRea = true;
     }
 
     public void OutOfUI()

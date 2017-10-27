@@ -135,8 +135,9 @@ MonoBehaviour:
   Dead: {fileID: 8300000, guid: 89901df45d4977e45802e87c698a3eeb, type: 3}
   Unlocked: {fileID: 8300000, guid: 8e356737387caec4ab6955a0b55d5040, type: 3}
   FireBall: {fileID: 8300000, guid: e0f1e85aa2ad6df4395b330f1b323c13, type: 3}
-  Button: {fileID: 0}
+  Button: {fileID: 8300000, guid: 5eee6b2cedd782340942da02b148571d, type: 3}
   Lever: {fileID: 8300000, guid: 1a8d89cff27f3e24b975ca1854ea7d56, type: 3}
   SlimeSplit: {fileID: 8300000, guid: 8b0a7ca0b284f524187257c728f157ed, type: 3}
   Detected: {fileID: 8300000, guid: 788b677260755294ca99f771b8deadb3, type: 3}
   BGM: {fileID: 8300000, guid: 7bfde91f2c8ba3940acbe1bbe7f127bc, type: 3}
+  UIOver: {fileID: 8300000, guid: 3ac725125425f1c419804dc614ea71ea, type: 3}
