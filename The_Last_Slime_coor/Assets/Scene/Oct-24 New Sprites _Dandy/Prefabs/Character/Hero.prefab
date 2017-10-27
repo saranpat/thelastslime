@@ -162,15 +162,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 288df7e2e4dd8eb48bba8b8f25026a0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPin:
-  - {fileID: 0}
-  speed: 1.5
+  targetPin: []
+  speed: 1.7
   dist: 10
   visionAngle: 30
   isLoop: 1
-  JeeTest: 1
   isDetect: 0
-  Time_for_Chase: 7
+  Time_for_Chase: 15
+  Hero_AI: 1
+  rotating: 0
 --- !u!114 &114578638731456704
 MonoBehaviour:
   m_ObjectHideFlags: 1
