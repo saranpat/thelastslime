@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class AI_Move : MonoBehaviour
 {
-    [HideInInspector]
+    //[HideInInspector]
     public bool alertState; //เตือนจาก ward ถ้าผู้เล่นเข้าใกล้
     [HideInInspector]
     public GameObject alertState_Obj; //รับตำแหน่งของ ward มาเพื่อให้บอทเดินไปดูตรง Ward นั้นๆ
@@ -66,6 +66,16 @@ public class AI_Move : MonoBehaviour
 
         playDetectSound = false;
         playDeadSound = false;
+    }
+
+    public void Set_alertState(GameObject WardTransfrom)
+    {
+        if (alertState == false && isDetect == false)
+        {
+            alertState_Obj = WardTransfrom;
+            targetPoint = WardTransfrom.transform;
+            alertState = true;
+        }
     }
 
     void AI_Chase()
@@ -153,7 +163,7 @@ public class AI_Move : MonoBehaviour
         // check if we have somewere to walk
         if (curPathIndex < targetPin.Length && !isDetect)
         {
-            if (targetPoint == null)
+            if (targetPoint == null && !alertState)
                 targetPoint = targetPin[curPathIndex].transform;
             walk();
         }
@@ -785,52 +795,75 @@ public class AI_Move : MonoBehaviour
         transform.rotation = Quaternion.Slerp(this.transform.rotation, dummyRotation, 0.07f);
 
 
-        if (transform.position == targetPoint.position)
+        if (alertState_Obj != null && transform.position == alertState_Obj.transform.position && alertState)
         {
-
-
-            if (isLoop)
+            if (alertState_Obj.GetComponent<WardScript>().Get_isAlarm())
             {
-                curPathIndex++;
-
-                if (curPathIndex == targetPin.Length)
-                {
-                    curPathIndex = 0;
-                }
+                ifNewtargetPoint = true;
+                isDetect = true;
+                //targetPoint = player.transform;
+                alertState = false;
             }
             else
             {
-                if (plus)
+                alertState = false;
+                targetPoint = targetPin[curPathIndex].transform;
+            }
+
+        }
+        else if (transform.position == targetPoint.position)
+        {
+            if(alertState)
+            {
+                targetPoint = alertState_Obj.transform;
+            }
+            else
+            {
+                if (isLoop)
                 {
                     curPathIndex++;
 
                     if (curPathIndex == targetPin.Length)
                     {
-                        plus = false;
-                        curPathIndex = targetPin.Length - 2;
+                        curPathIndex = 0;
                     }
                 }
                 else
                 {
-                    curPathIndex--;
-
-                    if (curPathIndex == -1)
+                    if (plus)
                     {
-                        plus = true;
-                        curPathIndex = 1;
+                        curPathIndex++;
+
+                        if (curPathIndex == targetPin.Length)
+                        {
+                            plus = false;
+                            curPathIndex = targetPin.Length - 2;
+                        }
+                    }
+                    else
+                    {
+                        curPathIndex--;
+
+                        if (curPathIndex == -1)
+                        {
+                            plus = true;
+                            curPathIndex = 1;
+                        }
                     }
                 }
+
+                targetPoint = targetPin[curPathIndex].transform;
+
+                /// <BackToTheOriginal>
+                if (ifNewtargetPoint)
+                {
+                    targetPoint = Old_targetPoint;
+                    ifNewtargetPoint = false;
+                }
+                /// </BackToTheOriginal>
             }
 
-            targetPoint = targetPin[curPathIndex].transform;
-
-            /// <BackToTheOriginal>
-            if (ifNewtargetPoint)
-            {
-                targetPoint = Old_targetPoint;
-                ifNewtargetPoint = false;
-            }
-            /// </BackToTheOriginal>
+            
 
         }
     }

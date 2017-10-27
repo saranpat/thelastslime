@@ -12,6 +12,7 @@ public class WardScript : MonoBehaviour {
     private bool rotating;
 
     public GameObject[] point;
+    public LayerMask targetMask;
     public float speed = 5;
 
 	// Use this for initialization
@@ -24,7 +25,6 @@ public class WardScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        Collider2D[] targetsInViewRadius = Physics2D.OverlapCircleAll(transform.position, _FieldOfView.viewRadius, _FieldOfView.targetMask);
 
         if (_FieldOfView.visibleTargets.Count > 0)
         {
@@ -69,6 +69,14 @@ public class WardScript : MonoBehaviour {
 
             }*/
             isAlarm = true;
+
+            Collider2D[] targetsInViewRadius = Physics2D.OverlapCircleAll(transform.position, _FieldOfView.viewRadius, targetMask);
+            for (int i = 0; i < targetsInViewRadius.Length; i++)
+            {
+
+            }
+
+
         }
         else
         {
@@ -118,8 +126,6 @@ public class WardScript : MonoBehaviour {
             }
 
             float FinalSpeed = CurSpeed / 100;
-
-            Debug.Log(speed);
             transform.rotation = Quaternion.Lerp(this.transform.rotation, dummyRotation, FinalSpeed);
 
 
