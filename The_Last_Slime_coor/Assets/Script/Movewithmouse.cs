@@ -154,10 +154,12 @@ public class Movewithmouse : MonoBehaviour {
             spriteRenderer.color = camouflageAlpha;
 
             GoToNormalSize();
-
         }
 
-       
+        if (other.tag == "Door") //Win level door
+        {
+            Application.LoadLevel(1);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)

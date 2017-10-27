@@ -43,7 +43,7 @@ public class AI_Move : MonoBehaviour
 
     public bool Hero_AI;
 
-
+    private bool playDetectSound;
 
     // Use this for initialization
     void Start()
@@ -58,6 +58,8 @@ public class AI_Move : MonoBehaviour
 
         isDetect = false;
         plus = true;
+
+        playDetectSound = false;
     }
 
     void AI_Chase()
@@ -102,6 +104,11 @@ public class AI_Move : MonoBehaviour
                     isDetect = false;
                     TimeDetect = 0;
                     ifNewtargetPoint = false;
+
+                    if (playDetectSound)
+                        SoundManager.NormalRea = true;
+
+                    playDetectSound = false;
                 }
                 else
                 {
@@ -125,6 +132,11 @@ public class AI_Move : MonoBehaviour
             {
                 isDetect = false;
                 TimeDetect = 0;
+
+                if (playDetectSound)
+                    SoundManager.NormalRea = true;
+
+                playDetectSound = false;
             }
         }
     }
@@ -196,6 +208,11 @@ public class AI_Move : MonoBehaviour
         {
             if (player != null)
             {
+                if (!playDetectSound)
+                    SoundManager.DetectedRea = true;
+
+                playDetectSound = true;
+
                 if (Vector2.Distance(transform.position, player.transform.position) > 0.7f)
                 {
                     if (StopMoveing == false)
@@ -215,6 +232,11 @@ public class AI_Move : MonoBehaviour
                         Destroy(player.gameObject, 0.1f);
                         StopMoveing = false;
                         isDetect = false;
+
+                        if (playDetectSound)
+                            SoundManager.NormalRea = true;
+
+                        playDetectSound = false;
                         TimeDetect = 0;
                         curPathIndex = 0;
                         targetPoint = targetPin[curPathIndex].transform;
@@ -228,6 +250,11 @@ public class AI_Move : MonoBehaviour
                 TimeDetect = 0;
                 curPathIndex = 0;
                 targetPoint = targetPin[curPathIndex].transform;
+
+                if (playDetectSound)
+                    SoundManager.NormalRea = true;
+
+                playDetectSound = false;
             }
 
 
