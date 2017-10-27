@@ -5,7 +5,12 @@ using UnityEngine;
 public class LeverScript : MonoBehaviour {
 
     public GameObject[] Trap;
+
     public bool switchOff;
+
+    public Sprite fireOn;
+    public Sprite fireOff;
+
 	private SpriteRenderer mysprite;
 	// Use this for initialization
 	void Start () {
@@ -15,15 +20,36 @@ public class LeverScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (switchOff)
+		
+	}
+
+    public void PullLever()
+    {
+        if (switchOff)
         {
             if (Trap != null)
             {
                 for (int i = 0; i < Trap.Length; i++)
                 {
-                    Trap[i].SetActive(false);
+                    if (Trap[i].tag == "Fire" || Trap[i].tag == "Untagged")
+                    {
+                        if (Trap[i].GetComponent<SpriteRenderer>().sprite == fireOn)
+                        {
+                            Trap[i].GetComponent<SpriteRenderer>().sprite = fireOff;
+                            Trap[i].tag = "Untagged";
+                        }
+                        else
+                        {
+                            Trap[i].GetComponent<SpriteRenderer>().sprite = fireOn;
+                            Trap[i].tag = "Fire";
+                        }
+                    }
+                    else
+                    {
+                        Trap[i].GetComponent<DoorScript>().isOpen = !Trap[i].GetComponent<DoorScript>().isOpen;
+                    }
                 }
-				mysprite.flipX = true;
+                mysprite.flipX = true;
             }
         }
         else
@@ -32,10 +58,24 @@ public class LeverScript : MonoBehaviour {
             {
                 for (int i = 0; i < Trap.Length; i++)
                 {
-                    Trap[i].SetActive(true);
+                    if (Trap[i].tag == "Fire" || Trap[i].tag == "Untagged")
+                    {
+                        if (Trap[i].GetComponent<SpriteRenderer>().sprite == fireOn)
+                        {
+                            Trap[i].GetComponent<SpriteRenderer>().sprite = fireOff;
+                            Trap[i].tag = "Untagged";
+                        }
+                        else
+                        {
+                            Trap[i].GetComponent<SpriteRenderer>().sprite = fireOn;
+                            Trap[i].tag = "Fire";
+                        }
+                    }
+                    else
+                        Trap[i].GetComponent<DoorScript>().isOpen = !Trap[i].GetComponent<DoorScript>().isOpen;
                 }
                 mysprite.flipX = false;
             }
         }
-	}
+    }
 }

@@ -50,11 +50,13 @@ public class SmallColliderScript : MonoBehaviour
         if (!lever.gameObject.GetComponent<LeverScript>().switchOff)
         {
             lever.gameObject.GetComponent<LeverScript>().switchOff = true;
+            lever.gameObject.GetComponent<LeverScript>().PullLever();
             SoundManager.LeverRea = true;
         }
         else
         {
             lever.gameObject.GetComponent<LeverScript>().switchOff = false;
+            lever.gameObject.GetComponent<LeverScript>().PullLever();
             SoundManager.LeverRea = true;
         }
     }
