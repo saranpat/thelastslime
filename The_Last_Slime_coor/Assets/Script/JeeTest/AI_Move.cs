@@ -228,6 +228,7 @@ public class AI_Move : MonoBehaviour
             if (isDetect)
             {
                 if (player != null)
+                {
                     if (Vector2.Distance(transform.position, player.transform.position) > 0.7f)
                     {
                         if (StopMoveing == false)
@@ -252,6 +253,16 @@ public class AI_Move : MonoBehaviour
                             targetPoint = targetPin[curPathIndex].transform;
                         }
                     }
+                }
+                else
+                {
+                    StopMoveing = false;
+                    isDetect = false;
+                    TimeDetect = 0;
+                    curPathIndex = 0;
+                    targetPoint = targetPin[curPathIndex].transform;
+                }
+
 
             }
         }
