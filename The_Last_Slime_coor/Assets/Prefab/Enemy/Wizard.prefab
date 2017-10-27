@@ -24,13 +24,14 @@ GameObject:
   - component: {fileID: 50635470666543914}
   - component: {fileID: 114395554793234018}
   - component: {fileID: 114368508630434548}
-  m_Layer: 13
+  - component: {fileID: 114106553247864252}
+  m_Layer: 2
   m_Name: Wizard
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1590121436626442
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,7 +151,30 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.8
+  m_Radius: 0.6
+--- !u!114 &114106553247864252
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1016806751168590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 288df7e2e4dd8eb48bba8b8f25026a0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alertState: 0
+  alertState_Obj: {fileID: 0}
+  targetPin:
+  - {fileID: 0}
+  - {fileID: 0}
+  speed: 1
+  visionAngle: 30
+  isLoop: 1
+  isDetect: 0
+  Time_for_Chase: 7
+  Hero_AI: 0
+  rotating: 0
 --- !u!114 &114368508630434548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -176,13 +200,14 @@ MonoBehaviour:
   _Material:
   - {fileID: 2100000, guid: 0c30afe534b52b74ea6dad1fb9aaa173, type: 2}
   - {fileID: 2100000, guid: d6c0891bdcb973546a2026292ff66fc4, type: 2}
+  - {fileID: 2100000, guid: 950b4ff2df7681f40a561963368af870, type: 2}
 --- !u!114 &114395554793234018
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1016806751168590}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0aab0a4a5ae93394daeb0548583339cc, type: 3}
   m_Name: 

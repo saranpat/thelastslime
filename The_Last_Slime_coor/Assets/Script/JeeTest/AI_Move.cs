@@ -12,7 +12,7 @@ public class AI_Move : MonoBehaviour
 
     public GameObject[] targetPin;
     public float speed;
-    public float dist; // distance the enemy can "see" in front of him
+    private float dist; // distance the enemy can "see" in front of him
     public float visionAngle;
     public bool isLoop;
 
@@ -56,12 +56,16 @@ public class AI_Move : MonoBehaviour
         if (this.gameObject.GetComponent<FieldOfView>() != null)
             _FieldOfView = this.gameObject.GetComponent<FieldOfView>();
 
+
+        dist = _FieldOfView.viewRadius;
+
         //player = GameObject.FindGameObjectWithTag("Player");
 
         _AI_GetNode = GameObject.FindGameObjectWithTag("Node").GetComponent<AI_GetNode>();
         curPathIndex = 0;
 
         isDetect = false;
+        alertState = false;
         plus = true;
 
         playDetectSound = false;
@@ -77,7 +81,10 @@ public class AI_Move : MonoBehaviour
             alertState = true;
         }
     }
-
+    public bool Get_alertState()
+    {
+       return alertState;
+    }
     void AI_Chase()
     {
         // rotate towards the target
@@ -118,6 +125,7 @@ public class AI_Move : MonoBehaviour
                     targetPoint = targetPin[curPathIndex].transform;
                     DummyTime = 0;
                     isDetect = false;
+                    alertState = false;
                     TimeDetect = 0;
                     ifNewtargetPoint = false;
 
@@ -147,6 +155,7 @@ public class AI_Move : MonoBehaviour
             else
             {
                 isDetect = false;
+                alertState = false;
                 TimeDetect = 0;
 
                 if (playDetectSound)
@@ -248,6 +257,7 @@ public class AI_Move : MonoBehaviour
                         Destroy(player.gameObject, 0.1f);
                         StopMoveing = false;
                         isDetect = false;
+                        alertState = false;
 
                         if (playDetectSound)
                             SoundManager.NormalRea = true;
@@ -263,6 +273,7 @@ public class AI_Move : MonoBehaviour
             {
                 StopMoveing = false;
                 isDetect = false;
+                alertState = false;
                 TimeDetect = 0;
                 curPathIndex = 0;
                 targetPoint = targetPin[curPathIndex].transform;
@@ -296,8 +307,6 @@ public class AI_Move : MonoBehaviour
 
         Vector2 offsetR = Quaternion.AngleAxis(30, transform.forward) * dir;
         Vector2 offsetL = Quaternion.AngleAxis(-30, transform.forward) * dir;
-
-
         RaycastHit2D hit = Physics2D.Raycast(transform.position, targetPoint.position - transform.position, LengthForRay); //ชนกำแพงมากว่ากี่วิ
         RaycastHit2D hit2 = Physics2D.Raycast(transform.position, offsetR, LengthForRay);
         RaycastHit2D hit3 = Physics2D.Raycast(transform.position, offsetL, LengthForRay);
@@ -533,8 +542,11 @@ public class AI_Move : MonoBehaviour
     }
     void BackToTheOriginal_AIGoToPlayer()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, targetPoint.position - transform.position, 1f); //ชนกำแพงมากว่ากี่วิ
-
+        Vector2 offsetR = Quaternion.AngleAxis(30, transform.forward) * dir;
+        Vector2 offsetL = Quaternion.AngleAxis(-30, transform.forward) * dir;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, targetPoint.position - transform.position, 0.5f); //ชนกำแพงมากว่ากี่วิ
+        RaycastHit2D hit2 = Physics2D.Raycast(transform.position, offsetR, 0.35f);
+        RaycastHit2D hit3 = Physics2D.Raycast(transform.position, offsetL, 0.35f);
         if (targetPoint.position == player.transform.position)
         {
             Debug.DrawRay(transform.position, targetPoint.position - transform.position, Color.red);
@@ -578,7 +590,74 @@ public class AI_Move : MonoBehaviour
                 }
             }
         }
-
+        if (hit2.collider != null) //&& ifNewtargetPoint == false
+        {
+            if (Hero_AI)
+            {
+                if (hit2.collider.tag == "Wall" || hit2.collider.tag == "Water")
+                {
+                    DummyTime += Time.deltaTime;
+                }
+            }
+            else
+            {
+                if (hit2.collider.tag == "Wall" || hit2.collider.tag == "Fire" || hit2.collider.tag == "Water")
+                {
+                    DummyTime += Time.deltaTime;
+                }
+            }
+        }
+        else if (hit2.collider != null && targetPoint.position == player.transform.position)
+        {
+            if (Hero_AI)
+            {
+                if (hit2.collider.tag == "Wall" || hit2.collider.tag == "Water")
+                {
+                    DummyTime += Time.deltaTime;
+                }
+            }
+            else
+            {
+                if (hit2.collider.tag == "Wall" || hit2.collider.tag == "Fire" || hit2.collider.tag == "Water")
+                {
+                    DummyTime += Time.deltaTime;
+                }
+            }
+        }
+        if (hit3.collider != null) //&& ifNewtargetPoint == false
+        {
+            if (Hero_AI)
+            {
+                if (hit3.collider.tag == "Wall" || hit3.collider.tag == "Water")
+                {
+                    DummyTime += Time.deltaTime;
+                }
+            }
+            else
+            {
+                if (hit3.collider.tag == "Wall" || hit3.collider.tag == "Fire" || hit3.collider.tag == "Water")
+                {
+                    DummyTime += Time.deltaTime;
+                }
+            }
+        }
+        else if (hit3.collider != null && targetPoint.position == player.transform.position)
+        {
+            if (Hero_AI)
+            {
+                if (hit3.collider.tag == "Wall" || hit3.collider.tag == "Water")
+                {
+                    DummyTime += Time.deltaTime;
+                }
+            }
+            else
+            {
+                if (hit3.collider.tag == "Wall" || hit3.collider.tag == "Fire" || hit3.collider.tag == "Water")
+                {
+                    DummyTime += Time.deltaTime;
+                }
+            }
+        }
         Old_targetPoint = targetPoint;
 
         if (DummyTime > 0.1f)
@@ -755,6 +834,7 @@ public class AI_Move : MonoBehaviour
                     targetPoint = targetPin[curPathIndex].transform;
                     DummyTime = 0;
                     isDetect = false;
+                    alertState = false;
                     TimeDetect = 0;
                 }
 
@@ -794,18 +874,33 @@ public class AI_Move : MonoBehaviour
 
         transform.rotation = Quaternion.Slerp(this.transform.rotation, dummyRotation, 0.07f);
 
+        float AI_Dis_Ward = 0;
+        if (alertState_Obj != null && alertState)
+        {
+            AI_Dis_Ward = Vector2.Distance(alertState_Obj.transform.position, this.transform.position);
+        }
 
-        if (alertState_Obj != null && transform.position == alertState_Obj.transform.position && alertState)
+
+        if (alertState_Obj != null && AI_Dis_Ward <= 1.0f && alertState)
         {
             if (alertState_Obj.GetComponent<WardScript>().Get_isAlarm())
             {
-                ifNewtargetPoint = true;
+                //ifNewtargetPoint = true;
+                if (player != null)
+                {
+                    targetPoint = player.transform;
+                }
+                else
+                {
+                    targetPoint = alertState_Obj.GetComponent<WardScript>().Get_GameObject().transform;
+                }
+                alertState = false;  
                 isDetect = true;
-                //targetPoint = player.transform;
-                alertState = false;
+
             }
             else
             {
+                Debug.Log("false");
                 alertState = false;
                 targetPoint = targetPin[curPathIndex].transform;
             }
@@ -941,6 +1036,7 @@ public class AI_Move : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         StopMoveing = false;
         isDetect = false;
+        alertState = false;
         TimeDetect = 0;
         curPathIndex = 0;
         targetPoint = targetPin[curPathIndex].transform;
