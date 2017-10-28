@@ -7,12 +7,16 @@ using UnityEngine.SceneManagement;
 public class Scenecontroller : MonoBehaviour {
 
 	public Button startbutton;
+	public Button startbutton2;
 	public Image black;
 	public Animator anim;
 	// Use this for initialization
 	void Start () {
 		startbutton.onClick.AddListener (delegate {
-			StartCoroutine(Fading());
+			StartCoroutine(FadingA());
+		});
+		startbutton2.onClick.AddListener (delegate {
+			StartCoroutine(FadingB());
 		});
 	}
 	
@@ -20,10 +24,16 @@ public class Scenecontroller : MonoBehaviour {
 	void Update () {
 		
 	}
-	IEnumerator Fading()
+	IEnumerator FadingA()
 	{
 		anim.SetBool ("Fade", true);
 		yield return new WaitUntil (() => black.color.a == 1);
-		SceneManager.LoadScene("Oct-24 New Sprites _Dandy");
+		SceneManager.LoadScene("alpha_stage");
+	}
+	IEnumerator FadingB()
+	{
+		anim.SetBool ("Fade", true);
+		yield return new WaitUntil (() => black.color.a == 1);
+		SceneManager.LoadScene("playable_stage");
 	}
 }

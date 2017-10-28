@@ -9,11 +9,14 @@ EditorBuildSettings:
     path: Assets/Scene/UI/Opening/Open_page.unity
     guid: 049345d9ee7d3744290afe8761006ba0
   - enabled: 1
-    path: Assets/Scene/Oct-24 New Sprites _Dandy.unity
-    guid: c18caa90d47b3c144a14602681b88397
+    path: Assets/Scene/Alpha2_forbuild/alpha_stage.unity
+    guid: 6dc53206018478f47beeb51c6e12182e
   - enabled: 1
-    path: Assets/Scene/Scene13.unity
-    guid: 4e750317f59cd474581e395245d23381
+    path: Assets/Scene/Alpha2_forbuild/playable_stage.unity
+    guid: db623a261a407e34895379582b50ef51
   - enabled: 1
     path: Assets/Scene/UI/Lose/Lose_UI.unity
     guid: 2a86b0f3152871d4ba5ce82f17ea765e
+  - enabled: 1
+    path: Assets/Scene/UI/Win/Win_UI.unity
+    guid: 9725333cbfd52104c8cc073c4f1a45df

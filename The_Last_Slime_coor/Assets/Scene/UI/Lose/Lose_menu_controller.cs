@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Lose_menu_controller : MonoBehaviour {
 
 	public Button button;
+	public Button button2;
 	public Image black;
 	private Image buttonimg;
 	//public Image slime;
@@ -15,6 +16,9 @@ public class Lose_menu_controller : MonoBehaviour {
 		StartCoroutine(buttonshow());
 		button.onClick.AddListener (delegate {
 			StartCoroutine(Fading());
+		});
+		button2.onClick.AddListener (delegate {
+			StartCoroutine(FadingB());
 		});
 	}
 
@@ -26,12 +30,19 @@ public class Lose_menu_controller : MonoBehaviour {
 	{
 		anim.SetBool ("Fade", true);
 		yield return new WaitUntil (() => black.color.a == 1);
-		SceneManager.LoadScene("Oct-24 New Sprites _Dandy");
+		SceneManager.LoadScene("alpha_stage");
+	}
+	IEnumerator FadingB()
+	{
+		anim.SetBool ("Fade", true);
+		yield return new WaitUntil (() => black.color.a == 1);
+		SceneManager.LoadScene("playable_stage");
 	}
 	IEnumerator buttonshow()
 	{
 		yield return new WaitForSeconds (1);
 		button.gameObject.SetActive(true);
+		button2.gameObject.SetActive(true);
 		StopCoroutine (buttonshow());
 	}
 }
