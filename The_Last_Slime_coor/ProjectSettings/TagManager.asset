@@ -15,6 +15,7 @@ TagManager:
   - Plate
   - LeverBtn
   - DoorOnFireOpen
+  - Exit
   layers:
   - Default
   - TransparentFX

@@ -8,6 +8,7 @@ public class Movewithmouse : MonoBehaviour {
 
     public static bool cantDetect;
 	public static bool isDead;
+	public static bool isWin;
     public static bool OnUI; //check if on any ui
 
     public bool bulkUp; //check state of slime (small or big)
@@ -43,6 +44,7 @@ public class Movewithmouse : MonoBehaviour {
 		rb2d = GetComponent<Rigidbody2D> ();
 
         isDead = false;
+		isWin = false;
         cantDetect = false;
 
         bulkUp = false;
@@ -157,8 +159,9 @@ public class Movewithmouse : MonoBehaviour {
             GoToNormalSize();
         }
 
-        if (other.tag == "Door") //Win level door
+        if (other.tag == "Exit") //Win level door
         {
+			isWin = true;
 			//use scenecontrolscript
            // Application.LoadLevel(1);
 
