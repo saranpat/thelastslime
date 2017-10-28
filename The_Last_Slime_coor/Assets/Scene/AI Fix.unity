@@ -10573,6 +10573,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 280025638}
     m_Modifications:
+    - target: {fileID: 114440566436185722, guid: f502a701d03cf944e8bbc5ae19e9e94e,
+        type: 2}
+      propertyPath: targetPin.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4680955604332458, guid: f502a701d03cf944e8bbc5ae19e9e94e, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
