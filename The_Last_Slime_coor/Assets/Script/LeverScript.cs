@@ -42,11 +42,13 @@ public class LeverScript : MonoBehaviour {
                         {
                             Trap[i].GetComponent<SpriteRenderer>().sprite = fireOff;
                             Trap[i].tag = "Untagged";
+                            Trap[i].layer = 2;
                         }
                         else
                         {
                             Trap[i].GetComponent<SpriteRenderer>().sprite = fireOn;
                             Trap[i].tag = "Fire";
+                            Trap[i].layer = 0;
                         }
                     }
                     else
@@ -74,11 +76,13 @@ public class LeverScript : MonoBehaviour {
                         {
                             Trap[i].GetComponent<SpriteRenderer>().sprite = fireOff;
                             Trap[i].tag = "Untagged";
+                            Trap[i].layer = 2;
                         }
                         else
                         {
                             Trap[i].GetComponent<SpriteRenderer>().sprite = fireOn;
                             Trap[i].tag = "Fire";
+                            Trap[i].layer = 0;
                         }
                     }
                     else

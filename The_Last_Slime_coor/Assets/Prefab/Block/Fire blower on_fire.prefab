@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212558399571187274}
   - component: {fileID: 61461987748321568}
   - component: {fileID: 50636590843831638}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Fire blower on_fire
   m_TagString: Fire
   m_Icon: {fileID: 0}

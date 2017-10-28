@@ -555,8 +555,8 @@ public class AI_Move : MonoBehaviour
         Vector2 offsetR = Quaternion.AngleAxis(30, transform.forward) * dir;
         Vector2 offsetL = Quaternion.AngleAxis(-30, transform.forward) * dir;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, targetPoint.position - transform.position, 0.5f); //ชนกำแพงมากว่ากี่วิ
-        RaycastHit2D hit2 = Physics2D.Raycast(transform.position, offsetR, 0.35f);
-        RaycastHit2D hit3 = Physics2D.Raycast(transform.position, offsetL, 0.35f);
+        RaycastHit2D hit2 = Physics2D.Raycast(transform.position, offsetR, 0.5f);
+        RaycastHit2D hit3 = Physics2D.Raycast(transform.position, offsetL, 0.5f);
         if (targetPoint.position == player.transform.position)
         {
             Debug.DrawRay(transform.position, targetPoint.position - transform.position, Color.red);
