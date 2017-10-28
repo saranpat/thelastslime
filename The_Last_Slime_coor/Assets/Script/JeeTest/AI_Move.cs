@@ -109,7 +109,7 @@ public class AI_Move : MonoBehaviour
             }
             else
             {
-                //DummyTime += Time.deltaTime;
+                DummyTime += Time.deltaTime;
             }
         }
         else

@@ -4263,7 +4263,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1030909535}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.5, y: -0.567, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 941226107}
@@ -5539,7 +5539,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1345666935}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0.775, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 941226107}
@@ -6734,7 +6734,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1573307269}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.48, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 941226107}
@@ -7302,7 +7302,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1676895122}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.51, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 941226107}
@@ -7794,6 +7794,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 280025638}
     m_Modifications:
+    - target: {fileID: 114440566436185722, guid: f502a701d03cf944e8bbc5ae19e9e94e,
+        type: 2}
+      propertyPath: targetPin.Array.size
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4680955604332458, guid: f502a701d03cf944e8bbc5ae19e9e94e, type: 2}
       propertyPath: m_LocalPosition.x
       value: 4
@@ -7861,6 +7866,16 @@ Prefab:
       propertyPath: speed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114440566436185722, guid: f502a701d03cf944e8bbc5ae19e9e94e,
+        type: 2}
+      propertyPath: targetPin.Array.data[6]
+      value: 
+      objectReference: {fileID: 2003165507}
+    - target: {fileID: 114440566436185722, guid: f502a701d03cf944e8bbc5ae19e9e94e,
+        type: 2}
+      propertyPath: targetPin.Array.data[7]
+      value: 
+      objectReference: {fileID: 343177896}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f502a701d03cf944e8bbc5ae19e9e94e, type: 2}
   m_IsPrefabParent: 0

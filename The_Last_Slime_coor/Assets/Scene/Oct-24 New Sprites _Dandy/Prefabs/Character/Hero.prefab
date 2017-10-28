@@ -68,7 +68,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1008466233364986}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -8, z: 0}
+  m_LocalPosition: {x: 4, y: -2, z: 0}
   m_LocalScale: {x: 0.55, y: 0.55, z: 1}
   m_Children:
   - {fileID: 4428919952671450}
@@ -167,13 +167,22 @@ MonoBehaviour:
   targetPin:
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   speed: 5
-  dist: 10
   visionAngle: 30
   isLoop: 0
   isDetect: 0
   Time_for_Chase: 10
   Hero_AI: 1
+  Wizard_AI: 0
+  firePrefab: {fileID: 0}
+  fireSpeed: 0
+  fireRange: 0
   rotating: 0
 --- !u!114 &114578638731456704
 MonoBehaviour:
