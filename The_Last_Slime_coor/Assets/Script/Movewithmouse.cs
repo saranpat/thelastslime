@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Movewithmouse : MonoBehaviour {
 	public float speed = 1.5f;
@@ -67,6 +68,14 @@ public class Movewithmouse : MonoBehaviour {
 
     private void FixedUpdate()
     {
+        if (Input.GetMouseButton(0))
+        {
+            if (EventSystem.current.IsPointerOverGameObject())
+                OnUI = true;
+            else
+                OnUI = false;
+        }
+
         if (Input.GetMouseButton(0) && !isDead && isControl && !OnUI)
         {
             target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -191,17 +200,6 @@ public class Movewithmouse : MonoBehaviour {
             if (_Animator != null)
                 _Animator.SetBool(Ani_IsCamouflage, true);
         }
-    }
-
-    public void IsOverUI()
-    {
-        OnUI = true;
-        SoundManager.UIOverRea = true;
-    }
-
-    public void OutOfUI()
-    {
-        OnUI = false;
     }
 
     IEnumerator Respawn()
