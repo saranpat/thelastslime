@@ -42,6 +42,8 @@ public class AI_Move : MonoBehaviour
     /// </BackToTheOriginal>
 
     private float TimeDetect;
+    private float TimeAlertState;
+
     public float Time_for_Chase = 15;
 
 
@@ -81,6 +83,7 @@ public class AI_Move : MonoBehaviour
     {
         if (alertState == false && isDetect == false)
         {
+            TimeAlertState = 0;
             alertState_Obj = WardTransfrom;
             targetPoint = WardTransfrom.transform;
             alertState = true;
@@ -883,6 +886,19 @@ public class AI_Move : MonoBehaviour
         }
 
         transform.rotation = Quaternion.Slerp(this.transform.rotation, dummyRotation, 0.07f);
+
+        if(alertState)
+        {
+            TimeAlertState += Time.deltaTime;
+            if (TimeAlertState > 10)
+            {
+                TimeAlertState = 0;
+                alertState = false;
+                targetPoint = targetPin[curPathIndex].transform;
+            }
+        }
+
+
 
         float AI_Dis_Ward = 0;
         if (alertState_Obj != null && alertState)
