@@ -268,8 +268,11 @@ public class AI_Move : MonoBehaviour
                     }
                     else
                     {
-                        Destroy(player.GetComponent<Collider2D>());
-                        Destroy(player.gameObject, 0.1f);
+                        player.GetComponent<Collider2D>().enabled = false;
+                        player.gameObject.GetComponent<Movewithmouse>().NotReal_DeadOrTimeUP();
+                        //Destroy(player.gameObject, 0.1f);
+
+
                         StopMoveing = false;
                         isDetect = false;
                         alertState = false;

@@ -33,6 +33,8 @@ public class Movewithmouse : MonoBehaviour {
     private string Ani_Move = "Move";
     private string Ani_IsCamouflage = "IsCamouflage";
     private string Ani_IsBig = "IsBig";
+    private string Ani_Dead = "Dead";
+
     private Vector2 S_Big = new Vector2(1.4f, 1.4f);
     private Vector2 S_Normal = new Vector2(1.0f, 1.0f);
     
@@ -117,10 +119,20 @@ public class Movewithmouse : MonoBehaviour {
 		}*/
 
         if (isDead && theRealOne)
+        {
+            if(!isinRespawn)
             StartCoroutine(Respawn());
+        }
 
         if (isDead && !theRealOne)
-            Destroy(this.gameObject);
+        {
+            /*if (_Animator != null)
+                _Animator.SetTrigger(Ani_Dead);*/
+
+            //Destroy(this.gameObject,1.5f);
+        }
+
+
 
         if (isLeavingWater && theRealOne)
             StartCoroutine(LeavingWater());
@@ -140,6 +152,14 @@ public class Movewithmouse : MonoBehaviour {
             //transform.localScale = new Vector2(0.4f, 0.4f);
         }
 	}
+
+    public void NotReal_DeadOrTimeUP()
+    {
+        if (_Animator != null)
+            _Animator.SetTrigger(Ani_Dead);
+        Destroy(this.gameObject, 0.5f);
+    }
+
 
     void OnTriggerEnter2D (Collider2D other)
     {
@@ -202,12 +222,18 @@ public class Movewithmouse : MonoBehaviour {
         }
     }
 
+    bool isinRespawn;
+
     IEnumerator Respawn()
     {
+        isinRespawn = true;
+        if (_Animator != null)
+            _Animator.SetTrigger(Ani_Dead);
         yield return new WaitForSeconds(5f);
 
         transform.position = startPos;
         isDead = false;
+        isinRespawn = false;
 		//use here to execute lose scene
 
       //  Application.LoadLevel("Lose_UI");

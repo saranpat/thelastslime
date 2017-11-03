@@ -40,10 +40,13 @@ public class SplitBlockScript : MonoBehaviour
 
     IEnumerator offCollider2D(Collider2D dummy)
     {
-        yield return new WaitForSeconds(9.9f);
+        yield return new WaitForSeconds(10.0f);
         if (dummy != null)
-        dummy.enabled = false;
-        yield return new WaitForSeconds(0.1f);
+        {
+            dummy.enabled = false;
+            dummy.gameObject.GetComponent<Movewithmouse>().NotReal_DeadOrTimeUP(); //play Ani Dead
+        }
+        yield return new WaitForSeconds(0.5f);
         if (dummy != null)
         Destroy(dummy.gameObject);
     }
