@@ -19,9 +19,7 @@ public class CheckSoundScript : MonoBehaviour {
     private float waterTiming;
     private float fireTiming;
     private float camouTiming;
-    private float waterDelay;
-    private float fireDelay;
-    private float camouDelay;
+    private float delay;
     private float range;
 
     // Use this for initialization
@@ -41,10 +39,7 @@ public class CheckSoundScript : MonoBehaviour {
             AuS[i].Stop();
         }
 
-        waterDelay = AuS[0].clip.length;
-        fireDelay = AuS[1].clip.length;
-        camouDelay = AuS[2].clip.length;
-
+        delay = 2.0f;
         range = 4.0f;
     }
 	
@@ -87,7 +82,7 @@ public class CheckSoundScript : MonoBehaviour {
             if (waterTiming < Time.time)
             {
                 waterSndPlay = true;
-                waterTiming = Time.time + waterDelay;
+                waterTiming = Time.time + delay;
             }
         }
         else
@@ -100,7 +95,7 @@ public class CheckSoundScript : MonoBehaviour {
             if (fireTiming < Time.time)
             {
                 fireSndPlay = true;
-                fireTiming = Time.time + fireDelay;
+                fireTiming = Time.time + delay;
             }
         }
         else
@@ -113,7 +108,7 @@ public class CheckSoundScript : MonoBehaviour {
             if (camouTiming < Time.time)
             {
                 camouSndPlay = true;
-                camouTiming = Time.time + camouDelay;
+                camouTiming = Time.time + delay;
             }
         }
         else
