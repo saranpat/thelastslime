@@ -22,7 +22,8 @@ public class AI_Move : MonoBehaviour
     private float angle;
     private bool plus;
 
-    FieldOfView _FieldOfView;
+    private FieldOfView _FieldOfView;
+    private Animator _Animator;
 
     [HideInInspector]
     public bool isDetect;
@@ -62,7 +63,8 @@ public class AI_Move : MonoBehaviour
     {
         if (this.gameObject.GetComponent<FieldOfView>() != null)
             _FieldOfView = this.gameObject.GetComponent<FieldOfView>();
-
+        if (this.gameObject.GetComponentInChildren<Animator>() != null)
+            _Animator = this.GetComponentInChildren<Animator>();
 
         dist = _FieldOfView.viewRadius;
 
@@ -296,8 +298,22 @@ public class AI_Move : MonoBehaviour
 
                 playDetectSound = false;
             }
+        }
 
+        AI_PlayAnimation();
+    }
 
+    void AI_PlayAnimation()
+    {
+        if (isDetect)
+        {
+            if (_Animator != null)
+            _Animator.speed = 2f;
+        }
+        else
+        {
+            if (_Animator != null)
+            _Animator.speed = 1;
         }
     }
 
@@ -1079,6 +1095,61 @@ public class AI_Move : MonoBehaviour
         Destroy(bullet, 2.0f);
         yield return new WaitForSeconds(4.0f);
         isRecharge = false;
+    }
+    public GameObject Get_PlayerTran()
+    {
+        return player;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision) //เอาไว้ไม่ให้บอทชนกันเอง
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            if(isDetect)
+            {
+                DummyTime = 50;
+            }
+            else
+            {
+                if (isLoop)
+                {
+                    curPathIndex++;
+
+                    if (curPathIndex == targetPin.Length)
+                    {
+                        curPathIndex = 0;
+                    }
+                }
+                else
+                {
+                    if (plus)
+                    {
+                        curPathIndex++;
+
+                        if (curPathIndex == targetPin.Length)
+                        {
+                            plus = false;
+                            curPathIndex = targetPin.Length - 2;
+                        }
+                    }
+                    else
+                    {
+                        curPathIndex--;
+
+                        if (curPathIndex == -1)
+                        {
+                            plus = true;
+                            curPathIndex = 1;
+                        }
+                    }
+                }
+
+                targetPoint = targetPin[curPathIndex].transform;
+            }
+
+
+
+        }
     }
 
 }
