@@ -69,7 +69,6 @@ public class CheckSoundScript : MonoBehaviour {
         CheckPlaying();
         PlayAudio();
 
-        fireBlk = new GameObject[0];
         closestFireBlk = null;
     }
 
