@@ -226,6 +226,8 @@ public class Movewithmouse : MonoBehaviour {
 
     IEnumerator Respawn()
     {
+        this.gameObject.GetComponent<Collider2D>().enabled = false;
+
         isinRespawn = true;
         if (_Animator != null)
             _Animator.SetTrigger(Ani_Dead);
