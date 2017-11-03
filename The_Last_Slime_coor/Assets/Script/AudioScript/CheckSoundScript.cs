@@ -39,7 +39,7 @@ public class CheckSoundScript : MonoBehaviour {
             AuS[i].Stop();
         }
 
-        delay = 2.0f;
+        delay = 1.0f;
         range = 4.0f;
     }
 	
@@ -81,7 +81,8 @@ public class CheckSoundScript : MonoBehaviour {
         {
             if (waterTiming < Time.time)
             {
-                waterSndPlay = true;
+                if (!AuS[0].isPlaying)
+                    waterSndPlay = true;
                 waterTiming = Time.time + delay;
             }
         }
@@ -94,7 +95,8 @@ public class CheckSoundScript : MonoBehaviour {
         {
             if (fireTiming < Time.time)
             {
-                fireSndPlay = true;
+                if (!AuS[1].isPlaying)
+                    fireSndPlay = true;
                 fireTiming = Time.time + delay;
             }
         }
@@ -107,7 +109,8 @@ public class CheckSoundScript : MonoBehaviour {
         {
             if (camouTiming < Time.time)
             {
-                camouSndPlay = true;
+                if (!AuS[2].isPlaying)
+                    camouSndPlay = true;
                 camouTiming = Time.time + delay;
             }
         }
