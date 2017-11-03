@@ -50,6 +50,7 @@ public class AI_Move : MonoBehaviour
 
     public bool Hero_AI;
     public bool Wizard_AI;
+    public bool Guard_AI;
     public GameObject firePrefab; // magic shot prefab
     public float fireSpeed; //magic shot speed
     public float fireRange; // shooting distance

@@ -153,9 +153,6 @@ public class WardScript : MonoBehaviour {
         {
             _SpriteRenderer.sprite = _Sprite[1];
         }
-
-        Debug.Log(this.transform.localRotation.z);
-
 	}
     public GameObject Get_GameObject()
     {
