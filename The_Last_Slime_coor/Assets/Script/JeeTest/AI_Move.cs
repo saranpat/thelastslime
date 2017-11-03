@@ -1092,8 +1092,8 @@ public class AI_Move : MonoBehaviour
         Vector2 dirforbullet = targetPoint.position - transform.position;
         //bullet.GetComponent<Rigidbody2D>().velocity = dirforbullet * fireSpeed;
         bullet.gameObject.SendMessage("Set_Speed", fireSpeed*1.5f);
-        Destroy(bullet, 2.0f);
-        yield return new WaitForSeconds(4.0f);
+        Destroy(bullet, 2.5f);
+        yield return new WaitForSeconds(2.5f);
         isRecharge = false;
     }
     public GameObject Get_PlayerTran()
@@ -1107,7 +1107,9 @@ public class AI_Move : MonoBehaviour
         {
             if(isDetect)
             {
+                ifNewtargetPoint = false;
                 DummyTime = 50;
+                
             }
             else
             {
