@@ -6,24 +6,28 @@ public class CheckSoundScript : MonoBehaviour {
     public Camera MainCam;
 
     private AudioSource[] AuS;
+
     private GameObject[] waterBlk;
     private GameObject[] fireBlk;
     private GameObject[] enemy;
 
     private GameObject closestWaterBlk;
-    private GameObject closestFireBlk;
+    [HideInInspector] public GameObject closestFireBlk;
     private GameObject closestGuard;
+    private GameObject closestHero_orWizard;
     private GameObject target;
 
     private bool waterSndPlay;
     private bool fireSndPlay;
     private bool camouSndPlay;
     private bool guardSndPlay;
+    private bool bootSndPlay;
 
     private float waterTiming;
     private float fireTiming;
     private float camouTiming;
     private float guardTiming;
+    private float bootTiming;
     private float delay;
     private float range;
 
@@ -35,11 +39,13 @@ public class CheckSoundScript : MonoBehaviour {
         fireSndPlay = false;
         camouSndPlay = false;
         guardSndPlay = false;
+        bootSndPlay = false;
 
         waterTiming = Time.time;
         fireTiming = Time.time;
         camouTiming = Time.time;
         guardTiming = Time.time;
+        bootTiming = Time.time;
 
         for (int i = 0; i < AuS.Length; i++)
         {
@@ -57,11 +63,14 @@ public class CheckSoundScript : MonoBehaviour {
 
         waterBlk = GameObject.FindGameObjectsWithTag("Water");
         fireBlk = GameObject.FindGameObjectsWithTag("Fire");
-        enemy = GameObject.FindGameObjectsWithTag("Enemy");
+        enemy = GameObject.FindGameObjectsWithTag("Enemy"); 
 
         CheckClosest();
         CheckPlaying();
         PlayAudio();
+
+        fireBlk = new GameObject[0];
+        closestFireBlk = null;
     }
 
     void CheckClosest()
@@ -105,66 +114,105 @@ public class CheckSoundScript : MonoBehaviour {
                             Vector2.Distance(transform.position, closestGuard.transform.position))
                         closestGuard = enemy[i];
                 }
+                else if (enemy[i].gameObject.GetComponent<AI_Move>().Wizard_AI || 
+                            enemy[i].gameObject.GetComponent<AI_Move>().Hero_AI)
+                {
+                    if (closestHero_orWizard == null)
+                        closestHero_orWizard = enemy[i];
+
+                    if (Vector2.Distance(transform.position, enemy[i].transform.position) <
+                            Vector2.Distance(transform.position, closestHero_orWizard.transform.position))
+                        closestHero_orWizard = enemy[i];
+                }
             }
         }
     }
 
     void CheckPlaying()
     {
-        if (Vector2.Distance(transform.position, closestWaterBlk.transform.position) <= range)
+        if (closestWaterBlk != null)
         {
-            if (waterTiming < Time.time)
+            if (Vector2.Distance(transform.position, closestWaterBlk.transform.position) <= range)
             {
-                if (!AuS[0].isPlaying)
-                    waterSndPlay = true;
-                waterTiming = Time.time + delay;
+                if (waterTiming < Time.time)
+                {
+                    if (!AuS[0].isPlaying)
+                        waterSndPlay = true;
+                    waterTiming = Time.time + delay;
+                }
             }
-        }
-        else
-        {
-            AuS[0].Stop();
+            else
+            {
+                AuS[0].Stop();
+            }
         }
 
-        if (Vector2.Distance(transform.position, closestFireBlk.transform.position) <= range)
+        if (closestFireBlk != null)
         {
-            if (fireTiming < Time.time)
+            if (Vector2.Distance(transform.position, closestFireBlk.transform.position) <= range)
             {
-                if (!AuS[1].isPlaying)
-                    fireSndPlay = true;
-                fireTiming = Time.time + delay;
+                if (fireTiming < Time.time)
+                {
+                    if (!AuS[1].isPlaying)
+                        fireSndPlay = true;
+                    fireTiming = Time.time + delay;
+                }
             }
-        }
-        else
-        {
-            AuS[1].Stop();
+            else
+            {
+                AuS[1].Stop();
+            }
         }
 
-        if (Vector2.Distance(transform.position, closestWaterBlk.transform.position) <= 0.75f)
+        if (closestWaterBlk != null)
         {
-            if (camouTiming < Time.time)
+            if (Vector2.Distance(transform.position, closestWaterBlk.transform.position) <= 0.75f)
             {
-                if (!AuS[2].isPlaying)
-                    camouSndPlay = true;
-                camouTiming = Time.time + delay;
+                if (camouTiming < Time.time)
+                {
+                    if (!AuS[2].isPlaying)
+                        camouSndPlay = true;
+                    camouTiming = Time.time + delay;
+                }
             }
-        }
-        else
-        {
-            AuS[2].Stop();
+            else
+            {
+                AuS[2].Stop();
+            }
         }
 
-        if (Vector2.Distance(transform.position, closestGuard.transform.position) <= range + 1.0f)
+        if (closestGuard != null)
         {
-            if (guardTiming < Time.time)
+            if (Vector2.Distance(transform.position, closestGuard.transform.position) <= range + 1.0f)
             {
-                if (!AuS[3].isPlaying)
-                    guardSndPlay = true;
-                guardTiming = Time.time + delay;
+                if (guardTiming < Time.time)
+                {
+                    if (!AuS[3].isPlaying)
+                        guardSndPlay = true;
+                    guardTiming = Time.time + delay;
+                }
+            }
+            else
+            {
+                AuS[3].Stop();
             }
         }
-        else
+
+        if (closestHero_orWizard != null)
         {
-            AuS[3].Stop();
+            if (Vector2.Distance(transform.position, closestHero_orWizard.transform.position) <= range + 1.0f)
+            {
+                if (bootTiming < Time.time)
+                {
+                    if (!AuS[4].isPlaying)
+                        bootSndPlay = true;
+                    bootTiming = Time.time + delay;
+                }
+            }
+            else
+            {
+                AuS[4].Stop();
+            }
         }
     }
 
@@ -192,6 +240,12 @@ public class CheckSoundScript : MonoBehaviour {
         {
             AuS[3].Play();
             guardSndPlay = false;
+        }
+
+        if (bootSndPlay)
+        {
+            AuS[4].Play();
+            bootSndPlay = false;
         }
     }
 }
