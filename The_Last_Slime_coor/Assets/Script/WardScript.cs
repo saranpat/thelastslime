@@ -11,6 +11,8 @@ public class WardScript : MonoBehaviour {
     private int curPathIndex = 0;
     private bool rotating;
 
+    public SpriteRenderer _SpriteRenderer;
+    public Sprite[] _Sprite;
     public GameObject[] point;
     public LayerMask targetMask;
     public float speed = 5;
@@ -137,11 +139,22 @@ public class WardScript : MonoBehaviour {
 
             float FinalSpeed = CurSpeed / 100;
             transform.rotation = Quaternion.Lerp(this.transform.rotation, dummyRotation, FinalSpeed);
-
-
-
         }
 
+        if (this.transform.localRotation.z < 0.35f && this.transform.localRotation.z > -0.35)
+        {
+            _SpriteRenderer.sprite = _Sprite[0];
+        }
+        else if (this.transform.localRotation.z < -0.35f && this.transform.localRotation.z > -0.7)
+        {
+            _SpriteRenderer.sprite = _Sprite[2];
+        }
+        else if (this.transform.localRotation.z < 0.7f && this.transform.localRotation.z > 0.35)
+        {
+            _SpriteRenderer.sprite = _Sprite[1];
+        }
+
+        Debug.Log(this.transform.localRotation.z);
 
 	}
     public GameObject Get_GameObject()

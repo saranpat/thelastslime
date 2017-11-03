@@ -237,6 +237,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 683a13e11206daf48a6231e52a90d561, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _SpriteRenderer: {fileID: 212448138276452450}
+  _Sprite:
+  - {fileID: 21300000, guid: dbe65e9ab5120f34a94c03b5720a8d43, type: 3}
+  - {fileID: 21300000, guid: 8e54cf479cf211d45996eb0d217f97a6, type: 3}
+  - {fileID: 21300000, guid: e8bb60fde227b2342854ff63de87d862, type: 3}
   point:
   - {fileID: 1496018967954044}
   - {fileID: 1499342202192274}
