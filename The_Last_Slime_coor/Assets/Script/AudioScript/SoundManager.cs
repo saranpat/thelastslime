@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour {
+
     AudioSource monk;
+
     public static bool DeadRea;
     public static bool UnlockedRea;
     public static bool FireBallRea;
@@ -23,7 +25,6 @@ public class SoundManager : MonoBehaviour {
     public AudioClip Detected;
     public AudioClip BGM;
     public AudioClip UIOver;
-
 
     // Use this for initialization
     void Start () {
