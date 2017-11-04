@@ -41,13 +41,14 @@ public class Movewithmouse : MonoBehaviour {
     LayerMask targetMask;
 
     public Collider2D ColliderInChildren;
+    private Collider2D ColliderInThis;
 
     void Start () {
 		target = transform.position;
         startPos = target;
 
 		rb2d = GetComponent<Rigidbody2D> ();
-
+        ColliderInThis = GetComponent<Collider2D>();
         isDead = false;
 		isWin = false;
         cantDetect = false;
@@ -120,6 +121,14 @@ public class Movewithmouse : MonoBehaviour {
 			//rb2d.velocity =target2d.normalized * speed;
 		}*/
 
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            ColliderInThis.enabled = !ColliderInThis.enabled;
+            ColliderInChildren.enabled = !ColliderInChildren.enabled;
+            Debug.Log("Debug!!! Collider : " + ColliderInThis.enabled);
+        }
+
         if (isDead && theRealOne)
         {
             if(!isinRespawn)
@@ -159,7 +168,7 @@ public class Movewithmouse : MonoBehaviour {
     {
         if (_Animator != null)
             _Animator.SetTrigger(Ani_Dead);
-        Destroy(this.gameObject.GetComponent<Collider2D>());
+        ColliderInThis.enabled = false;
         ColliderInChildren.enabled = false;
         Destroy(this.gameObject, 0.5f);
     }
@@ -230,7 +239,7 @@ public class Movewithmouse : MonoBehaviour {
 
     IEnumerator Respawn()
     {
-        this.gameObject.GetComponent<Collider2D>().enabled = false;
+        ColliderInThis.enabled = false;
         ColliderInChildren.enabled = false;
 
 
