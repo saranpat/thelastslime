@@ -59,7 +59,9 @@ public class CheckSoundScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         target = MainCam.gameObject.GetComponent<CameraScript>().target;
-        transform.position = target.transform.position;
+
+        if(target != null)
+            transform.position = target.transform.position;
 
         waterBlk = GameObject.FindGameObjectsWithTag("Water");
         fireBlk = GameObject.FindGameObjectsWithTag("Fire");

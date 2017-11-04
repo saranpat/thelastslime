@@ -11,6 +11,9 @@ public class StageController : MonoBehaviour {
 
     public Camera maincamera;
 
+    public Sprite SelectSprite;
+    public Sprite UnSelectSprite;
+
     private GameObject[] panel = new GameObject[3];
 
     private Button[] splitSprite = new Button[3];
@@ -39,9 +42,13 @@ public class StageController : MonoBehaviour {
             for (int i = 0; i < 3; i++)
             {
                 if (i < slimeCnt)
+                {
                     panel[i].gameObject.SetActive(true);
+                }
                 else
+                {
                     panel[i].gameObject.SetActive(false);
+                }
             }
         }
         else
@@ -56,6 +63,9 @@ public class StageController : MonoBehaviour {
         {
             maincamera.gameObject.GetComponent<CameraScript>().target = slime[0];
             slime[0].GetComponent<Movewithmouse>().isControl = true;
+            panel[0].GetComponent<Image>().sprite = SelectSprite;
+            panel[1].GetComponent<Image>().sprite = UnSelectSprite;
+            panel[2].GetComponent<Image>().sprite = UnSelectSprite;
         }
 	}
 
@@ -66,14 +76,21 @@ public class StageController : MonoBehaviour {
         if(btn.name == "Split1")
         {
             slime[0].GetComponent<Movewithmouse>().isControl = true;
+            panel[0].GetComponent<Image>().sprite = SelectSprite;
 
             if (panel[1].gameObject.activeSelf)
+            {
                 slime[1].GetComponent<Movewithmouse>().isControl = false;
+                panel[1].GetComponent<Image>().sprite = UnSelectSprite;
+            }
             else
                 return;
 
             if (panel[2].gameObject.activeSelf)
+            {
                 slime[2].GetComponent<Movewithmouse>().isControl = false;
+                panel[3].GetComponent<Image>().sprite = UnSelectSprite;
+            }
 
             maincamera.gameObject.GetComponent<CameraScript>().target = slime[0];
         }
@@ -81,9 +98,14 @@ public class StageController : MonoBehaviour {
         {
             slime[0].GetComponent<Movewithmouse>().isControl = false;
             slime[1].GetComponent<Movewithmouse>().isControl = true;
+            panel[0].GetComponent<Image>().sprite = UnSelectSprite;
+            panel[1].GetComponent<Image>().sprite = SelectSprite;
 
             if (panel[2].gameObject.activeSelf)
+            {
                 slime[2].GetComponent<Movewithmouse>().isControl = false;
+                panel[2].GetComponent<Image>().sprite = UnSelectSprite;
+            }
 
             maincamera.gameObject.GetComponent<CameraScript>().target = slime[1];
         }
@@ -92,6 +114,9 @@ public class StageController : MonoBehaviour {
             slime[0].GetComponent<Movewithmouse>().isControl = false;
             slime[1].GetComponent<Movewithmouse>().isControl = false;
             slime[2].GetComponent<Movewithmouse>().isControl = true;
+            panel[0].GetComponent<Image>().sprite = UnSelectSprite;
+            panel[1].GetComponent<Image>().sprite = UnSelectSprite;
+            panel[2].GetComponent<Image>().sprite = SelectSprite;
 
             maincamera.gameObject.GetComponent<CameraScript>().target = slime[2];
         }
