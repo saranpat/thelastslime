@@ -73,7 +73,13 @@ public class StageController : MonoBehaviour {
             splitSprite[1].GetComponent<Image>().fillAmount = slime[1].GetComponent<Movewithmouse>().timer / 10f;
             slime[1].GetComponent<Movewithmouse>().timer -= Time.deltaTime;
         }
-	}
+
+        if (panel[2].activeSelf)
+        {
+            splitSprite[2].GetComponent<Image>().fillAmount = slime[2].GetComponent<Movewithmouse>().timer / 10f;
+            slime[2].GetComponent<Movewithmouse>().timer -= Time.deltaTime;
+        }
+    }
 
     public void SpriteButtonClick(Button btn)
     {
