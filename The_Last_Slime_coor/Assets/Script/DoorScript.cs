@@ -21,7 +21,6 @@ public class DoorScript : MonoBehaviour {
             if (!keyToOpen.activeSelf)
             {
                 isOpen = true;
-
             }
         }
 
