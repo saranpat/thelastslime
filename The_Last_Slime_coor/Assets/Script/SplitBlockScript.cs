@@ -46,8 +46,5 @@ public class SplitBlockScript : MonoBehaviour
             dummy.enabled = false;
             dummy.gameObject.GetComponent<Movewithmouse>().NotReal_DeadOrTimeUP(); //play Ani Dead
         }
-        yield return new WaitForSeconds(0.5f);
-        if (dummy != null)
-        Destroy(dummy.gameObject);
     }
 }

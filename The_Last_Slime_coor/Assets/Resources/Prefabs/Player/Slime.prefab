@@ -201,6 +201,7 @@ MonoBehaviour:
   bulkUp: 0
   theRealOne: 1
   isControl: 1
+  ColliderInChildren: {fileID: 58909389416135588}
 --- !u!212 &212428749529133630
 SpriteRenderer:
   m_ObjectHideFlags: 1

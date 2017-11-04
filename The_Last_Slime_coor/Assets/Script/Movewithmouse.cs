@@ -40,6 +40,8 @@ public class Movewithmouse : MonoBehaviour {
     
     LayerMask targetMask;
 
+    public Collider2D ColliderInChildren;
+
     void Start () {
 		target = transform.position;
         startPos = target;
@@ -157,6 +159,8 @@ public class Movewithmouse : MonoBehaviour {
     {
         if (_Animator != null)
             _Animator.SetTrigger(Ani_Dead);
+        Destroy(this.gameObject.GetComponent<Collider2D>());
+        ColliderInChildren.enabled = false;
         Destroy(this.gameObject, 0.5f);
     }
 
@@ -227,6 +231,8 @@ public class Movewithmouse : MonoBehaviour {
     IEnumerator Respawn()
     {
         this.gameObject.GetComponent<Collider2D>().enabled = false;
+        ColliderInChildren.enabled = false;
+
 
         isinRespawn = true;
         if (_Animator != null)
