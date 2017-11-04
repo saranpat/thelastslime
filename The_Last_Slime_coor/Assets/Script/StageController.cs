@@ -67,6 +67,12 @@ public class StageController : MonoBehaviour {
             panel[1].GetComponent<Image>().sprite = UnSelectSprite;
             panel[2].GetComponent<Image>().sprite = UnSelectSprite;
         }
+
+        if (panel[1].activeSelf)
+        {
+            splitSprite[1].GetComponent<Image>().fillAmount = slime[1].GetComponent<Movewithmouse>().timer / 10f;
+            slime[1].GetComponent<Movewithmouse>().timer -= Time.deltaTime;
+        }
 	}
 
     public void SpriteButtonClick(Button btn)

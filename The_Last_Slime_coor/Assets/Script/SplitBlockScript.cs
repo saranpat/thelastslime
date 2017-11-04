@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SplitBlockScript : MonoBehaviour
 {
-
     public GameObject slimePrefab;
 
     // Use this for initialization

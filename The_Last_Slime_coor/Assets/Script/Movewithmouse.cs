@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class Movewithmouse : MonoBehaviour {
 	public float speed = 1.5f;
+    [HideInInspector] public float timer = 10.0f;
     public Sprite normalSlime, camouflage, bigSlime;
 
     public static bool cantDetect;
