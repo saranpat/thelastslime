@@ -23,7 +23,7 @@ public class SoundManager : MonoBehaviour {
     public AudioClip Lever;
     public AudioClip SlimeSplit;
     public AudioClip Detected;
-    public AudioClip BGM;
+    public AudioClip[] BGM;
     public AudioClip UIOver;
 
     // Use this for initialization
@@ -37,7 +37,9 @@ public class SoundManager : MonoBehaviour {
         SlimeSplitRea = false;
         DetectedRea = false;
 
-        monk.clip = BGM;
+        int i = Random.Range(0, BGM.Length - 1);
+
+        monk.clip = BGM[i];
         monk.loop = true;
         monk.Play();
     }
@@ -90,8 +92,10 @@ public class SoundManager : MonoBehaviour {
         }
         if (NormalRea)
         {
+            int i = Random.Range(0, BGM.Length - 1);
+
             NormalRea = false;
-            monk.clip = BGM;
+            monk.clip = BGM[i];
             monk.loop = true;
             monk.Play();
         }

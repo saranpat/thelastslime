@@ -3612,16 +3612,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 82366380026229038, guid: ba16ff0d574d80948a46286ac6bbe128,
-        type: 2}
-      propertyPath: m_Volume
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114742046142342820, guid: ba16ff0d574d80948a46286ac6bbe128,
-        type: 2}
-      propertyPath: Camou
-      value: 
-      objectReference: {fileID: 8300000, guid: ab0961c078dd4a444a133d229e5b6216, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ba16ff0d574d80948a46286ac6bbe128, type: 2}
   m_IsPrefabParent: 0
