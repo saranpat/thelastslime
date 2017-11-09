@@ -35,7 +35,7 @@ public class Scenecontroller : MonoBehaviour {
         if (!PlayerPrefs.HasKey("Level") || ResetPlayerPrefs)
             PlayerPrefs.SetInt("Level", 2);
 
-        for (int i = 0; i < 13; i++)
+        for (int i = 0; i < 12; i++)
         {
             if (i == 0)
                 lvlBtn[i] = GameObject.Find("Button").GetComponent<Button>();
