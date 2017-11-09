@@ -13,6 +13,8 @@ public class Scenecontroller : MonoBehaviour {
 	public Animator anim;
     public Text txt;
 
+    public bool ResetPlayerPrefs;
+
     private GameObject startPanel;
     private GameObject selectPanel;
 
@@ -30,7 +32,7 @@ public class Scenecontroller : MonoBehaviour {
         startPanel = GameObject.Find("StartPanel");
         selectPanel = GameObject.Find("SelectPanel");
 
-        if (!PlayerPrefs.HasKey("Level"))
+        if (!PlayerPrefs.HasKey("Level") || ResetPlayerPrefs)
             PlayerPrefs.SetInt("Level", 2);
 
         for (int i = 0; i < 13; i++)
