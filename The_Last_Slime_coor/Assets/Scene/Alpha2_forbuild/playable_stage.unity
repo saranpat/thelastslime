@@ -1040,7 +1040,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: 54e85a66031ddda49a642dc435d53c8a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b19787b44a42ba04ea5ff9a3daacac1d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3222,21 +3222,6 @@ Prefab:
       propertyPath: ObjToOpen
       value: 
       objectReference: {fileID: 2016574510}
-    - target: {fileID: 212570207703771722, guid: bb1f37643d0edf64f947946e12e5283a,
-        type: 2}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212570207703771722, guid: bb1f37643d0edf64f947946e12e5283a,
-        type: 2}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212570207703771722, guid: bb1f37643d0edf64f947946e12e5283a,
-        type: 2}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bb1f37643d0edf64f947946e12e5283a, type: 2}
   m_IsPrefabParent: 0
@@ -6537,12 +6522,12 @@ Prefab:
     - target: {fileID: 224797745543448552, guid: 63b2b999ce677e84e895faa4a5914e50,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 182.5
+      value: 128.5
       objectReference: {fileID: 0}
     - target: {fileID: 224797745543448552, guid: 63b2b999ce677e84e895faa4a5914e50,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 102.5
+      value: 72.5
       objectReference: {fileID: 0}
     - target: {fileID: 224797745543448552, guid: 63b2b999ce677e84e895faa4a5914e50,
         type: 2}
@@ -13093,6 +13078,26 @@ Prefab:
         type: 3}
     - target: {fileID: 1696044061104740, guid: 078617a243bfebb46a3672674b39e9bd, type: 2}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212284704486855918, guid: 078617a243bfebb46a3672674b39e9bd,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212284704486855918, guid: 078617a243bfebb46a3672674b39e9bd,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212284704486855918, guid: 078617a243bfebb46a3672674b39e9bd,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114987670579107228, guid: 078617a243bfebb46a3672674b39e9bd,
+        type: 2}
+      propertyPath: isCanUseKey
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

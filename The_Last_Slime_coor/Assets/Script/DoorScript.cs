@@ -7,11 +7,13 @@ public class DoorScript : MonoBehaviour {
     public Sprite closeSprite_Onfire;
     public Sprite openSprite;
     public Sprite closeSprite;
+    //public Sprite closeSprite_canUseKey;
     private bool isOpen;
     private bool isFireOff;
 
     public bool isDoorOnFire;
-
+    public bool isCanUseKey;
+    public Color DoorColor;
     private BoxCollider2D _BoxCollider2D;
     private SpriteRenderer _SpriteRenderer;
 
@@ -44,6 +46,18 @@ public class DoorScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+
+        if (!isCanUseKey)
+        {
+            _SpriteRenderer.color = DoorColor;
+        }
+        else
+        {
+            _SpriteRenderer.color = Color.white;
+        }
+
+
+
 
         if(isDoorOnFire)
         {

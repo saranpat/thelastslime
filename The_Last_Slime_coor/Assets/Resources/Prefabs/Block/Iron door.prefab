@@ -103,6 +103,8 @@ MonoBehaviour:
   openSprite: {fileID: 21300000, guid: b19787b44a42ba04ea5ff9a3daacac1d, type: 3}
   closeSprite: {fileID: 21300000, guid: 8680d106bc0cf01499f8e6df3e4ed2d1, type: 3}
   isDoorOnFire: 0
+  isCanUseKey: 0
+  DoorColor: {r: 0, g: 1, b: 1, a: 1}
 --- !u!212 &212284704486855918
 SpriteRenderer:
   m_ObjectHideFlags: 1
