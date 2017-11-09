@@ -48,8 +48,9 @@ public class SmallColliderScript : MonoBehaviour
     public void LeverTrigger()
     {
         SoundManager.ButtonRea = true;
-
-        if (!lever.gameObject.GetComponent<LeverScript>().switchOff)
+        SoundManager.LeverRea = true;
+        lever.gameObject.GetComponent<LeverScript>().PullLever();
+        /*if (!lever.gameObject.GetComponent<LeverScript>().switchOff)
         {
             lever.gameObject.GetComponent<LeverScript>().switchOff = true;
             lever.gameObject.GetComponent<LeverScript>().PullLever();
@@ -60,6 +61,6 @@ public class SmallColliderScript : MonoBehaviour
             lever.gameObject.GetComponent<LeverScript>().switchOff = false;
             lever.gameObject.GetComponent<LeverScript>().PullLever();
             SoundManager.LeverRea = true;
-        }
+        }*/
     }
 }

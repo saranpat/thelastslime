@@ -9,6 +9,7 @@ public class FieldOfView : MonoBehaviour {
     public float viewAngle = 45;
 
     public LayerMask targetMask;
+    public LayerMask Wizard_targetMask;
     public LayerMask obstacleMask;
 
     [HideInInspector]
@@ -28,6 +29,8 @@ public class FieldOfView : MonoBehaviour {
 
     private AI_Move _AI_Move;
     private WardScript _WardScript;
+    private bool IsWizardAI;
+
 
 	// Use this for initialization
 	void Start () {
@@ -40,6 +43,11 @@ public class FieldOfView : MonoBehaviour {
         if(this.gameObject.GetComponent<AI_Move>() != null)
         {
             _AI_Move = this.gameObject.GetComponent<AI_Move>();
+            IsWizardAI = _AI_Move.Wizard_AI;
+        }
+        else
+        {
+            IsWizardAI = false;
         }
         if (this.gameObject.GetComponent<WardScript>() != null)
         {
@@ -56,12 +64,21 @@ public class FieldOfView : MonoBehaviour {
             FindVisibleTargets();
         }
     }
-
+    private Collider2D[] targetsInViewRadius;
     //ค้นหาเป้าหมายเมื่อเจอจะเก็บเป็น List ของ visibleTargets
     void FindVisibleTargets()
     {
         visibleTargets.Clear();
-        Collider2D[] targetsInViewRadius = Physics2D.OverlapCircleAll(transform.position, viewRadius, targetMask);
+
+        if (IsWizardAI == true)
+        {
+            targetsInViewRadius = Physics2D.OverlapCircleAll(transform.position, viewRadius, Wizard_targetMask);
+        }
+        else
+        {
+            targetsInViewRadius = Physics2D.OverlapCircleAll(transform.position, viewRadius, targetMask);
+        }
+
         
         for (int i = 0; i < targetsInViewRadius.Length; i++)
         {

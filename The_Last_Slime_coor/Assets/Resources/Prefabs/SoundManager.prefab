@@ -52,7 +52,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.3
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -139,5 +139,14 @@ MonoBehaviour:
   Lever: {fileID: 8300000, guid: 1a8d89cff27f3e24b975ca1854ea7d56, type: 3}
   SlimeSplit: {fileID: 8300000, guid: 8b0a7ca0b284f524187257c728f157ed, type: 3}
   Detected: {fileID: 8300000, guid: 788b677260755294ca99f771b8deadb3, type: 3}
-  BGM: {fileID: 8300000, guid: 7bfde91f2c8ba3940acbe1bbe7f127bc, type: 3}
+  BGM:
+  - {fileID: 8300000, guid: 208a1c006cc11f44caafe33b1cbd99ab, type: 3}
+  - {fileID: 8300000, guid: 7bfde91f2c8ba3940acbe1bbe7f127bc, type: 3}
+  - {fileID: 8300000, guid: 0bbe04be797c6934c81db52fcabea266, type: 3}
+  - {fileID: 8300000, guid: 570d3e77af8a8b64dba66a75827e7cf9, type: 3}
+  - {fileID: 8300000, guid: 3feaf5d38fdadc348ad991ad7e7cbe33, type: 3}
+  - {fileID: 8300000, guid: 6bd8d565d23cbf04e9be508a8ae59062, type: 3}
+  - {fileID: 8300000, guid: 9cb02c4476964ed41ba0c12fefd2bc3d, type: 3}
+  - {fileID: 8300000, guid: b36f11d835d60604cb221b0dfd379937, type: 3}
+  - {fileID: 8300000, guid: 0519d2c62ad8f8c48b2ea71390b4674e, type: 3}
   UIOver: {fileID: 8300000, guid: 3ac725125425f1c419804dc614ea71ea, type: 3}

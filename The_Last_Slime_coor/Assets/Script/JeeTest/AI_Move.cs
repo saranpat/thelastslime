@@ -126,7 +126,13 @@ public class AI_Move : MonoBehaviour
         if(Wizard_AI)
             if (Vector2.Distance(transform.position, player.transform.position) <= fireRange && !isRecharge)
             {
-                StartCoroutine(Fire());
+                Vector2 dirToTarget = (player.transform.position - this.transform.position).normalized;
+                if (Vector2.Angle(transform.up, dirToTarget) < 10 / 1.75f)
+                {
+                    StartCoroutine(Fire());
+                }
+               
+                
             }
 
 
@@ -136,7 +142,7 @@ public class AI_Move : MonoBehaviour
         {
             if (ifNewtargetPoint)
             {
-                if (player.transform.gameObject.layer == 11)
+                if (player.transform.gameObject.layer == 11 && Wizard_AI == false) // 11 = PlayerInWater
                 {
                     targetPoint = targetPin[curPathIndex].transform;
                     DummyTime = 0;
@@ -161,7 +167,7 @@ public class AI_Move : MonoBehaviour
 
 
         TimeDetect += Time.deltaTime;
-        if (TimeDetect > Time_for_Chase || Vector2.Distance(transform.position, player.transform.position) > dist + 1)
+        if (TimeDetect > Time_for_Chase )//|| Vector2.Distance(transform.position, player.transform.position) > dist + 1)
         {
             //ถ้าเวลาตามหมดแต่ยังเห็นผู้เล่นอยู่ก็ตามไปจนกว่าผู้เล่นจะหลบมุม
             if (targetPoint.position == player.transform.position)
@@ -170,14 +176,35 @@ public class AI_Move : MonoBehaviour
             }
             else
             {
-                isDetect = false;
-                alertState = false;
-                TimeDetect = 0;
+                if(Wizard_AI)
+                {
+                    if(player.transform.gameObject.layer == 11)
+                    {
+                        TimeDetect = 0;
+                    }
+                    else
+                    {
+                        isDetect = false;
+                        alertState = false;
+                        TimeDetect = 0;
 
-                if (playDetectSound)
-                    SoundManager.NormalRea = true;
+                        if (playDetectSound)
+                            SoundManager.NormalRea = true;
 
-                playDetectSound = false;
+                        playDetectSound = false;
+                    }
+                }
+                else
+                {
+                    isDetect = false;
+                    alertState = false;
+                    TimeDetect = 0;
+
+                    if (playDetectSound)
+                        SoundManager.NormalRea = true;
+
+                    playDetectSound = false;
+                }
             }
         }
     }
@@ -1093,7 +1120,7 @@ public class AI_Move : MonoBehaviour
     {
         isRecharge = true;
         var bullet = (GameObject)Instantiate(firePrefab, transform.position, transform.rotation);
-        Vector2 dirforbullet = targetPoint.position - transform.position;
+        //Vector2 dirforbullet = targetPoint.position - transform.position;
         //bullet.GetComponent<Rigidbody2D>().velocity = dirforbullet * fireSpeed;
         bullet.gameObject.SendMessage("Set_Speed", fireSpeed*1.5f);
         Destroy(bullet, 2.5f);

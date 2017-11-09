@@ -1,62 +1,101 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class PlateScript : MonoBehaviour
 {
 
-    public GameObject DoorToOpen;
-    DoorScript _DoorScript;
+    public GameObject ObjToOpen;
+    public LayerMask targetMask;
+    public bool IsTreading;
+
+    public GameObject On_Eff;
+    public GameObject Off_Eff;
+
+    private DoorScript _DoorScript;
+    private FireBlower _FireBlower;
+    private bool playSoundOneTime_Enter;
+    private bool playSoundOneTime_Exit;
+
+    [HideInInspector]
+    public float Radius;
+
     // Use this for initialization
     void Start()
     {
+        Radius = 0.4f;
+        playSoundOneTime_Enter = false;
+        playSoundOneTime_Exit = true;
 
-        if (DoorToOpen != null)
-            _DoorScript = DoorToOpen.GetComponent<DoorScript>();
+        IsTreading = false;
+        if (ObjToOpen != null)
+        {
+            if(ObjToOpen.GetComponent<DoorScript>() != null)
+                _DoorScript = ObjToOpen.GetComponent<DoorScript>();
+            if (ObjToOpen.GetComponent<FireBlower>() != null)
+                _FireBlower = ObjToOpen.GetComponent<FireBlower>();
+        }
+            
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        Collider2D[] targetsInViewRadius = Physics2D.OverlapCircleAll(transform.position, Radius, targetMask);
 
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.name == "CheckWater")
+        if (targetsInViewRadius.Length > 1) // 1 เพราะตัวมันเองไม่นับ
         {
-           
-            SoundManager.UnlockedRea = true;
-
+            IsTreading = true;
         }
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.name == "CheckWater")
+        else
         {
-            //Debug.Log("GGGGGGGGGGGg");
-            _DoorScript.isOpen = true;
-           
-            //Debug.Log("GGGGGGGGGGGffffffffffg");
+            IsTreading = false;
         }
-        /*else //ถึงว่าติดบัคเพราะมันเข้า False ตลอดก่อนที่จะไป True
-        {
-            Debug.Log("False??");
-            _DoorScript.isOpen = false;
-        }*/
 
+        if (_DoorScript != null)
+        {
+            _DoorScript.Plate_Interaction(IsTreading);
+        }
+        if (_FireBlower != null)
+        {
+            _FireBlower.Plate_Interaction(IsTreading);
+        }
+
+        On_Eff.SetActive(!IsTreading);
+        Off_Eff.SetActive(IsTreading);
+        Plate_PlaySound();
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+
+    void Plate_PlaySound()
     {
-        if (collision.name == "CheckWater")
+        if (IsTreading && !playSoundOneTime_Enter)
         {
-            //Debug.Log("False??");
-            _DoorScript.isOpen = false;
+            playSoundOneTime_Enter = true;
+            playSoundOneTime_Exit = false;
             SoundManager.UnlockedRea = true;
         }
+        else if (!IsTreading && !playSoundOneTime_Exit)
+        {
+            playSoundOneTime_Exit = true;
+            playSoundOneTime_Enter = false;
+            SoundManager.UnlockedRea = true;
+        }
+        
     }
 
+    
+
+}
+[CustomEditor(typeof(PlateScript))]
+public class PlateScriptEditor : Editor
+{
+    void OnSceneGUI()
+    {
+        PlateScript fow = (PlateScript)target;
+        UnityEditor.Handles.color = Color.green;
+        UnityEditor.Handles.DrawWireArc(fow.transform.position, Vector3.forward, Vector3.up, 360, fow.Radius);
+    }
 }
