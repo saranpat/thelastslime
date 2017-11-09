@@ -5,17 +5,23 @@ using UnityEngine;
 public class LeverScript : MonoBehaviour {
 
     public GameObject[] Trap;
-    public bool DoorOnFire;
-    public bool switchOff;
 
-    public Sprite fireOn;
-    public Sprite fireOff;
-
-	private SpriteRenderer mysprite;
+    private bool[] DoorOnFire;
+    private SpriteRenderer _SpriteRenderer;
+    private string Lever_Interaction = "Lever_Interaction";
 	// Use this for initialization
 	void Start () {
-        switchOff = false;
-		mysprite = GetComponent<SpriteRenderer>();
+        //switchOff = false;
+        _SpriteRenderer = GetComponent<SpriteRenderer>();
+        DoorOnFire = new bool[Trap.Length];
+
+        for (int i = 0; i < Trap.Length; i++)
+        {
+            if (Trap[i].GetComponent<DoorScript>() != null)
+                DoorOnFire[i] = Trap[i].GetComponent<DoorScript>().isDoorOnFire;
+            else
+                DoorOnFire[i] = false;
+        }
 	}
 	
 	// Update is called once per frame
@@ -25,7 +31,20 @@ public class LeverScript : MonoBehaviour {
 
     public void PullLever()
     {
-        if (switchOff)
+        _SpriteRenderer.flipX = !_SpriteRenderer.flipX;
+
+        if (Trap != null)
+        {
+            for (int i = 0; i < Trap.Length; i++)
+            {
+                Trap[i].SendMessage(Lever_Interaction, DoorOnFire[i]);
+            }
+        }
+
+
+
+
+        /*if (switchOff)
         {
             if (Trap != null)
             {
@@ -90,6 +109,6 @@ public class LeverScript : MonoBehaviour {
                 }
                 mysprite.flipX = false;
             }
-        }
+        }*/
     }
 }

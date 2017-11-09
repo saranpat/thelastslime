@@ -5,14 +5,22 @@ using UnityEngine;
 public class PlateScript : MonoBehaviour
 {
 
-    public GameObject DoorToOpen;
-    DoorScript _DoorScript;
+    public GameObject ObjToOpen;
+    private DoorScript _DoorScript;
+    private FireBlower _FireBlower;
+
     // Use this for initialization
     void Start()
     {
 
-        if (DoorToOpen != null)
-            _DoorScript = DoorToOpen.GetComponent<DoorScript>();
+        if (ObjToOpen != null)
+        {
+            if(ObjToOpen.GetComponent<DoorScript>() != null)
+                _DoorScript = ObjToOpen.GetComponent<DoorScript>();
+            if (ObjToOpen.GetComponent<FireBlower>() != null)
+                _FireBlower = ObjToOpen.GetComponent<FireBlower>();
+        }
+            
 
     }
 
@@ -26,9 +34,7 @@ public class PlateScript : MonoBehaviour
     {
         if (collision.name == "CheckWater")
         {
-           
             SoundManager.UnlockedRea = true;
-
         }
     }
 
@@ -36,26 +42,34 @@ public class PlateScript : MonoBehaviour
     {
         if (collision.name == "CheckWater")
         {
-            //Debug.Log("GGGGGGGGGGGg");
-            _DoorScript.isOpen = true;
-           
-            //Debug.Log("GGGGGGGGGGGffffffffffg");
-        }
-        /*else //ถึงว่าติดบัคเพราะมันเข้า False ตลอดก่อนที่จะไป True
-        {
-            Debug.Log("False??");
-            _DoorScript.isOpen = false;
-        }*/
+            if (_DoorScript != null)
+            {
+                _DoorScript.Plate_Interaction(true);
+            }
 
+            if (_FireBlower != null)
+            {
+                _FireBlower.Plate_Interaction(true);
+            }
+                
+
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.name == "CheckWater")
         {
-            //Debug.Log("False??");
-            _DoorScript.isOpen = false;
-            SoundManager.UnlockedRea = true;
+            if (_DoorScript != null)
+            {
+                _DoorScript.Plate_Interaction(false);
+                SoundManager.UnlockedRea = true;
+            }
+
+            if (_FireBlower != null)
+            {
+                _FireBlower.Plate_Interaction(false);
+            }
         }
     }
 
