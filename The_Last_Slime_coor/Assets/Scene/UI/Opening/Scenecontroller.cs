@@ -15,6 +15,9 @@ public class Scenecontroller : MonoBehaviour {
 
     private GameObject startPanel;
     private GameObject selectPanel;
+
+    private Button[] lvlBtn = new Button[13];
+
 	// Use this for initialization
 	void Start () {
         /*startbutton.onClick.AddListener (delegate {
@@ -26,6 +29,20 @@ public class Scenecontroller : MonoBehaviour {
 
         startPanel = GameObject.Find("StartPanel");
         selectPanel = GameObject.Find("SelectPanel");
+
+        if (!PlayerPrefs.HasKey("Level"))
+            PlayerPrefs.SetInt("Level", 2);
+
+        for (int i = 0; i < 13; i++)
+        {
+            if (i == 0)
+                lvlBtn[i] = GameObject.Find("Button").GetComponent<Button>();
+            else
+                lvlBtn[i] = GameObject.Find("Button (" + i.ToString() + ")").GetComponent<Button>();
+            
+            if (i > PlayerPrefs.GetInt("Level") - 2)
+                lvlBtn[i].GetComponentInChildren<Text>().text = "lock";
+        }
 
         selectPanel.SetActive(false);
 

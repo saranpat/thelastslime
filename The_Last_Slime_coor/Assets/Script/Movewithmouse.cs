@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class Movewithmouse : MonoBehaviour {
 	public float speed = 1.5f;
@@ -70,6 +71,21 @@ public class Movewithmouse : MonoBehaviour {
             _Animator = this.gameObject.GetComponentInChildren<Animator>();
         }
 
+        if (PlayerPrefs.HasKey("Level"))
+        {
+            string s = SceneManager.GetActiveScene().name;
+            string[] split = s.Split();
+
+            if (split.Length > 6)
+            {
+                split[5] = split[5] + split[6];
+            }
+
+            int i = int.Parse(split[5]);
+
+            if (i > PlayerPrefs.GetInt("Level"))
+                PlayerPrefs.SetInt("Level", i);
+        }
     }
 
     private void FixedUpdate()
