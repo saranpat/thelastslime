@@ -12,14 +12,22 @@ public class Scenecontroller : MonoBehaviour {
 	public Image black;
 	public Animator anim;
     public Text txt;
+
+    private GameObject startPanel;
+    private GameObject selectPanel;
 	// Use this for initialization
 	void Start () {
-		/*startbutton.onClick.AddListener (delegate {
+        /*startbutton.onClick.AddListener (delegate {
 			StartCoroutine(FadingA());
 		});
 		startbutton2.onClick.AddListener (delegate {
 			StartCoroutine(FadingB());
 		});*/
+
+        startPanel = GameObject.Find("StartPanel");
+        selectPanel = GameObject.Find("SelectPanel");
+
+        selectPanel.SetActive(false);
 
         StartCoroutine(TextBlink());
 	}
@@ -46,23 +54,48 @@ public class Scenecontroller : MonoBehaviour {
         StartCoroutine(LoadScene());
     }
 
+    public void LevelSelect(Button btn)
+    {
+        string s = btn.GetComponentInChildren<Text>().text;
+
+        if (s != "lock")
+            StartCoroutine(LoadLevel(s));
+    }
+
     IEnumerator TextBlink()
     {
-        while (true)
+        if (startPanel.activeSelf)
         {
-            txt.text = "";
+            while (true)
+            {
+                txt.text = "";
 
-            yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.5f);
 
-            txt.text = "Tap to start!!";
+                txt.text = "Tap to start!!";
 
-            yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.5f);
+            }
         }
+    }
+
+    IEnumerator LoadLevel(string s)
+    {
+        anim.SetBool("Fade", true);
+        yield return new WaitUntil(() => black.color.a == 1);
+
+        int i = int.Parse(s);
+        i++;
+
+        SceneManager.LoadScene("Scene" + i.ToString());
     }
 
     IEnumerator LoadScene()
     {
         anim.SetBool("Fade", true);
         yield return new WaitUntil(() => black.color.a == 1);
+        startPanel.SetActive(false);
+        anim.SetBool("Fade", false);
+        selectPanel.SetActive(true);
     }
 }
