@@ -3222,6 +3222,21 @@ Prefab:
       propertyPath: ObjToOpen
       value: 
       objectReference: {fileID: 2016574510}
+    - target: {fileID: 212570207703771722, guid: bb1f37643d0edf64f947946e12e5283a,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212570207703771722, guid: bb1f37643d0edf64f947946e12e5283a,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212570207703771722, guid: bb1f37643d0edf64f947946e12e5283a,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bb1f37643d0edf64f947946e12e5283a, type: 2}
   m_IsPrefabParent: 0
@@ -6522,12 +6537,12 @@ Prefab:
     - target: {fileID: 224797745543448552, guid: 63b2b999ce677e84e895faa4a5914e50,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 285
+      value: 182.5
       objectReference: {fileID: 0}
     - target: {fileID: 224797745543448552, guid: 63b2b999ce677e84e895faa4a5914e50,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 160.5
+      value: 102.5
       objectReference: {fileID: 0}
     - target: {fileID: 224797745543448552, guid: 63b2b999ce677e84e895faa4a5914e50,
         type: 2}
