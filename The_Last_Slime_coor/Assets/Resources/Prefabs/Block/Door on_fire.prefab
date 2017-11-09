@@ -38,7 +38,7 @@ Transform:
   m_GameObject: {fileID: 1236305804734362}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.99, y: 2, z: 0}
-  m_LocalScale: {x: 0.39, y: 0.39, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -103,6 +103,8 @@ MonoBehaviour:
   openSprite: {fileID: 21300000, guid: b19787b44a42ba04ea5ff9a3daacac1d, type: 3}
   closeSprite: {fileID: 21300000, guid: 83a08e4f6f2e45e459d93b94e760df9c, type: 3}
   isDoorOnFire: 1
+  isCanUseKey: 0
+  DoorColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!212 &212413570299786642
 SpriteRenderer:
   m_ObjectHideFlags: 1
