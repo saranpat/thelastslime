@@ -40,7 +40,7 @@ public class Movewithmouse : MonoBehaviour {
     private Vector2 S_Big = new Vector2(1.4f, 1.4f);
     private Vector2 S_Normal = new Vector2(1.0f, 1.0f);
     
-    LayerMask targetMask;
+    //LayerMask targetMask; Dandy: never used
 
     public Collider2D ColliderInChildren;
     private Collider2D ColliderInThis;
@@ -63,7 +63,7 @@ public class Movewithmouse : MonoBehaviour {
 
         isLeavingWater = false;
 
-        targetMask = 11; // layer 11 PlayerInWater
+        //targetMask = 11; // layer 11 PlayerInWater
 
         fade = GameObject.Find("Fade");
 
