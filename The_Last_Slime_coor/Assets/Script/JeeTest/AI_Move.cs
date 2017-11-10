@@ -70,7 +70,7 @@ public class AI_Move : MonoBehaviour
         dist = _FieldOfView.viewRadius;
 
         //player = GameObject.FindGameObjectWithTag("Player");
-
+        if (GameObject.FindGameObjectWithTag("Node") != null)
         _AI_GetNode = GameObject.FindGameObjectWithTag("Node").GetComponent<AI_GetNode>();
         curPathIndex = 0;
 

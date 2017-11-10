@@ -30,8 +30,16 @@ public class BulletScript : MonoBehaviour {
 
         if (collision.gameObject.tag == "Player")
         {
+            if (collision.gameObject.GetComponent<Movewithmouse>().theRealOne == true)
+            {
+                Movewithmouse.isDead = true;
+            }
+            else
+            {
+                collision.gameObject.GetComponent<Movewithmouse>().NotReal_DeadOrTimeUP();
+            }
             SoundManager.DeadRea = true;
-            Movewithmouse.isDead = true;
+            
             Destroy(this.gameObject,0.1f);
         }
     }
