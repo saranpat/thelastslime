@@ -47,6 +47,9 @@ public class Movewithmouse : MonoBehaviour {
 
     private GameObject fade;
 
+    private float walkTiming; //walk Sound
+    private AudioSource audio;
+
     void Start () {
         staticTimer = timer;
 
@@ -87,6 +90,10 @@ public class Movewithmouse : MonoBehaviour {
             if (i > PlayerPrefs.GetInt("Level"))
                 PlayerPrefs.SetInt("Level", i);
         }
+
+        walkTiming = Time.time;
+
+        audio = gameObject.GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
@@ -120,6 +127,20 @@ public class Movewithmouse : MonoBehaviour {
         {
             if (_Animator != null)
                 _Animator.SetBool(Ani_Move, false);
+        }
+
+        if (_Animator.GetBool(Ani_Move))
+        {
+            if (walkTiming < Time.time)
+            {
+                if (!audio.isPlaying)
+                    audio.Play();
+                walkTiming = Time.time + 1.0f;
+            }
+        }
+        else
+        {
+            audio.Stop();
         }
     }
 
