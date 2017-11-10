@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Movewithmouse : MonoBehaviour {
 	public float speed = 1.5f;
-    [HideInInspector] public float timer = 15.0f;
+    [HideInInspector] public float timer = 30.0f;
 
     public static bool cantDetect;
 	public static bool isDead;
