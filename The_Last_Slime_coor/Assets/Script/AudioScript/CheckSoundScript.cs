@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CheckSoundScript : MonoBehaviour {
-    public Camera MainCam;
+    private Camera MainCam;
 
     private AudioSource[] AuS;
 
@@ -33,6 +33,7 @@ public class CheckSoundScript : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        MainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         AuS = GetComponents<AudioSource>();
 
         waterSndPlay = false;
