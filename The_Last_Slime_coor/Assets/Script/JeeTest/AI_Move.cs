@@ -903,6 +903,8 @@ public class AI_Move : MonoBehaviour
                     isDetect = false;
                     alertState = false;
                     TimeDetect = 0;
+                    if (playDetectSound)
+                        SoundManager.NormalRea = true;
                 }
 
 
