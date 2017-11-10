@@ -20,7 +20,7 @@ public class Move_byjoystick : MonoBehaviour {
 		Vector3 dirformove = new Vector3 (transform.position.x + dir.x, transform.position.y + dir.y, transform.position.z);
 		angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 		//transform.Translate (dir * speed * Time.deltaTime);
-		transform.rotation = Quaternion.AngleAxis(angle-90, transform.forward);
+		if (Time.timeScale != 0)transform.rotation = Quaternion.AngleAxis(angle-90, transform.forward);
 
 		transform.position = Vector3.MoveTowards(transform.position, dirformove, speed * Time.deltaTime);
 		//transform.rotation = rot;
