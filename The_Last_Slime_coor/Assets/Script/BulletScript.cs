@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour {
 
+    public float time;
     public GameObject prefabEff;
     private float Speed = 2;
 	// Use this for initialization
 	void Start () {
-		
+        Invoke("TimeUp", time);
 	}
 	
     public void Set_Speed(float s)
@@ -21,6 +22,14 @@ public class BulletScript : MonoBehaviour {
         this.transform.Translate(0, Speed * Time.deltaTime, 0);
   
 	}
+
+    void TimeUp()
+    {
+        SoundManager.FireBallRea = true;
+        Instantiate(prefabEff, this.transform.position, Quaternion.identity);
+        Destroy(this.gameObject);
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -44,7 +53,6 @@ public class BulletScript : MonoBehaviour {
             }
 
             SoundManager.FireBallRea = true;
-            //SoundManager.DeadRea = true;
             Instantiate(prefabEff, this.transform.position, Quaternion.identity);
             Destroy(this.gameObject,0.1f);
         }

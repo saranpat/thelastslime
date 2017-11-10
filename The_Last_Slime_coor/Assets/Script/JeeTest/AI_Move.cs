@@ -1127,10 +1127,7 @@ public class AI_Move : MonoBehaviour
     {
         isRecharge = true;
         var bullet = (GameObject)Instantiate(firePrefab, transform.position, transform.rotation);
-        //Vector2 dirforbullet = targetPoint.position - transform.position;
-        //bullet.GetComponent<Rigidbody2D>().velocity = dirforbullet * fireSpeed;
         bullet.gameObject.SendMessage("Set_Speed", fireSpeed*1.5f);
-        Destroy(bullet, 2.5f);
         yield return new WaitForSeconds(2.5f);
         isRecharge = false;
     }
