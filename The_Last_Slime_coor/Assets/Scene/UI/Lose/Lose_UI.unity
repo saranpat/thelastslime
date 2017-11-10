@@ -482,7 +482,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Playable
+  m_Text: Stage Select
 --- !u!222 &552614166
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -642,7 +642,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ALPHA
+  m_Text: Lastscene
 --- !u!222 &880802541
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -990,8 +990,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2043106415}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 467, y: 211, z: 0}
-  m_LocalScale: {x: 1.1675, y: 1.1675, z: 1.1675}
+  m_LocalPosition: {x: 371, y: 203, z: 0}
+  m_LocalScale: {x: 0.9275, y: 0.9275, z: 0.9275}
   m_Children:
   - {fileID: 1181100117}
   - {fileID: 369318825}

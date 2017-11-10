@@ -23,6 +23,7 @@ public class Lose_drop_control : MonoBehaviour {
 	{
 		anim.SetBool ("Lose", true);
 		yield return new WaitForSeconds(3);
+		PlayerPrefs.SetString ("lastLoadedScene", SceneManager.GetActiveScene ().name);
 		SceneManager.LoadScene("Lose_UI");
 	}
 

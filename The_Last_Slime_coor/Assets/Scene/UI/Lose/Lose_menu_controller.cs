@@ -30,13 +30,14 @@ public class Lose_menu_controller : MonoBehaviour {
 	{
 		anim.SetBool ("Fade", true);
 		yield return new WaitUntil (() => black.color.a == 1);
-		SceneManager.LoadScene("alpha_stage");
+		string sceneback= PlayerPrefs.GetString("lastLoadedScene");
+		SceneManager.LoadScene(sceneback);
 	}
 	IEnumerator FadingB()
 	{
 		anim.SetBool ("Fade", true);
 		yield return new WaitUntil (() => black.color.a == 1);
-		SceneManager.LoadScene("playable_stage");
+		SceneManager.LoadScene("Open_page");
 	}
 	IEnumerator buttonshow()
 	{
