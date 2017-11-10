@@ -12,7 +12,7 @@ public class AI_Move : MonoBehaviour
 
     public GameObject[] targetPin;
     public float speed;
-    private float dist; // distance the enemy can "see" in front of him
+    //private float dist; // distance the enemy can "see" in front of him Dandy: value never used
     public float visionAngle;
     public bool isLoop;
 
@@ -57,7 +57,7 @@ public class AI_Move : MonoBehaviour
     private bool isRecharge; //recharge magic
 
     private bool playDetectSound;
-    private bool playDeadSound;
+    //private bool playDeadSound; Dandy: value never used
 
     public GameObject EmoObj;
 
@@ -70,7 +70,7 @@ public class AI_Move : MonoBehaviour
         if (this.gameObject.GetComponentInChildren<Animator>() != null)
             _Animator = this.GetComponentInChildren<Animator>();
 
-        dist = _FieldOfView.viewRadius;
+        //dist = _FieldOfView.viewRadius; Dandy: value never used
 
         //player = GameObject.FindGameObjectWithTag("Player");
         if (GameObject.FindGameObjectWithTag("Node") != null)
@@ -82,7 +82,7 @@ public class AI_Move : MonoBehaviour
         plus = true;
 
         playDetectSound = false;
-        playDeadSound = false;
+        //playDeadSound = false; Dandy: value never used
 
         GameObject E = Instantiate(EmoObj, this.transform.position, Quaternion.identity) as GameObject;
         E.GetComponent<Emo>().AI_head = this.gameObject;
@@ -1112,7 +1112,7 @@ public class AI_Move : MonoBehaviour
         /*if (!playDeadSound)
             SoundManager.DeadRea = true;*/
 
-        playDeadSound = true;
+        //playDeadSound = true; Dandy: value never used
         Movewithmouse.isDead = true;
         StopMoveing = true;
         yield return new WaitForSeconds(2.0f);

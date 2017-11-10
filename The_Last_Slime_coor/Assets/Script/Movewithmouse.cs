@@ -22,10 +22,10 @@ public class Movewithmouse : MonoBehaviour {
     public bool isControl;
 
     private Vector3 target;
-	private Vector2 target2d;
+    //private Vector2 target2d; Dandy: never used
     private Vector2 startPos;
 
-	private Rigidbody2D rb2d;
+    //private Rigidbody2D rb2d; Dandy: never used
 
     private bool isLeavingWater; // check if out of water
     private bool CheckAgainIfInWater;
@@ -53,7 +53,7 @@ public class Movewithmouse : MonoBehaviour {
 		target = transform.position;
         startPos = target;
 
-		rb2d = GetComponent<Rigidbody2D> ();
+        //rb2d = GetComponent<Rigidbody2D> (); Dandy: never used
         ColliderInThis = GetComponent<Collider2D>();
         isDead = false;
 		isWin = false;
@@ -63,7 +63,7 @@ public class Movewithmouse : MonoBehaviour {
 
         isLeavingWater = false;
 
-        //targetMask = 11; // layer 11 PlayerInWater
+        //targetMask = 11; // layer 11 PlayerInWater Dandy: never used
 
         fade = GameObject.Find("Fade");
 
@@ -103,7 +103,7 @@ public class Movewithmouse : MonoBehaviour {
         {
             target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             target.z = transform.position.z;
-            target2d = new Vector2(target.x, target.y);
+            //target2d = new Vector2(target.x, target.y); Dandy: never used
 
             var dir = target - transform.position;
             var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
