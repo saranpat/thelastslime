@@ -43,6 +43,22 @@ public class DoorScript : MonoBehaviour {
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(isCanUseKey)
+            if (collision.gameObject.tag == "Player")
+            {
+
+                Movewithmouse _Movewithmouse = collision.gameObject.GetComponent<Movewithmouse>();
+                if (_Movewithmouse.GetKey)
+                {
+                    _Movewithmouse.GetKey = false;
+                    SoundManager.UnlockedRea = true;
+                    isOpen = true;
+                }
+            }
+    } 
+
 
 	// Update is called once per frame
 	void Update () {
