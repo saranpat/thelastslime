@@ -217,6 +217,9 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 1024
+  Wizard_targetMask:
+    serializedVersion: 2
+    m_Bits: 0
   obstacleMask:
     serializedVersion: 2
     m_Bits: 512
