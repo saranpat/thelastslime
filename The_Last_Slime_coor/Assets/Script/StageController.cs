@@ -107,7 +107,7 @@ public class StageController : MonoBehaviour {
             if (panel[2].gameObject.activeSelf)
             {
                 slime[2].GetComponent<Movewithmouse>().isControl = false;
-                panel[3].GetComponent<Image>().sprite = UnSelectSprite;
+                panel[2].GetComponent<Image>().sprite = UnSelectSprite;
             }
 
             maincamera.gameObject.GetComponent<CameraScript>().target = slime[0];
