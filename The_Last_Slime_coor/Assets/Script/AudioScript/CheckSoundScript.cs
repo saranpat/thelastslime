@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CheckSoundScript : MonoBehaviour {
+    [HideInInspector] public float[] volumeOffset;
+    [HideInInspector] public bool isMute = false;
+    public float volume = 0.5f;
+
     private Camera MainCam;
 
     private AudioSource[] AuS;
@@ -38,6 +42,8 @@ public class CheckSoundScript : MonoBehaviour {
         MainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         AuS = GetComponents<AudioSource>();
 
+        volumeOffset = new float[AuS.Length];
+
         waterSndPlay = false;
         fireSndPlay = false;
         camouSndPlay = false;
@@ -52,6 +58,7 @@ public class CheckSoundScript : MonoBehaviour {
 
         for (int i = 0; i < AuS.Length; i++)
         {
+            volumeOffset[i] = AuS[i].volume;
             AuS[i].Stop();
         }
 
@@ -63,6 +70,31 @@ public class CheckSoundScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (isMute)
+        {
+            for (int i = 0; i < AuS.Length; i++)
+            {
+                AuS[i].mute = true;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < AuS.Length; i++)
+            {
+                AuS[i].mute = false;
+            }
+        }
+
+        for (int i = 0; i < AuS.Length; i++)
+        {
+            float f = (volume * 2) * volumeOffset[i];
+
+            if (f > 1)
+                f = 1;
+
+            AuS[i].volume = f;
+        }
+
         target = MainCam.gameObject.GetComponent<CameraScript>().target;
 
         if(target != null)

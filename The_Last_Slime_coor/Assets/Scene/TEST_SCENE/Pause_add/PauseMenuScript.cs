@@ -34,12 +34,12 @@ public class PauseMenuScript : MonoBehaviour {
 		if (paused) {
 			Time.timeScale = 0;
             audio.GetComponent<CheckSoundScript>().PauseSound();
-            bgm.GetComponent<SoundManager>().PauseGame();
+            //bgm.GetComponent<SoundManager>().PauseGame();
             pausePanel.SetActive(true);
 		} else if (!paused) {
 			Time.timeScale = 1;
             audio.GetComponent<CheckSoundScript>().UnPauseSound();
-            bgm.GetComponent<SoundManager>().PauseGame();
+            //bgm.GetComponent<SoundManager>().PauseGame();
             pausePanel.SetActive(false);
         }
 	}

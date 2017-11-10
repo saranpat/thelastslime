@@ -456,4 +456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8731c96859682714fa50d415d40f583c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volumeOffset: []
+  isMute: 0
+  volume: 0.5
   closestFireBlk: {fileID: 0}

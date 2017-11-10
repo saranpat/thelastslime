@@ -8,12 +8,16 @@ public class PausePanelScript : MonoBehaviour {
     private string sceneName;
 
     private GameObject fade;
+    private GameObject option;
 
     // Use this for initialization
     void Start () {
 		sceneName = SceneManager.GetActiveScene().name;
 
         fade = GameObject.Find("Fade");
+        option = GameObject.Find("OptionPanel");
+
+        option.SetActive(false);
     }
 	
 	// Update is called once per frame
@@ -33,7 +37,10 @@ public class PausePanelScript : MonoBehaviour {
 
     public void Option()
     {
-
+        if (option.activeSelf)
+            option.SetActive(false);
+        else
+            option.SetActive(true);
     }
 
     IEnumerator loadScene(string s)
