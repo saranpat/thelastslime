@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class SmallColliderScript : MonoBehaviour
 {
-
+    public Movewithmouse _Movewithmouse;
     private GameObject leverBtnObj;
     private Button leverBtn;
 
@@ -14,7 +14,12 @@ public class SmallColliderScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        leverBtnObj = GameObject.FindGameObjectWithTag("LeverBtn");
+        _Movewithmouse = this.GetComponentInParent<Movewithmouse>();
+        if (_Movewithmouse.theRealOne)
+        {
+            leverBtnObj = GameObject.FindGameObjectWithTag("LeverBtn");
+        }
+        
     }
 
     // Update is called once per frame
@@ -32,6 +37,7 @@ public class SmallColliderScript : MonoBehaviour
     {
         if (collision.tag == "Lever")
         {
+            if (leverBtn!=null)
             leverBtn.gameObject.SetActive(true);
             lever = collision;
         }
@@ -41,6 +47,7 @@ public class SmallColliderScript : MonoBehaviour
     {
         if (collision.tag == "Lever")
         {
+            if (leverBtn != null)
             leverBtn.gameObject.SetActive(false);
         }
     }
@@ -49,6 +56,7 @@ public class SmallColliderScript : MonoBehaviour
     {
         SoundManager.ButtonRea = true;
         SoundManager.LeverRea = true;
+        if (leverBtn != null)
         lever.gameObject.GetComponent<LeverScript>().PullLever();
         /*if (!lever.gameObject.GetComponent<LeverScript>().switchOff)
         {
