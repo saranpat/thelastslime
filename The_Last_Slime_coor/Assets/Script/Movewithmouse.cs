@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class Movewithmouse : MonoBehaviour {
 	public float speed = 1.5f;
     [HideInInspector] public float timer = 10.0f;
-    public Sprite normalSlime, camouflage, bigSlime;
 
     public static bool cantDetect;
 	public static bool isDead;
@@ -16,6 +15,7 @@ public class Movewithmouse : MonoBehaviour {
 
     public bool bulkUp; //check state of slime (small or big)
 	public bool theRealOne;
+    public bool GetKey;
 	//public static bool Real;
     public bool isControl;
 
@@ -28,10 +28,8 @@ public class Movewithmouse : MonoBehaviour {
     private bool isLeavingWater; // check if out of water
     private bool CheckAgainIfInWater;
 
-    private SpriteRenderer spriteRenderer;
-    private Color camouflageAlpha, normalColor;
-
-    private Animator _Animator;
+    public Animator _Animator;
+    public GameObject KeyEff;
     private string Ani_Move = "Move";
     private string Ani_IsCamouflage = "IsCamouflage";
     private string Ani_IsBig = "IsBig";
@@ -54,22 +52,12 @@ public class Movewithmouse : MonoBehaviour {
         isDead = false;
 		isWin = false;
         cantDetect = false;
-
+        GetKey = false;
         bulkUp = false;
 
         isLeavingWater = false;
 
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        normalColor = spriteRenderer.color;
-        camouflageAlpha = normalColor;
-        camouflageAlpha.a = 0.6f;
-
         targetMask = 11; // layer 11 PlayerInWater
-
-        if (this.gameObject.GetComponentInChildren<Animator>() != null)
-        {
-            _Animator = this.gameObject.GetComponentInChildren<Animator>();
-        }
 
         if (PlayerPrefs.HasKey("Level"))
         {
@@ -137,7 +125,7 @@ public class Movewithmouse : MonoBehaviour {
 			transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
 			//rb2d.velocity =target2d.normalized * speed;
 		}*/
-
+        KeyEff.SetActive(GetKey);
 
         if (Input.GetMouseButtonDown(1))
         {
@@ -172,13 +160,6 @@ public class Movewithmouse : MonoBehaviour {
             }
         }
 
-        if (!bulkUp && !cantDetect) //Return to normal size while not swimming
-        {
-            //gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/Slime");
-            spriteRenderer.sprite = normalSlime;
-            //transform.localScale = new Vector2(0.25f, 0.25f);
-            //transform.localScale = new Vector2(0.4f, 0.4f);
-        }
 	}
 
     public void NotReal_DeadOrTimeUP()
@@ -201,8 +182,12 @@ public class Movewithmouse : MonoBehaviour {
 
         if (other.tag == "Key")
         {
-            other.gameObject.SetActive(false);
-            SoundManager.UnlockedRea = true;
+            if (theRealOne && GetKey == false)
+            {
+                GetKey = true;
+                other.gameObject.SetActive(false);
+                SoundManager.UnlockedRea = true;
+            }
         }
 
         if (other.tag == "Water")
@@ -212,8 +197,6 @@ public class Movewithmouse : MonoBehaviour {
             isLeavingWater = false;
             CheckAgainIfInWater = true;
             StopAllCoroutines();
-            spriteRenderer.sprite = camouflage;
-            spriteRenderer.color = camouflageAlpha;
 
             GoToNormalSize();
         }
@@ -244,8 +227,6 @@ public class Movewithmouse : MonoBehaviour {
             this.gameObject.layer = 11; // layer 11 PlayerInWater
             isLeavingWater = false;
             CheckAgainIfInWater = true;
-            spriteRenderer.sprite = camouflage;
-            spriteRenderer.color = camouflageAlpha;
 
             if (_Animator != null)
                 _Animator.SetBool(Ani_IsCamouflage, true);
@@ -282,7 +263,6 @@ public class Movewithmouse : MonoBehaviour {
             isLeavingWater = true;
             cantDetect = false;
             this.gameObject.layer = 10; // layer 10 Player
-            spriteRenderer.color = normalColor;
 
             if (_Animator != null)
                 _Animator.SetBool(Ani_IsCamouflage, false);
@@ -300,10 +280,6 @@ public class Movewithmouse : MonoBehaviour {
 
     IEnumerator LeavingWater()
     {
-        //gameObject.GetComponent<CircleCollider2D>().isTrigger = false;
-
-        //yield return new WaitForSeconds(0.1f);
-
         if (isLeavingWater)
         {
             if (_Animator != null)
@@ -311,12 +287,8 @@ public class Movewithmouse : MonoBehaviour {
                 _Animator.SetTrigger(Ani_IsBig);
                 transform.localScale = S_Big;
             }
-                
-            //cantDetect = false;
+
             bulkUp = true;
-            //gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/big_slime");
-            spriteRenderer.sprite = bigSlime;
-            //transform.localScale = new Vector2(0.55f, 0.55f);
             isLeavingWater = false;
 
             yield return new WaitForSeconds(5.0f);
