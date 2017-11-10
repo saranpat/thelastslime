@@ -1107,8 +1107,8 @@ public class AI_Move : MonoBehaviour
     private bool StopMoveing;
     IEnumerator ReturnToPatrol()
     {
-        if (!playDeadSound)
-            SoundManager.DeadRea = true;
+        /*if (!playDeadSound)
+            SoundManager.DeadRea = true;*/
 
         playDeadSound = true;
         Movewithmouse.isDead = true;

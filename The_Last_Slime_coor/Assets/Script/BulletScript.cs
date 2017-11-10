@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour {
 
+    public GameObject prefabEff;
     private float Speed = 2;
 	// Use this for initialization
 	void Start () {
@@ -25,6 +26,9 @@ public class BulletScript : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "Door")
         {
+
+            Instantiate(prefabEff, this.transform.position, Quaternion.identity);
+            SoundManager.FireBallRea = true;
             Destroy(this.gameObject);
         }
 
@@ -38,8 +42,10 @@ public class BulletScript : MonoBehaviour {
             {
                 collision.gameObject.GetComponent<Movewithmouse>().NotReal_DeadOrTimeUP();
             }
-            SoundManager.DeadRea = true;
-            
+
+            SoundManager.FireBallRea = true;
+            //SoundManager.DeadRea = true;
+            Instantiate(prefabEff, this.transform.position, Quaternion.identity);
             Destroy(this.gameObject,0.1f);
         }
     }

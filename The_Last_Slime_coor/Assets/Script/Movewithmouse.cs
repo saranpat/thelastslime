@@ -182,7 +182,6 @@ public class Movewithmouse : MonoBehaviour {
         if (other.tag == "Fire")
         {
             isDead = true;
-            SoundManager.DeadRea = true;
         }
 
         if (other.tag == "Key")
@@ -242,11 +241,13 @@ public class Movewithmouse : MonoBehaviour {
 
     IEnumerator Respawn()
     {
+        
         ColliderInThis.enabled = false;
         ColliderInChildren.enabled = false;
 
 
         isinRespawn = true;
+        SoundManager.DeadRea = true;
         if (_Animator != null)
             _Animator.SetTrigger(Ani_Dead);
         yield return new WaitForSeconds(5f);
