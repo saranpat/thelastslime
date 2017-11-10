@@ -400,7 +400,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4787516632635448, guid: 8e12c3d0f3b55b843a4952b7786b3648, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1869507462797112, guid: 8e12c3d0f3b55b843a4952b7786b3648, type: 2}
       propertyPath: m_Name
@@ -874,7 +874,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4606093816977226, guid: 078617a243bfebb46a3672674b39e9bd, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4606093816977226, guid: 078617a243bfebb46a3672674b39e9bd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -1644,12 +1644,12 @@ Prefab:
     - target: {fileID: 224797745543448552, guid: 63b2b999ce677e84e895faa4a5914e50,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 424
+      value: 207.5
       objectReference: {fileID: 0}
     - target: {fileID: 224797745543448552, guid: 63b2b999ce677e84e895faa4a5914e50,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 238.5
+      value: 116.5
       objectReference: {fileID: 0}
     - target: {fileID: 224797745543448552, guid: 63b2b999ce677e84e895faa4a5914e50,
         type: 2}
@@ -1842,7 +1842,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4974591354714636, guid: bb1f37643d0edf64f947946e12e5283a, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 2.0056
       objectReference: {fileID: 0}
     - target: {fileID: 4974591354714636, guid: bb1f37643d0edf64f947946e12e5283a, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1866,7 +1866,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4974591354714636, guid: bb1f37643d0edf64f947946e12e5283a, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114317674438989716, guid: bb1f37643d0edf64f947946e12e5283a,
         type: 2}
@@ -2087,8 +2087,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1188399386}
-  - {fileID: 490427783}
   - {fileID: 1061048776}
+  - {fileID: 490427783}
   - {fileID: 205660236}
   m_Father: {fileID: 0}
   m_RootOrder: 2
