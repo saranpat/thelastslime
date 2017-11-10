@@ -18,10 +18,12 @@ public class StageController : MonoBehaviour {
 
     private Button[] splitSprite = new Button[3];
 
+    private float MaxTime;
+
 	// Use this for initialization
 	void Start () {
         slimeCnt = 1;
-
+        
         for (int i = 1; i <= 3; i++)
         {
             splitSprite[i - 1] = GameObject.Find("Split" + i.ToString()).GetComponent<Button>();
@@ -32,7 +34,11 @@ public class StageController : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+    {
+        MaxTime = Movewithmouse.staticTimer;
+       
+
         slime = GameObject.FindGameObjectsWithTag("Player");
 
         slimeCnt = slime.Length;
@@ -70,13 +76,13 @@ public class StageController : MonoBehaviour {
 
         if (panel[1].activeSelf)
         {
-            splitSprite[1].GetComponent<Image>().fillAmount = slime[1].GetComponent<Movewithmouse>().timer / 10f;
+            splitSprite[1].GetComponent<Image>().fillAmount = slime[1].GetComponent<Movewithmouse>().timer / MaxTime;
             slime[1].GetComponent<Movewithmouse>().timer -= Time.deltaTime;
         }
 
         if (panel[2].activeSelf)
         {
-            splitSprite[2].GetComponent<Image>().fillAmount = slime[2].GetComponent<Movewithmouse>().timer / 10f;
+            splitSprite[2].GetComponent<Image>().fillAmount = slime[2].GetComponent<Movewithmouse>().timer / MaxTime;
             slime[2].GetComponent<Movewithmouse>().timer -= Time.deltaTime;
         }
     }

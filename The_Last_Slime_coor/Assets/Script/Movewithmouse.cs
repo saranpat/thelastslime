@@ -6,8 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class Movewithmouse : MonoBehaviour {
 	public float speed = 1.5f;
-    [HideInInspector] public float timer = 30.0f;
+    public float timer;
 
+    public static float staticTimer;
     public static bool cantDetect;
 	public static bool isDead;
 	public static bool isWin;
@@ -44,6 +45,8 @@ public class Movewithmouse : MonoBehaviour {
     private Collider2D ColliderInThis;
 
     void Start () {
+        staticTimer = timer;
+
 		target = transform.position;
         startPos = target;
 

@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  timer: 10
+  timer: 20
   bulkUp: 0
   theRealOne: 1
   GetKey: 0
