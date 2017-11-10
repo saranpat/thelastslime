@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
@@ -44,6 +45,8 @@ public class Movewithmouse : MonoBehaviour {
     public Collider2D ColliderInChildren;
     private Collider2D ColliderInThis;
 
+    private GameObject fade;
+
     void Start () {
         staticTimer = timer;
 
@@ -62,6 +65,8 @@ public class Movewithmouse : MonoBehaviour {
 
         targetMask = 11; // layer 11 PlayerInWater
 
+        fade = GameObject.Find("Fade");
+
         if (PlayerPrefs.HasKey("Level"))
         {
             string s = SceneManager.GetActiveScene().name;
@@ -78,7 +83,7 @@ public class Movewithmouse : MonoBehaviour {
             }
             
             int i = int.Parse(split[5]);
-            print(split[5]);
+            
             if (i > PlayerPrefs.GetInt("Level"))
                 PlayerPrefs.SetInt("Level", i);
         }
@@ -213,9 +218,36 @@ public class Movewithmouse : MonoBehaviour {
 			isWin = true;
             ColliderInThis.enabled = false;
             ColliderInChildren.enabled = false;
-			//use scenecontrolscript
-           // Application.LoadLevel(1);
+            //use scenecontrolscript
 
+            string s = SceneManager.GetActiveScene().name;
+            string[] split = new string[s.Length];
+
+            for (int j = 0; j < s.Length; j++)
+            {
+                split[j] = s[j].ToString();
+            }
+
+            int i;
+            
+            if (split.Length == 6)
+            {
+                i = int.Parse(split[5]);
+                i++;
+                s = split[0] + split[1] + split[2] + split[3] + split[4] + i.ToString();
+            }
+            else
+            {
+                i = int.Parse(split[6]);
+                i++;
+
+                if (i == 13)
+                    s = "Win_UI";
+                else
+                    s = split[0] + split[1] + split[2] + split[3] + split[4] + split[5] + i.ToString();
+            }
+
+            StartCoroutine(loadLevel(s));
         }
     }
 
@@ -240,6 +272,14 @@ public class Movewithmouse : MonoBehaviour {
             if (_Animator != null)
                 _Animator.SetBool(Ani_IsCamouflage, true);
         }
+    }
+
+    IEnumerator loadLevel(string s)
+    {
+        fade.GetComponent<Animator>().SetBool("Fade", true);
+        yield return new WaitUntil(() => fade.GetComponent<Image>().color.a == 1);
+
+        SceneManager.LoadScene(s);
     }
 
     bool isinRespawn;
