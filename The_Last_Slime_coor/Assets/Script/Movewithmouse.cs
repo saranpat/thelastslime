@@ -62,15 +62,20 @@ public class Movewithmouse : MonoBehaviour {
         if (PlayerPrefs.HasKey("Level"))
         {
             string s = SceneManager.GetActiveScene().name;
-            string[] split = s.Split();
+            string[] split = new string[s.Length];
+           
+            for (int j = 0; j < s.Length; j++)
+            {
+                split[j] = s[j].ToString();
+            }
 
             if (split.Length > 6)
             {
                 split[5] = split[5] + split[6];
             }
-
+            
             int i = int.Parse(split[5]);
-
+            print(split[5]);
             if (i > PlayerPrefs.GetInt("Level"))
                 PlayerPrefs.SetInt("Level", i);
         }
