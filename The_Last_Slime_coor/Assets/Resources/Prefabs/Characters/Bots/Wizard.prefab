@@ -227,6 +227,7 @@ MonoBehaviour:
   firePrefab: {fileID: 1076873495949780, guid: c1ccf69b42cec7d4fbb7a8e4fda7878b, type: 2}
   fireSpeed: 2
   fireRange: 3
+  EmoObj: {fileID: 1685518132470308, guid: a16643c70736f964699f65e03939ed88, type: 2}
   rotating: 0
 --- !u!114 &114368508630434548
 MonoBehaviour:

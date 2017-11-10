@@ -59,6 +59,9 @@ public class AI_Move : MonoBehaviour
     private bool playDetectSound;
     private bool playDeadSound;
 
+    public GameObject EmoObj;
+
+
     // Use this for initialization
     void Start()
     {
@@ -80,6 +83,10 @@ public class AI_Move : MonoBehaviour
 
         playDetectSound = false;
         playDeadSound = false;
+
+        GameObject E = Instantiate(EmoObj, this.transform.position, Quaternion.identity) as GameObject;
+        E.GetComponent<Emo>().AI_head = this.gameObject;
+
     }
 
     public void Set_alertState(GameObject WardTransfrom)
@@ -937,7 +944,7 @@ public class AI_Move : MonoBehaviour
         if(alertState)
         {
             TimeAlertState += Time.deltaTime;
-            if (TimeAlertState > 10)
+            if (TimeAlertState > 15)
             {
                 TimeAlertState = 0;
                 alertState = false;
