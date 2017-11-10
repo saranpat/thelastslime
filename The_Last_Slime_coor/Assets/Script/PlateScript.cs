@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
+//using UnityEditor;
 
 public class PlateScript : MonoBehaviour
 {
@@ -89,7 +89,7 @@ public class PlateScript : MonoBehaviour
     
 
 }
-[CustomEditor(typeof(PlateScript))]
+/*[CustomEditor(typeof(PlateScript))]
 public class PlateScriptEditor : Editor
 {
     void OnSceneGUI()
@@ -98,4 +98,4 @@ public class PlateScriptEditor : Editor
         UnityEditor.Handles.color = Color.green;
         UnityEditor.Handles.DrawWireArc(fow.transform.position, Vector3.forward, Vector3.up, 360, fow.Radius);
     }
-}
+}*/

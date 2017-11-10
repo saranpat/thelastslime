@@ -216,7 +216,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c1c4933fc70b22f4db0e4be3f837d940, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -456,5 +456,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8731c96859682714fa50d415d40f583c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainCam: {fileID: 20677545467149950, guid: d7faa0cd5acb8a243b6d50b9ae04885d, type: 2}
   closestFireBlk: {fileID: 0}

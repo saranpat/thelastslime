@@ -29,17 +29,17 @@ public class SplitBlockScript : MonoBehaviour
             miniMe.gameObject.GetComponent<Movewithmouse>().isControl = false;
 
             Collider2D dummy = miniMe.gameObject.GetComponentInChildren<Collider2D>();
-
-            StartCoroutine(offCollider2D(dummy));
+            float time = miniMe.gameObject.GetComponent<Movewithmouse>().timer;
+            StartCoroutine(offCollider2D(dummy,time));
 
             collision.gameObject.GetComponent<Movewithmouse>().bulkUp = false;
             collision.gameObject.GetComponent<Movewithmouse>().GoToNormalSize();
         }
     }
 
-    IEnumerator offCollider2D(Collider2D dummy)
+    IEnumerator offCollider2D(Collider2D dummy,float Delay)
     {
-        yield return new WaitForSeconds(10.0f);
+        yield return new WaitForSeconds(Delay);
         if (dummy != null)
         {
             dummy.enabled = false;

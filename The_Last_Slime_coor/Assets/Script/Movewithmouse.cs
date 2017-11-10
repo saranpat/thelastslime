@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Movewithmouse : MonoBehaviour {
 	public float speed = 1.5f;
-    [HideInInspector] public float timer = 10.0f;
+    [HideInInspector] public float timer = 15.0f;
 
     public static bool cantDetect;
 	public static bool isDead;
@@ -208,6 +208,8 @@ public class Movewithmouse : MonoBehaviour {
         if (other.tag == "Exit") //Win level door
         {
 			isWin = true;
+            ColliderInThis.enabled = false;
+            ColliderInChildren.enabled = false;
 			//use scenecontrolscript
            // Application.LoadLevel(1);
 
