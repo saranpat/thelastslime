@@ -11,6 +11,8 @@ public class CheckSoundScript : MonoBehaviour {
     private GameObject[] fireBlk;
     private GameObject[] enemy;
 
+    private bool[] audioPlayed;
+
     private GameObject closestWaterBlk;
     [HideInInspector] public GameObject closestFireBlk;
     private GameObject closestGuard;
@@ -52,6 +54,8 @@ public class CheckSoundScript : MonoBehaviour {
         {
             AuS[i].Stop();
         }
+
+        audioPlayed = new bool[AuS.Length];
 
         delay = 1.0f;
         range = 4.0f;
@@ -248,6 +252,31 @@ public class CheckSoundScript : MonoBehaviour {
         {
             AuS[4].Play();
             bootSndPlay = false;
+        }
+    }
+
+    public void PauseSound ()
+    {
+        for (int i = 0; i < AuS.Length; i++)
+        {
+            if (AuS[i].isPlaying)
+            {
+                audioPlayed[i] = true;
+                AuS[i].Pause();
+            }
+            else
+            {
+                audioPlayed[i] = false;
+            }
+        }
+    }
+
+    public void UnPauseSound ()
+    {
+        for (int i = 0; i < AuS.Length; i++)
+        {
+            if (audioPlayed[i])
+                AuS[i].UnPause();
         }
     }
 }

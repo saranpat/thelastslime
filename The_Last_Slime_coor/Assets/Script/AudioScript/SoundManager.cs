@@ -73,17 +73,17 @@ public class SoundManager : MonoBehaviour {
             UIOverRea = false;
             monk.PlayOneShot(UIOver);
         }
-        if(LeverRea)
+        if (LeverRea)
         {
             LeverRea = false;
             monk.PlayOneShot(Lever);
         }
-        if(SlimeSplitRea)
+        if (SlimeSplitRea)
         {
             SlimeSplitRea = false;
             monk.PlayOneShot(SlimeSplit);
         }
-        if(DetectedRea)
+        if (DetectedRea)
         {
             DetectedRea = false;
             monk.clip = Detected;
@@ -105,5 +105,13 @@ public class SoundManager : MonoBehaviour {
     {
         yield return new WaitForSeconds(length);
         
+    }
+
+    public void PauseGame()
+    {
+        if (monk.isPlaying)
+            monk.Pause();
+        else
+            monk.UnPause();
     }
 }
