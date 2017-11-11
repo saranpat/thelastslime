@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class PauseMenuScript : MonoBehaviour {
 	//public Button button;
-	public bool paused;
+	public static bool paused;
 
     private GameObject audio;
     private GameObject bgm;

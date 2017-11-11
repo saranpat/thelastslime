@@ -224,7 +224,9 @@ public class AI_Move : MonoBehaviour
         {
             if (targetPoint == null && !alertState)
                 targetPoint = targetPin[curPathIndex].transform;
-            walk();
+
+            if (PauseMenuScript.paused == false)
+                walk();
         }
 
         if (_FieldOfView.visibleTargets.Count > 0)
@@ -292,7 +294,8 @@ public class AI_Move : MonoBehaviour
                 {
                     if (StopMoveing == false)
                     {
-                        AI_Chase();
+                        if (PauseMenuScript.paused == false)
+                            AI_Chase();
                     }
                 }
                 else
