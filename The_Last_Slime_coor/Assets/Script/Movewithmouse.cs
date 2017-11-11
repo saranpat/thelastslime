@@ -168,7 +168,7 @@ public class Movewithmouse : MonoBehaviour {
 		}*/
         KeyEff.SetActive(GetKey);
 
-        if (Input.GetMouseButtonDown(1))
+		if (Input.GetKeyDown(KeyCode.B))
         {
             ColliderInThis.enabled = !ColliderInThis.enabled;
             ColliderInChildren.enabled = !ColliderInChildren.enabled;
