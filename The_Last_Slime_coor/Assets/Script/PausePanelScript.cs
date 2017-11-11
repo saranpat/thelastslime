@@ -8,6 +8,7 @@ public class PausePanelScript : MonoBehaviour {
     private string sceneName;
 
     private GameObject fade;
+	private GameObject drop;
     private GameObject option;
 
     // Use this for initialization
@@ -16,7 +17,7 @@ public class PausePanelScript : MonoBehaviour {
 
         fade = GameObject.Find("Fade");
         option = GameObject.Find("OptionPanel");
-
+		drop  = GameObject.Find("BG");
         option.SetActive(false);
     }
 	
@@ -46,6 +47,7 @@ public class PausePanelScript : MonoBehaviour {
     IEnumerator loadScene(string s)
     {
         Time.timeScale = 1;
+		drop.SetActive(false);
         fade.GetComponent<Animator>().SetBool("Fade", true);
         yield return new WaitUntil(() => fade.GetComponent<Image>().color.a == 1);
 

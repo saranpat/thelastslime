@@ -13,6 +13,7 @@ public class Movewithmouse : MonoBehaviour {
     public static float staticTimer;
     public static bool cantDetect;
 	public static bool isDead;
+	public static bool isGrilled;
 	public static bool isWin;
     public static bool OnUI; //check if on any ui
 
@@ -64,7 +65,7 @@ public class Movewithmouse : MonoBehaviour {
         cantDetect = false;
         GetKey = false;
         bulkUp = false;
-
+		isGrilled = false;
         isLeavingWater = false;
 
         //targetMask = 11; // layer 11 PlayerInWater Dandy: never used
@@ -217,6 +218,7 @@ public class Movewithmouse : MonoBehaviour {
         if (other.tag == "Fire")
         {
             isDead = true;
+			isGrilled = true;
         }
 
         if (other.tag == "Key")

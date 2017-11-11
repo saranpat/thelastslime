@@ -8,6 +8,8 @@ public class Lose_menu_controller : MonoBehaviour {
 	public Button button;
 	public Button button2;
 	public Image black;
+	public Image slimepic;
+	public Sprite grilled;
 	private Image buttonimg;
 	//public Image slime;
 	public Animator anim;
@@ -20,6 +22,9 @@ public class Lose_menu_controller : MonoBehaviour {
 		button2.onClick.AddListener (delegate {
 			StartCoroutine(FadingB());
 		});
+	//	slimepic.GetComponent<Image> ();
+		if (Movewithmouse.isGrilled == true)
+			slimepic.sprite = grilled;
 	}
 
 	// Update is called once per frame

@@ -228,6 +228,8 @@ MonoBehaviour:
   button: {fileID: 369318826}
   button2: {fileID: 1891897923}
   black: {fileID: 116956806}
+  slimepic: {fileID: 667589623}
+  grilled: {fileID: 21300000, guid: 17179711d62f7bb4bbf66556ebef0c39, type: 3}
   anim: {fileID: 116956805}
 --- !u!4 &264172822
 Transform:
@@ -990,8 +992,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2043106415}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 371, y: 203, z: 0}
-  m_LocalScale: {x: 0.9275, y: 0.9275, z: 0.9275}
+  m_LocalPosition: {x: 446, y: 208, z: 0}
+  m_LocalScale: {x: 1.115, y: 1.115, z: 1.115}
   m_Children:
   - {fileID: 1181100117}
   - {fileID: 369318825}
