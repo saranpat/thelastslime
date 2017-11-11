@@ -13,6 +13,7 @@ public class OptionScript : MonoBehaviour {
 
     private GameObject sndManager;
     private GameObject sndCheck;
+    private GameObject slimeSnd;
 
 	// Use this for initialization
 	void Start () {
@@ -22,6 +23,7 @@ public class OptionScript : MonoBehaviour {
         sfxS = GameObject.Find("SFXSlider").GetComponent<Slider>();
         sndManager = GameObject.Find("SoundManager");
         sndCheck = GameObject.Find("CheckSound");
+        slimeSnd = GameObject.Find("Slime");
 
         if (!PlayerPrefs.HasKey("BGMMute"))
             PlayerPrefs.SetInt("BGMMute", 0);
@@ -79,6 +81,7 @@ public class OptionScript : MonoBehaviour {
             sfxS.value = 0;
             sndCheck.GetComponent<CheckSoundScript>().isMute = true;
             sndManager.GetComponent<SoundManager>().monk[1].mute = true;
+            slimeSnd.GetComponent<AudioSource>().mute = true;
 
             PlayerPrefs.SetInt("SFXMute", 1);
         }
@@ -88,6 +91,8 @@ public class OptionScript : MonoBehaviour {
             sndCheck.GetComponent<CheckSoundScript>().volume = sfxS.value;
             sndManager.GetComponent<SoundManager>().monk[1].mute = false;
             sndManager.GetComponent<SoundManager>().monk[1].volume = sfxS.value;
+            slimeSnd.GetComponent<AudioSource>().mute = false;
+            slimeSnd.GetComponent<AudioSource>().volume = sfxS.value;
 
             PlayerPrefs.SetInt("SFXMute", 0);
             PlayerPrefs.SetFloat("SFXVolume", sfxS.value);
