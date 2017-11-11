@@ -8,7 +8,8 @@ using UnityEngine.SceneManagement;
 public class Movewithmouse : MonoBehaviour {
 	public float speed = 1.5f;
     public float timer;
-	public Joystick joy;
+	private GameObject joyobj;
+	private Joystick joy;
     public static float staticTimer;
     public static bool cantDetect;
 	public static bool isDead;
@@ -67,7 +68,8 @@ public class Movewithmouse : MonoBehaviour {
         isLeavingWater = false;
 
         //targetMask = 11; // layer 11 PlayerInWater Dandy: never used
-
+		joyobj = GameObject.Find("JoystickBG");
+		joy = joyobj.GetComponent<Joystick> ();
         fade = GameObject.Find("Fade");
 
         if (PlayerPrefs.HasKey("Level"))
@@ -320,7 +322,7 @@ public class Movewithmouse : MonoBehaviour {
         SoundManager.DeadRea = true;
         if (_Animator != null)
             _Animator.SetTrigger(Ani_Dead);
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(10f);
 
         transform.position = startPos;
         isDead = false;

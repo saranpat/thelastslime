@@ -449,7 +449,7 @@ GameObject:
   - component: {fileID: 114419884395854980}
   - component: {fileID: 114952099782414874}
   m_Layer: 5
-  m_Name: Joystick
+  m_Name: JoystickBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

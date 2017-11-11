@@ -1115,7 +1115,7 @@ public class AI_Move : MonoBehaviour
         //playDeadSound = true; Dandy: value never used
         Movewithmouse.isDead = true;
         StopMoveing = true;
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(7.0f);
         StopMoveing = false;
         isDetect = false;
         alertState = false;
