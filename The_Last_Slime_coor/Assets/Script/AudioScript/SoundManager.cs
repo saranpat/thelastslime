@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour {
 
-    AudioSource monk;
+    [HideInInspector] public AudioSource[] monk;
 
     public static bool DeadRea;
     public static bool UnlockedRea;
@@ -28,7 +28,7 @@ public class SoundManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        monk = GetComponent<AudioSource>();
+        monk = GetComponents<AudioSource>();
         DeadRea = false;
         UnlockedRea = false;
         FireBallRea = false;
@@ -39,9 +39,9 @@ public class SoundManager : MonoBehaviour {
 
         int i = Random.Range(0, BGM.Length - 1);
 
-        monk.clip = BGM[i];
-        monk.loop = true;
-        monk.Play();
+        monk[0].clip = BGM[i];
+        monk[0].loop = true;
+        monk[0].Play();
     }
 	
 	// Update is called once per frame
@@ -50,54 +50,54 @@ public class SoundManager : MonoBehaviour {
 		if(DeadRea)
         {
             DeadRea = false;
-            monk.PlayOneShot(Dead);
+            monk[1].PlayOneShot(Dead);
             //StartCoroutine(Waitsound(Dead.length));            
         }
         if(UnlockedRea)
         {
             UnlockedRea = false;
-            monk.PlayOneShot(Unlocked);
+            monk[1].PlayOneShot(Unlocked);
         }
         if(FireBallRea)
         {
             FireBallRea = false;
-            monk.PlayOneShot(FireBall);
+            monk[1].PlayOneShot(FireBall);
         }
         if(ButtonRea)
         {
             ButtonRea = false;
-            monk.PlayOneShot(Button);
+            monk[1].PlayOneShot(Button);
         }
         if (UIOverRea)
         {
             UIOverRea = false;
-            monk.PlayOneShot(UIOver);
+            monk[1].PlayOneShot(UIOver);
         }
         if (LeverRea)
         {
             LeverRea = false;
-            monk.PlayOneShot(Lever);
+            monk[1].PlayOneShot(Lever);
         }
         if (SlimeSplitRea)
         {
             SlimeSplitRea = false;
-            monk.PlayOneShot(SlimeSplit);
+            monk[1].PlayOneShot(SlimeSplit);
         }
         if (DetectedRea)
         {
             DetectedRea = false;
-            monk.clip = Detected;
-            monk.loop = true;
-            monk.Play();
+            monk[0].clip = Detected;
+            monk[0].loop = true;
+            monk[0].Play();
         }
         if (NormalRea)
         {
             int i = Random.Range(0, BGM.Length - 1);
 
             NormalRea = false;
-            monk.clip = BGM[i];
-            monk.loop = true;
-            monk.Play();
+            monk[0].clip = BGM[i];
+            monk[0].loop = true;
+            monk[0].Play();
         }
     }
 
@@ -107,11 +107,11 @@ public class SoundManager : MonoBehaviour {
         
     }
 
-    public void PauseGame()
+    /*public void PauseGame()
     {
         if (monk.isPlaying)
             monk.Pause();
         else
             monk.UnPause();
-    }
+    }*/
 }
