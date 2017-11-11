@@ -355,6 +355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   timer: 20
+  joy: {fileID: 0}
   bulkUp: 0
   theRealOne: 1
   GetKey: 0

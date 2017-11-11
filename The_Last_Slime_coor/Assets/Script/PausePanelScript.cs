@@ -15,7 +15,7 @@ public class PausePanelScript : MonoBehaviour {
 		sceneName = SceneManager.GetActiveScene().name;
 
         fade = GameObject.Find("Fade");
-        option = GameObject.Find("OptionPanel");
+        option = GameObject.Find("Option");
 
         option.SetActive(false);
     }

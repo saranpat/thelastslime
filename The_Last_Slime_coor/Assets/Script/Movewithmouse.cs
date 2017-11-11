@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class Movewithmouse : MonoBehaviour {
 	public float speed = 1.5f;
     public float timer;
-
+	public Joystick joy;
     public static float staticTimer;
     public static bool cantDetect;
 	public static bool isDead;
@@ -106,18 +106,19 @@ public class Movewithmouse : MonoBehaviour {
                 OnUI = false;
         }
 
-        if (Input.GetMouseButton(0) && !isDead && isControl && !OnUI)
+		if (joy.Horizontal() !=0 && joy.Vertical() !=0 && !isDead && isControl && !OnUI)//Input.GetMouseButton(0) &&
         {
-            target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            target.z = transform.position.z;
-            //target2d = new Vector2(target.x, target.y); Dandy: never used
+			Vector2 dir = Vector2.zero;
+			float angle;
+			dir.x = joy.Horizontal ();
+			dir.y = joy.Vertical ();
+			Vector3 dirformove = new Vector3 (transform.position.x + dir.x, transform.position.y + dir.y, transform.position.z);
+			angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+			//transform.Translate (dir * speed * Time.deltaTime);
+			if (Time.timeScale != 0)transform.rotation = Quaternion.AngleAxis(angle-90, transform.forward);
 
-            var dir = target - transform.position;
-            var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-
-            transform.rotation = Quaternion.AngleAxis(angle - 90, transform.forward); //-90 for face toward mouse
-            transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
-            //rb2d.velocity =target2d.normalized * speed;
+			transform.position = Vector3.MoveTowards(transform.position, dirformove, speed * Time.deltaTime);
+			//transform.rotation = rot;
 
             if (_Animator != null)
                 _Animator.SetBool(Ani_Move, true);
