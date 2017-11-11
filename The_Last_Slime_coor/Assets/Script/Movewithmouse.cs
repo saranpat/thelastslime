@@ -100,19 +100,22 @@ public class Movewithmouse : MonoBehaviour {
     {
         if (Input.GetMouseButton(0))
         {
-            if (EventSystem.current.IsPointerOverGameObject())
+            /*if (EventSystem.current.IsPointerOverGameObject())
                 OnUI = true;
             else
-                OnUI = false;
+                OnUI = false;*/
+			OnUI = false;
         }
 
-		if (joy.Horizontal() !=0 && joy.Vertical() !=0 && !isDead && isControl && !OnUI)//Input.GetMouseButton(0) &&
+		if (joy.Horizontal() !=0.0f && joy.Vertical() !=0.0f && !isDead && isControl && !OnUI)//Input.GetMouseButton(0) &&
         {
 			Vector2 dir = Vector2.zero;
 			float angle;
 			dir.x = joy.Horizontal ();
+			Debug.Log (dir.x);
 			dir.y = joy.Vertical ();
-			Vector3 dirformove = new Vector3 (transform.position.x + dir.x, transform.position.y + dir.y, transform.position.z);
+			Vector3 dirformove = new Vector3 (transform.position.x + (dir.x*10.0f), transform.position.y + (dir.y*10.0f), transform.position.z);
+			//Debug.Log (dirformove);
 			angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 			//transform.Translate (dir * speed * Time.deltaTime);
 			if (Time.timeScale != 0)transform.rotation = Quaternion.AngleAxis(angle-90, transform.forward);
