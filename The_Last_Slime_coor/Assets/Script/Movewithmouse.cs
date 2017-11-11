@@ -110,7 +110,7 @@ public class Movewithmouse : MonoBehaviour {
 			OnUI = false;
         }
 
-		if (joy.Horizontal() !=0.0f && joy.Vertical() !=0.0f && !isDead && isControl && !OnUI)//Input.GetMouseButton(0) &&
+        if (joy.Horizontal() != 0.0f && joy.Vertical() != 0.0f && !isDead && isControl && !OnUI && !isWin)//Input.GetMouseButton(0) &&
         {
 			Vector2 dir = Vector2.zero;
 			float angle;

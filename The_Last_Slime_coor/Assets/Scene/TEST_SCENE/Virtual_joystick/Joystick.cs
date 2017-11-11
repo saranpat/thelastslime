@@ -21,7 +21,7 @@ public class Joystick : MonoBehaviour,IDragHandler,IPointerUpHandler,IPointerDow
 			pos.x = (pos.x / bgImg.rectTransform.sizeDelta.x);
 			pos.y = (pos.y / bgImg.rectTransform.sizeDelta.y);
 
-			inputvec = new Vector2 (pos.x * 2 + 1, pos.y * 2 - 1);
+			inputvec = new Vector2 (pos.x * 2 - 1, pos.y * 2 - 1);
 			inputvec = (inputvec.magnitude > 1.0f) ? inputvec.normalized : inputvec;
 
 			//move joystick img 
