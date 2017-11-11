@@ -30,6 +30,7 @@ public class Win_menu_Code : MonoBehaviour {
 		anim.SetBool ("Fade", true);
 		yield return new WaitUntil (() => black.color.a == 1);
 		SceneManager.LoadScene("Credit");
+	//	StopCoroutine (Fading());
 	}
 	IEnumerator buttonshow()
 	{
