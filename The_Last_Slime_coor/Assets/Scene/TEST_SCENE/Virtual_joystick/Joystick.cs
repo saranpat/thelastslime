@@ -26,7 +26,7 @@ public class Joystick : MonoBehaviour,IDragHandler,IPointerUpHandler,IPointerDow
 
 			//move joystick img 
 			joyimg.rectTransform.anchoredPosition = new Vector2 (inputvec.x * (bgImg.rectTransform.sizeDelta.x/3),inputvec.y*(bgImg.rectTransform.sizeDelta.y/3));
-			Debug.Log (inputvec);
+
 			}
 	}
 	public virtual void OnPointerDown (PointerEventData ped)
@@ -40,14 +40,14 @@ public class Joystick : MonoBehaviour,IDragHandler,IPointerUpHandler,IPointerDow
 	}
 	public float Horizontal()
 	{
-		if (inputvec.x != 0)
+		if (inputvec.x != 0.0f)
 			return inputvec.x;
 		else
 			return Input.GetAxis ("Horizontal");
 	}
 	public float Vertical()
 	{
-		if (inputvec.y != 0)
+		if (inputvec.y != 0.0f)
 			return inputvec.y;
 		else
 			return Input.GetAxis ("Vertical");

@@ -21,6 +21,7 @@ public class Lose_drop_control : MonoBehaviour {
 	}
 	IEnumerator DropCurtain()
 	{
+		yield return new WaitForSeconds(1);
 		anim.SetBool ("Lose", true);
 		yield return new WaitForSeconds(3);
 		PlayerPrefs.SetString ("lastLoadedScene", SceneManager.GetActiveScene ().name);

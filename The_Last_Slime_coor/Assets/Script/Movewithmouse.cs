@@ -8,10 +8,12 @@ using UnityEngine.SceneManagement;
 public class Movewithmouse : MonoBehaviour {
 	public float speed = 1.5f;
     public float timer;
-
+	private GameObject joyobj;
+	private Joystick joy;
     public static float staticTimer;
     public static bool cantDetect;
 	public static bool isDead;
+	public static bool isGrilled;
 	public static bool isWin;
     public static bool OnUI; //check if on any ui
 
@@ -63,11 +65,12 @@ public class Movewithmouse : MonoBehaviour {
         cantDetect = false;
         GetKey = false;
         bulkUp = false;
-
+		isGrilled = false;
         isLeavingWater = false;
 
         //targetMask = 11; // layer 11 PlayerInWater Dandy: never used
-
+		joyobj = GameObject.Find("JoystickBG");
+		joy = joyobj.GetComponent<Joystick> ();
         fade = GameObject.Find("Fade");
 
         if (PlayerPrefs.HasKey("Level"))
@@ -100,24 +103,28 @@ public class Movewithmouse : MonoBehaviour {
     {
         if (Input.GetMouseButton(0))
         {
-            if (EventSystem.current.IsPointerOverGameObject())
+            /*if (EventSystem.current.IsPointerOverGameObject())
                 OnUI = true;
             else
-                OnUI = false;
+                OnUI = false;*/
+			OnUI = false;
         }
 
-        if (Input.GetMouseButton(0) && !isDead && isControl && !OnUI)
+		if (joy.Horizontal() !=0.0f && joy.Vertical() !=0.0f && !isDead && isControl && !OnUI)//Input.GetMouseButton(0) &&
         {
-            target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            target.z = transform.position.z;
-            //target2d = new Vector2(target.x, target.y); Dandy: never used
+			Vector2 dir = Vector2.zero;
+			float angle;
+			dir.x = joy.Horizontal ();
+			Debug.Log (dir.x);
+			dir.y = joy.Vertical ();
+			Vector3 dirformove = new Vector3 (transform.position.x + (dir.x*10.0f), transform.position.y + (dir.y*10.0f), transform.position.z);
+			//Debug.Log (dirformove);
+			angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+			//transform.Translate (dir * speed * Time.deltaTime);
+			if (Time.timeScale != 0)transform.rotation = Quaternion.AngleAxis(angle-90, transform.forward);
 
-            var dir = target - transform.position;
-            var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-
-            transform.rotation = Quaternion.AngleAxis(angle - 90, transform.forward); //-90 for face toward mouse
-            transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
-            //rb2d.velocity =target2d.normalized * speed;
+			transform.position = Vector3.MoveTowards(transform.position, dirformove, speed * Time.deltaTime);
+			//transform.rotation = rot;
 
             if (_Animator != null)
                 _Animator.SetBool(Ani_Move, true);
@@ -211,6 +218,7 @@ public class Movewithmouse : MonoBehaviour {
         if (other.tag == "Fire")
         {
             isDead = true;
+			isGrilled = true;
         }
 
         if (other.tag == "Key")
@@ -262,7 +270,7 @@ public class Movewithmouse : MonoBehaviour {
                 i = int.Parse(split[6]);
                 i++;
 
-                if (i == 13)
+				if (s == "Scene13")
                     s = "Win_UI";
                 else
                     s = split[0] + split[1] + split[2] + split[3] + split[4] + split[5] + i.ToString();
@@ -316,7 +324,7 @@ public class Movewithmouse : MonoBehaviour {
         SoundManager.DeadRea = true;
         if (_Animator != null)
             _Animator.SetTrigger(Ani_Dead);
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(10f);
 
         transform.position = startPos;
         isDead = false;
