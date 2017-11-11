@@ -140,9 +140,9 @@ public class Movewithmouse : MonoBehaviour {
         {
             if (walkTiming < Time.time)
             {
-                if (!audio.isPlaying)
+                //if (!audio.isPlaying)
                     audio.Play();
-                walkTiming = Time.time + 1.0f;
+                walkTiming = Time.time + 0.3f;
             }
         }
         else
