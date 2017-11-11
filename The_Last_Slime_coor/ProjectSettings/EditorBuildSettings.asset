@@ -9,10 +9,10 @@ EditorBuildSettings:
     path: Assets/Scene/UI/Opening/Open_page.unity
     guid: 049345d9ee7d3744290afe8761006ba0
   - enabled: 0
-    path: Assets/Scene/Alpha2_forbuild/alpha_stage.unity
+    path: Assets/Scene/Alpha/alpha_stage.unity
     guid: 6dc53206018478f47beeb51c6e12182e
   - enabled: 0
-    path: Assets/Scene/Alpha2_forbuild/playable_stage.unity
+    path: Assets/Scene/Alpha/playable_stage.unity
     guid: db623a261a407e34895379582b50ef51
   - enabled: 1
     path: Assets/Scene/Beta/Scene2.unity
@@ -56,3 +56,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/UI/Win/Win_UI.unity
     guid: 9725333cbfd52104c8cc073c4f1a45df
+  - enabled: 1
+    path: Assets/Scene/UI/Credit/Credit.unity
+    guid: cd2b955f201f85d44982daabc7b70b67
