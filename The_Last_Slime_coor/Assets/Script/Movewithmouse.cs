@@ -115,7 +115,7 @@ public class Movewithmouse : MonoBehaviour {
 			Vector2 dir = Vector2.zero;
 			float angle;
 			dir.x = joy.Horizontal ();
-			Debug.Log (dir.x);
+			//Debug.Log (dir.x);
 			dir.y = joy.Vertical ();
 			Vector3 dirformove = new Vector3 (transform.position.x + (dir.x*10.0f), transform.position.y + (dir.y*10.0f), transform.position.z);
 			//Debug.Log (dirformove);

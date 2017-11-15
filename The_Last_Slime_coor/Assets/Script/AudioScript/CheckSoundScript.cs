@@ -107,7 +107,7 @@ public class CheckSoundScript : MonoBehaviour {
         CheckClosest();
         CheckPlaying();
         PlayAudio();
-
+        
         closestFireBlk = null;
     }
 
@@ -200,6 +200,10 @@ public class CheckSoundScript : MonoBehaviour {
             {
                 AuS[1].Stop();
             }
+        }
+        else
+        {
+            AuS[1].Stop();
         }
 
         if (closestWaterBlk != null)
