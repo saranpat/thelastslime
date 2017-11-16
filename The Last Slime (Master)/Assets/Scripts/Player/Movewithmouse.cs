@@ -270,7 +270,7 @@ public class Movewithmouse : MonoBehaviour {
                 i = int.Parse(split[6]);
                 i++;
 
-				if (s == "Scene13")
+				if (s == "Scene12")//Dandy change to 12 after rename all scenes
                     s = "Win_UI";
                 else
                     s = split[0] + split[1] + split[2] + split[3] + split[4] + split[5] + i.ToString();

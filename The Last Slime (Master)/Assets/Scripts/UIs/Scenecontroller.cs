@@ -42,7 +42,7 @@ public class Scenecontroller : MonoBehaviour {
             else
                 lvlBtn[i] = GameObject.Find("Button (" + i.ToString() + ")").GetComponent<Button>();
             
-            if (i > PlayerPrefs.GetInt("Level") - 2)
+            if (i > PlayerPrefs.GetInt("Level") - 1)//Dandý change after rename all scenes
                 lvlBtn[i].GetComponentInChildren<Text>().text = "lock";
         }
 
