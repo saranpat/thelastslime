@@ -15,6 +15,7 @@ public class SoundManager : MonoBehaviour {
     public static bool DetectedRea;
     public static bool NormalRea;
     public static bool UIOverRea;
+    public static bool WinRea;
 
     public AudioClip Dead;
     public AudioClip Unlocked;
@@ -23,6 +24,7 @@ public class SoundManager : MonoBehaviour {
     public AudioClip Lever;
     public AudioClip SlimeSplit;
     public AudioClip Detected;
+    public AudioClip Win;
     public AudioClip[] BGM;
     public AudioClip UIOver;
 
@@ -36,6 +38,7 @@ public class SoundManager : MonoBehaviour {
         LeverRea = false;
         SlimeSplitRea = false;
         DetectedRea = false;
+        WinRea = false;
 
         int i = Random.Range(0, BGM.Length - 1);
 
@@ -97,6 +100,13 @@ public class SoundManager : MonoBehaviour {
             NormalRea = false;
             monk[0].clip = BGM[i];
             monk[0].loop = true;
+            monk[0].Play();
+        }
+        if (WinRea)
+        {
+            WinRea = false;
+            monk[0].clip = Win;
+            monk[0].loop = false;
             monk[0].Play();
         }
     }

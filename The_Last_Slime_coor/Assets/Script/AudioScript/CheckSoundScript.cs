@@ -107,7 +107,10 @@ public class CheckSoundScript : MonoBehaviour {
         CheckClosest();
         CheckPlaying();
         PlayAudio();
-        
+
+        if (Time.timeScale == 0)
+            PauseSound();
+
         closestFireBlk = null;
     }
 
