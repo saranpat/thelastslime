@@ -52,6 +52,8 @@ public class Movewithmouse : MonoBehaviour {
     private float walkTiming; //walk Sound
     private AudioSource audio;
 
+    private Text winTxt;
+
     void Start () {
         staticTimer = timer;
 
@@ -72,6 +74,7 @@ public class Movewithmouse : MonoBehaviour {
 		joyobj = GameObject.Find("JoystickBG");
 		joy = joyobj.GetComponent<Joystick> ();
         fade = GameObject.Find("Fade");
+        winTxt = GameObject.Find("WinText").GetComponent<Text>();
 
         if (PlayerPrefs.HasKey("Level"))
         {
@@ -97,6 +100,8 @@ public class Movewithmouse : MonoBehaviour {
         walkTiming = Time.time;
 
         audio = gameObject.GetComponent<AudioSource>();
+
+        winTxt.gameObject.SetActive(false);
     }
 
     private void FixedUpdate()
@@ -305,6 +310,12 @@ public class Movewithmouse : MonoBehaviour {
 
     IEnumerator loadLevel(string s)
     {
+        winTxt.gameObject.SetActive(true);
+        SoundManager.WinRea = true;
+
+        Time.timeScale = 0;
+        yield return new WaitUntil(() => !GameObject.Find("SoundManager").GetComponent<SoundManager>().monk[0].isPlaying);
+
         fade.GetComponent<Animator>().SetBool("Fade", true);
         yield return new WaitUntil(() => fade.GetComponent<Image>().color.a == 1);
 
