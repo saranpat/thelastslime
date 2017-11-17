@@ -70,17 +70,19 @@ public class Scenecontroller : MonoBehaviour {
 
     public void ResetPP ()
     {
-        PlayerPrefs.SetInt("Level", 2);
-
-        for (int i = 0; i < 12; i++)
+        if (PlayerPrefs.GetInt("Level") != 1)
         {
-            if (i == 0)
-                lvlBtn[i] = GameObject.Find("Button").GetComponent<Button>();
-            else
-                lvlBtn[i] = GameObject.Find("Button (" + i.ToString() + ")").GetComponent<Button>();
+            for (int i = 0; i < 12; i++)
+            {
+                if (i == 0)
+                    lvlBtn[i] = GameObject.Find("Button").GetComponent<Button>();
+                else
+                    lvlBtn[i] = GameObject.Find("Button (" + i.ToString() + ")").GetComponent<Button>();
 
-            if (i > PlayerPrefs.GetInt("Level") - 2)
-                lvlBtn[i].GetComponentInChildren<Text>().text = "lock";
+                if (i > PlayerPrefs.GetInt("Level") - 2)
+                    lvlBtn[i].GetComponentInChildren<Text>().text = "lock";
+            }
+            PlayerPrefs.SetInt("Level", 1);
         }
     }
 
