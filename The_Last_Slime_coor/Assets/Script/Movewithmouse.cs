@@ -315,8 +315,9 @@ public class Movewithmouse : MonoBehaviour {
         winTxt.gameObject.SetActive(true);
         SoundManager.WinRea = true;
         audio.mute = true;
-
+        
         Time.timeScale = 0;
+       
         yield return new WaitUntil(() => !GameObject.Find("SoundManager").GetComponent<SoundManager>().monk[0].isPlaying);
 
         fade.GetComponent<Animator>().SetBool("Fade", true);
