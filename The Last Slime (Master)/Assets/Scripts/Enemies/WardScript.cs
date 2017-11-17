@@ -79,7 +79,7 @@ public class WardScript : MonoBehaviour {
                     {
                         Debug.Log(targetsInViewRadius[i].gameObject.name);
                         bool alertState = targetsInViewRadius[i].gameObject.GetComponent<AI_Move>().Get_alertState();
-                        if (!alertState && !isAlarm)
+                        if (!alertState)// && !isAlarm
                         {
                             Debug.Log("Send");
                             targetsInViewRadius[i].gameObject.SendMessage("Set_alertState", this.gameObject);
