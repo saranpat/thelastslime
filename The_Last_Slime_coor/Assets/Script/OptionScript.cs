@@ -77,11 +77,11 @@ public class OptionScript : MonoBehaviour {
         }
         else
         {
+            bgmS.value = PlayerPrefs.GetFloat("BGMVolume");
             sndManager[0].mute = false;
-            sndManager[0].volume = bgmS.value;
+            sndManager[0].volume = PlayerPrefs.GetFloat("BGMVolume");
 
             PlayerPrefs.SetInt("BGMMute", 0);
-            PlayerPrefs.SetFloat("BGMVolume", bgmS.value);
         }
 
         if (!sfxT.isOn)
@@ -95,15 +95,27 @@ public class OptionScript : MonoBehaviour {
         }
         else
         {
+            sfxS.value = PlayerPrefs.GetFloat("SFXVolume");
             sndCheck.GetComponent<CheckSoundScript>().isMute = false;
-            sndCheck.GetComponent<CheckSoundScript>().volume = sfxS.value;
+            sndCheck.GetComponent<CheckSoundScript>().volume = PlayerPrefs.GetFloat("SFXVolume");
             sndManager[1].mute = false;
-            sndManager[1].volume = sfxS.value;
+            sndManager[1].volume = PlayerPrefs.GetFloat("SFXVolume");
             slimeSnd.GetComponent<AudioSource>().mute = false;
-            slimeSnd.GetComponent<AudioSource>().volume = sfxS.value;
+            slimeSnd.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("SFXVolume");
 
             PlayerPrefs.SetInt("SFXMute", 0);
-            PlayerPrefs.SetFloat("SFXVolume", sfxS.value);
         }
+    }
+
+    public void ChangeBGM()
+    {
+        if (bgmT.isOn)
+            PlayerPrefs.SetFloat("BGMVolume", bgmS.value);
+    }
+
+    public void ChangeSFX()
+    {
+        if (sfxT.isOn)
+            PlayerPrefs.SetFloat("SFXVolume", sfxS.value);
     }
 }
