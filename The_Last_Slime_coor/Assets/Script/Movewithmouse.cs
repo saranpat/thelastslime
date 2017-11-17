@@ -76,6 +76,7 @@ public class Movewithmouse : MonoBehaviour {
 		joyobj = GameObject.Find("JoystickBG");
 		joy = joyobj.GetComponent<Joystick> ();
         fade = GameObject.Find("Fade");
+        fade.GetComponent<Animator>().updateMode = AnimatorUpdateMode.Normal;
         winTxt = GameObject.Find("WinText").GetComponent<Text>();
 
         if (PlayerPrefs.HasKey("Level"))
@@ -319,7 +320,7 @@ public class Movewithmouse : MonoBehaviour {
         Time.timeScale = 0;
        
         yield return new WaitUntil(() => !GameObject.Find("SoundManager").GetComponent<SoundManager>().monk[0].isPlaying);
-
+        fade.GetComponent<Animator>().updateMode = AnimatorUpdateMode.UnscaledTime;
         fade.GetComponent<Animator>().SetBool("Fade", true);
         yield return new WaitUntil(() => fade.GetComponent<Image>().color.a == 1);
 
