@@ -234,7 +234,7 @@ public class Movewithmouse : MonoBehaviour {
             {
                 GetKey = true;
                 other.gameObject.SetActive(false);
-                SoundManager.UnlockedRea = true;
+                SoundManager.GetItemRea = true;
             }
         }
 

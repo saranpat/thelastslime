@@ -233,3 +233,4 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b36f11d835d60604cb221b0dfd379937, type: 3}
   - {fileID: 8300000, guid: 0519d2c62ad8f8c48b2ea71390b4674e, type: 3}
   UIOver: {fileID: 8300000, guid: 3ac725125425f1c419804dc614ea71ea, type: 3}
+  GetItem: {fileID: 8300000, guid: 3ed9063958bb46e4eb10c586392708b2, type: 3}
