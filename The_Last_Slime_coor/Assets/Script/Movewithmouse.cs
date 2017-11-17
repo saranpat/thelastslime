@@ -156,9 +156,6 @@ public class Movewithmouse : MonoBehaviour {
         {
             audio.Stop();
         }
-
-        if (Time.timeScale == 0)
-            audio.Stop();
     }
 
     void Update () {
@@ -317,6 +314,7 @@ public class Movewithmouse : MonoBehaviour {
     {
         winTxt.gameObject.SetActive(true);
         SoundManager.WinRea = true;
+        audio.mute = true;
 
         Time.timeScale = 0;
         yield return new WaitUntil(() => !GameObject.Find("SoundManager").GetComponent<SoundManager>().monk[0].isPlaying);

@@ -11,7 +11,7 @@ public class OptionScript : MonoBehaviour {
     private Slider bgmS;
     private Slider sfxS;
 
-    private GameObject sndManager;
+    private AudioSource[] sndManager;
     private GameObject sndCheck;
     private GameObject slimeSnd;
 
@@ -21,7 +21,7 @@ public class OptionScript : MonoBehaviour {
         bgmS = GameObject.Find("BGMSlider").GetComponent<Slider>();
         sfxT = GameObject.Find("SFXToggle").GetComponent<Toggle>();
         sfxS = GameObject.Find("SFXSlider").GetComponent<Slider>();
-        sndManager = GameObject.Find("SoundManager");
+        sndManager = GameObject.Find("SoundManager").GetComponents<AudioSource>();
         sndCheck = GameObject.Find("CheckSound");
         slimeSnd = GameObject.Find("Slime");
 
@@ -32,7 +32,7 @@ public class OptionScript : MonoBehaviour {
             PlayerPrefs.SetInt("SFXMute", 0);
 
         if (!PlayerPrefs.HasKey("BGMVolume"))
-            PlayerPrefs.SetFloat("BGMVolume", sndManager.GetComponent<AudioSource>().volume);
+            PlayerPrefs.SetFloat("BGMVolume", sndManager[0].volume);
 
         if (!PlayerPrefs.HasKey("SFXVolume"))
             PlayerPrefs.SetFloat("SFXVolume", sndCheck.GetComponent<CheckSoundScript>().volume);
@@ -40,6 +40,8 @@ public class OptionScript : MonoBehaviour {
         if (PlayerPrefs.GetInt("BGMMute") == 1)
         {
             bgmT.isOn = false;
+            bgmS.value = 0;
+            sndManager[0].mute = true;
         }
         else
         {
@@ -50,12 +52,18 @@ public class OptionScript : MonoBehaviour {
         if (PlayerPrefs.GetInt("SFXMute") == 1)
         {
             sfxT.isOn = false;
+            sfxS.value = 0;
+            sndCheck.GetComponent<CheckSoundScript>().isMute = true;
+            sndManager[1].mute = true;
+            slimeSnd.GetComponent<AudioSource>().mute = true;
         }
         else
         {
             sfxT.isOn = true;
             sfxS.value = PlayerPrefs.GetFloat("SFXVolume"); ;
         }
+
+
     }
 	
 	// Update is called once per frame
@@ -63,14 +71,14 @@ public class OptionScript : MonoBehaviour {
         if (!bgmT.isOn)
         {
             bgmS.value = 0;
-            sndManager.GetComponent<SoundManager>().monk[0].mute = true;
+            sndManager[0].mute = true;
 
             PlayerPrefs.SetInt("BGMMute", 1);
         }
         else
         {
-            sndManager.GetComponent<SoundManager>().monk[0].mute = false;
-            sndManager.GetComponent<SoundManager>().monk[0].volume = bgmS.value;
+            sndManager[0].mute = false;
+            sndManager[0].volume = bgmS.value;
 
             PlayerPrefs.SetInt("BGMMute", 0);
             PlayerPrefs.SetFloat("BGMVolume", bgmS.value);
@@ -80,7 +88,7 @@ public class OptionScript : MonoBehaviour {
         {
             sfxS.value = 0;
             sndCheck.GetComponent<CheckSoundScript>().isMute = true;
-            sndManager.GetComponent<SoundManager>().monk[1].mute = true;
+            sndManager[1].mute = true;
             slimeSnd.GetComponent<AudioSource>().mute = true;
 
             PlayerPrefs.SetInt("SFXMute", 1);
@@ -89,8 +97,8 @@ public class OptionScript : MonoBehaviour {
         {
             sndCheck.GetComponent<CheckSoundScript>().isMute = false;
             sndCheck.GetComponent<CheckSoundScript>().volume = sfxS.value;
-            sndManager.GetComponent<SoundManager>().monk[1].mute = false;
-            sndManager.GetComponent<SoundManager>().monk[1].volume = sfxS.value;
+            sndManager[1].mute = false;
+            sndManager[1].volume = sfxS.value;
             slimeSnd.GetComponent<AudioSource>().mute = false;
             slimeSnd.GetComponent<AudioSource>().volume = sfxS.value;
 
