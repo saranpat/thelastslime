@@ -55,6 +55,8 @@ public class Movewithmouse : MonoBehaviour {
     private Text winTxt;
 
     void Start () {
+        Time.timeScale = 1;
+
         staticTimer = timer;
 
 		target = transform.position;
@@ -154,6 +156,9 @@ public class Movewithmouse : MonoBehaviour {
         {
             audio.Stop();
         }
+
+        if (Time.timeScale == 0)
+            audio.Stop();
     }
 
     void Update () {
