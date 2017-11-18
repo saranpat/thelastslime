@@ -77,9 +77,14 @@ public class Movewithmouse : MonoBehaviour {
 		joy = joyobj.GetComponent<Joystick> ();
         fade = GameObject.Find("Fade");
         fade.GetComponent<Animator>().updateMode = AnimatorUpdateMode.Normal;
-        winTxt = GameObject.Find("WinText").GetComponent<Text>();
 
-        if (PlayerPrefs.HasKey("Level"))
+        if (theRealOne)
+        {
+            winTxt = GameObject.Find("WinText").GetComponent<Text>();
+            winTxt.gameObject.SetActive(false);
+        }
+
+            if (PlayerPrefs.HasKey("Level"))
         {
             string s = SceneManager.GetActiveScene().name;
             string[] split = new string[s.Length];
@@ -103,8 +108,6 @@ public class Movewithmouse : MonoBehaviour {
         walkTiming = Time.time;
 
         audio = gameObject.GetComponent<AudioSource>();
-
-        winTxt.gameObject.SetActive(false);
     }
 
     private void FixedUpdate()
@@ -320,7 +323,9 @@ public class Movewithmouse : MonoBehaviour {
 
     IEnumerator loadLevel(string s)
     {
-        winTxt.gameObject.SetActive(true);
+        if (theRealOne)
+            winTxt.gameObject.SetActive(true);
+
         SoundManager.WinRea = true;
         audio.mute = true;
         

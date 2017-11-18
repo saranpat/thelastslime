@@ -369,7 +369,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 27180b5aca4541047be2bd0080f6004c, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -509,7 +509,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 369318824}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -374, y: 223.07875, z: 0}
+  m_LocalPosition: {x: -374, y: 133.3039, z: 0}
   m_LocalScale: {x: 2.718761, y: 3.0937793, z: 2.5}
   m_Children: []
   m_Father: {fileID: 1381268788}
@@ -605,7 +605,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 9a0e73e0242223b438065fc1a9c9d582, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -896,7 +896,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: adde83ff09d875e498bcf9fe616bdce0, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -1693,8 +1693,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1381268784}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 317.5, y: 198.5, z: 0}
-  m_LocalScale: {x: 0.79375, y: 0.79375, z: 0.79375}
+  m_LocalPosition: {x: 526.5, y: 211, z: 0}
+  m_LocalScale: {x: 1.31625, y: 1.31625, z: 1.31625}
   m_Children:
   - {fileID: 845490779}
   - {fileID: 369318825}
@@ -1775,7 +1775,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
