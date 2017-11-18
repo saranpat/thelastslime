@@ -232,6 +232,7 @@ public class Movewithmouse : MonoBehaviour {
             {
                 isDead = true;
                 isGrilled = true;
+				//Time.timeScale = 0.0f;
             }
             else
             {
@@ -346,12 +347,11 @@ public class Movewithmouse : MonoBehaviour {
         
         ColliderInThis.enabled = false;
         ColliderInChildren.enabled = false;
-
-
         isinRespawn = true;
         SoundManager.DeadRea = true;
         if (_Animator != null)
             _Animator.SetTrigger(Ani_Dead);
+		//Time.timeScale = 0.0f;
         yield return new WaitForSeconds(10f);
 
         transform.position = startPos;

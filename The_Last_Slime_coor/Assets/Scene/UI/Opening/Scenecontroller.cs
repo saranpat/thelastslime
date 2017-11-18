@@ -28,7 +28,8 @@ public class Scenecontroller : MonoBehaviour {
 		startbutton2.onClick.AddListener (delegate {
 			StartCoroutine(FadingB());
 		});*/
-
+		Time.timeScale = 1.0f;
+			
         startPanel = GameObject.Find("StartPanel");
         selectPanel = GameObject.Find("SelectPanel");
 
