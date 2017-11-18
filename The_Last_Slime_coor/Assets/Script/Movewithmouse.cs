@@ -351,7 +351,8 @@ public class Movewithmouse : MonoBehaviour {
         SoundManager.DeadRea = true;
         if (_Animator != null)
             _Animator.SetTrigger(Ani_Dead);
-		//Time.timeScale = 0.0f;
+        yield return new WaitForSeconds(1.0f);
+        Time.timeScale = 0.0f;
         yield return new WaitForSeconds(10f);
 
         transform.position = startPos;
