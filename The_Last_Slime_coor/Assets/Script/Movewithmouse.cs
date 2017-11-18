@@ -225,8 +225,15 @@ public class Movewithmouse : MonoBehaviour {
     {
         if (other.tag == "Fire")
         {
-            isDead = true;
-			isGrilled = true;
+            if(theRealOne)
+            {
+                isDead = true;
+                isGrilled = true;
+            }
+            else
+            {
+                NotReal_DeadOrTimeUP();
+            }
         }
 
         if (other.tag == "Key")
