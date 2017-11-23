@@ -40,7 +40,7 @@ public class OptionScript : MonoBehaviour {
         if (PlayerPrefs.GetInt("BGMMute") == 1)
         {
             bgmT.isOn = false;
-            bgmS.value = 0;
+            //bgmS.value = 0;
             sndManager[0].mute = true;
         }
         else
@@ -52,7 +52,7 @@ public class OptionScript : MonoBehaviour {
         if (PlayerPrefs.GetInt("SFXMute") == 1)
         {
             sfxT.isOn = false;
-            sfxS.value = 0;
+            //sfxS.value = 0;
             sndCheck.GetComponent<CheckSoundScript>().isMute = true;
             sndManager[1].mute = true;
             slimeSnd.GetComponent<AudioSource>().mute = true;

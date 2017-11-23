@@ -20,6 +20,8 @@ public class Scenecontroller : MonoBehaviour {
 
     private Button[] lvlBtn = new Button[13];
 
+    private AudioSource aS;
+
 	// Use this for initialization
 	void Start () {
         /*startbutton.onClick.AddListener (delegate {
@@ -33,8 +35,13 @@ public class Scenecontroller : MonoBehaviour {
         startPanel = GameObject.Find("StartPanel");
         selectPanel = GameObject.Find("SelectPanel");
 
+        aS = GetComponent<AudioSource>();
+
         if (!PlayerPrefs.HasKey("Level") || ResetPlayerPrefs)
             PlayerPrefs.SetInt("Level", 2);
+
+        if (PlayerPrefs.HasKey("BGMMute") && PlayerPrefs.GetInt("BGMMute") == 1)
+            aS.mute = true; 
 
         for (int i = 0; i < 12; i++)
         {
