@@ -34,6 +34,7 @@ public class Movewithmouse : MonoBehaviour {
 
     public Animator _Animator;
     public GameObject KeyEff;
+    public GameObject FireEff;
     private string Ani_Move = "Move";
     private string Ani_IsCamouflage = "IsCamouflage";
     private string Ani_IsBig = "IsBig";
@@ -237,6 +238,7 @@ public class Movewithmouse : MonoBehaviour {
         {
             if(theRealOne)
             {
+                FireEff.SetActive(true);
                 isDead = true;
                 isGrilled = true;
 				//Time.timeScale = 0.0f;
@@ -332,6 +334,7 @@ public class Movewithmouse : MonoBehaviour {
         {
             if (theRealOne)
             {
+                FireEff.SetActive(true);
                 isDead = true;
                 isGrilled = true;
                 //Time.timeScale = 0.0f;
@@ -374,6 +377,7 @@ public class Movewithmouse : MonoBehaviour {
         if (_Animator != null)
             _Animator.SetTrigger(Ani_Dead);
         yield return new WaitForSeconds(1.0f);
+        FireEff.SetActive(false);
         //Time.timeScale = 0.0f; //เอาไปใส่ที่อื่นแทนจะได้ไม่บัค ใส่ใน Lose_drop_control แทน
         yield return new WaitForSeconds(10f);
 
