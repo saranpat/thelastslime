@@ -48,7 +48,7 @@ public class FireBlower : MonoBehaviour {
     {
         oneTime = true;
         isFireOff = true;
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(2f);
         oneTime = false;
         isFireOff = false;
 
