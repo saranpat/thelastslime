@@ -18,12 +18,17 @@ public class Scenecontroller : MonoBehaviour {
     private GameObject startPanel;
     private GameObject selectPanel;
 
-    private Button[] lvlBtn = new Button[13];
+    private Button[] lvlBtn;
 
     private AudioSource aS;
 
+    private int MaxScene;
+
 	// Use this for initialization
 	void Start () {
+
+        MaxScene = 17;
+        lvlBtn = new Button[MaxScene+1];
         /*startbutton.onClick.AddListener (delegate {
 			StartCoroutine(FadingA());
 		});
@@ -41,9 +46,9 @@ public class Scenecontroller : MonoBehaviour {
             PlayerPrefs.SetInt("Level", 2);
 
         if (PlayerPrefs.HasKey("BGMMute") && PlayerPrefs.GetInt("BGMMute") == 1)
-            aS.mute = true; 
+            aS.mute = true;
 
-        for (int i = 0; i < 12; i++)
+        for (int i = 0; i < MaxScene; i++)
         {
             if (i == 0)
                 lvlBtn[i] = GameObject.Find("Button").GetComponent<Button>();
@@ -80,7 +85,7 @@ public class Scenecontroller : MonoBehaviour {
     {
         PlayerPrefs.SetInt("Level", 2);
 
-        for (int i = 0; i < 12; i++)
+        for (int i = 0; i < MaxScene; i++)
         {
             if (i == 0)
                 lvlBtn[i] = GameObject.Find("Button").GetComponent<Button>();
