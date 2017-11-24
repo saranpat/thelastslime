@@ -6,7 +6,7 @@ public class FireBlower : MonoBehaviour {
 
     public Sprite FireOn_Sprite;
     public Sprite FireOff_Sprite;
-
+    public GameObject FireEff;
     private bool isFireOff;
     private SpriteRenderer _SpriteRenderer;
     private Animator anim;
@@ -64,6 +64,7 @@ public class FireBlower : MonoBehaviour {
             _SpriteRenderer.sprite = FireOff_Sprite;
             gameObject.tag = "Untagged";
             gameObject.layer = 2;
+            FireEff.SetActive(false);
         }
         else
         {
@@ -71,6 +72,7 @@ public class FireBlower : MonoBehaviour {
             _SpriteRenderer.sprite = FireOn_Sprite;
             gameObject.tag = "Fire";
             gameObject.layer = 0;
+            FireEff.SetActive(true);
         }
 	}
 }
