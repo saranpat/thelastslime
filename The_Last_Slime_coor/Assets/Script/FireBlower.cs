@@ -26,7 +26,7 @@ public class FireBlower : MonoBehaviour {
             }
             else
             {
-                StopCoroutine(DelayOpenFire());
+                StopAllCoroutines();
                 StartCoroutine(DelayOpenFire());
             }
             
