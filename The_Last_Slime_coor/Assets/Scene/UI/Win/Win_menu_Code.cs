@@ -12,6 +12,8 @@ public class Win_menu_Code : MonoBehaviour {
 	public Animator anim;
 	// Use this for initialization
 	void Start () {
+        Time.timeScale = 1;
+        button.gameObject.SetActive(false);
 		StartCoroutine(buttonshow());
 		button.onClick.AddListener (delegate {
 			StartCoroutine(Fading());
@@ -34,7 +36,7 @@ public class Win_menu_Code : MonoBehaviour {
 	}
 	IEnumerator buttonshow()
 	{
-		yield return new WaitForSeconds (1);
+		yield return new WaitForSeconds (3);
 		button.gameObject.SetActive(true);
 		//button2.gameObject.SetActive(true);
 		StopCoroutine (buttonshow());
