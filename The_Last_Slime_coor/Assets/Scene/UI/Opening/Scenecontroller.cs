@@ -7,8 +7,7 @@ using UnityEngine.EventSystems;
 
 public class Scenecontroller : MonoBehaviour {
 
-	public Button startbutton;
-	public Button startbutton2;
+
 	public Image black;
 	public Animator anim;
     public Text txt;
