@@ -23,8 +23,8 @@ public class Lose_drop_control : MonoBehaviour {
 	{
 		yield return new WaitForSeconds(1);
 		anim.SetBool ("Lose", true);
-        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).length <= anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
-        //yield return new WaitForSeconds(3);
+        yield return new WaitUntil(() => anim.IsInTransition(0) && anim.GetNextAnimatorStateInfo(0).IsName("Finish"));
+        //yield return new WaitForSeconds(2.0f);
         Time.timeScale = 1;
 		PlayerPrefs.SetString ("lastLoadedScene", SceneManager.GetActiveScene ().name);
 		SceneManager.LoadScene("Lose_UI");
