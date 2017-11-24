@@ -15,6 +15,7 @@ public class Lose_menu_controller : MonoBehaviour {
 	public Animator anim;
 	// Use this for initialization
 	void Start () {
+		Time.timeScale = 1.0f;
 		StartCoroutine(buttonshow());
 		button.onClick.AddListener (delegate {
 			StartCoroutine(Fading());
