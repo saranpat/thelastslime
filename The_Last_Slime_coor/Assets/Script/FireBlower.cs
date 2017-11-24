@@ -9,10 +9,12 @@ public class FireBlower : MonoBehaviour {
 
     private bool isFireOff;
     private SpriteRenderer _SpriteRenderer;
+    private Animator anim;
 
 	// Use this for initialization
 	void Start () {
         _SpriteRenderer = this.GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
         isFireOff = false;
 	}
 
@@ -58,12 +60,14 @@ public class FireBlower : MonoBehaviour {
 
         if (isFireOff)
         {
+            anim.enabled = false;
             _SpriteRenderer.sprite = FireOff_Sprite;
             gameObject.tag = "Untagged";
             gameObject.layer = 2;
         }
         else
         {
+            anim.enabled = true;
             _SpriteRenderer.sprite = FireOn_Sprite;
             gameObject.tag = "Fire";
             gameObject.layer = 0;
