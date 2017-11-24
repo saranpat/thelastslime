@@ -374,7 +374,7 @@ public class Movewithmouse : MonoBehaviour {
         if (_Animator != null)
             _Animator.SetTrigger(Ani_Dead);
         yield return new WaitForSeconds(1.0f);
-        Time.timeScale = 0.0f;
+        //Time.timeScale = 0.0f; //เอาไปใส่ที่อื่นแทนจะได้ไม่บัค ใส่ใน Lose_drop_control แทน
         yield return new WaitForSeconds(10f);
 
         transform.position = startPos;
