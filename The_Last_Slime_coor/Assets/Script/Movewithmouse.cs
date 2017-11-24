@@ -320,6 +320,21 @@ public class Movewithmouse : MonoBehaviour {
             if (_Animator != null)
                 _Animator.SetBool(Ani_IsCamouflage, true);
         }
+
+        if (collision.tag == "Fire") //เอาไว้ตอนไฟเปิดขณะที่อยู่บนไฟ
+        {
+            if (theRealOne)
+            {
+                isDead = true;
+                isGrilled = true;
+                //Time.timeScale = 0.0f;
+            }
+            else
+            {
+                NotReal_DeadOrTimeUP();
+            }
+        }
+
     }
 
     IEnumerator loadLevel(string s)

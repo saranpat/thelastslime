@@ -18,7 +18,24 @@ public class FireBlower : MonoBehaviour {
 
     public void Plate_Interaction(bool SetisOpen)
     {
-        isFireOff = SetisOpen;
+        if (SetisOpen)
+        {
+            if (oneTime == false)
+            {
+                StartCoroutine(DelayOpenFire());
+            }
+            else
+            {
+                StopCoroutine(DelayOpenFire());
+                StartCoroutine(DelayOpenFire());
+            }
+            
+        }
+        /*else
+        {
+            isFireOff = SetisOpen;
+        }*/
+        
     }
 
     public void Lever_Interaction(bool interactFire = false) //ใช้คู่กับ LeverScript โดยการ SendMessage
@@ -26,6 +43,16 @@ public class FireBlower : MonoBehaviour {
         isFireOff = !isFireOff;
     }
 
+    bool oneTime;
+    IEnumerator DelayOpenFire()
+    {
+        oneTime = true;
+        isFireOff = true;
+        yield return new WaitForSeconds(1f);
+        oneTime = false;
+        isFireOff = false;
+
+    }
 	// Update is called once per frame
 	void Update () {
 
