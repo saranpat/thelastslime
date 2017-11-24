@@ -60,7 +60,7 @@ public class OptionScript : MonoBehaviour {
         else
         {
             sfxT.isOn = true;
-            sfxS.value = PlayerPrefs.GetFloat("SFXVolume"); ;
+            sfxS.value = PlayerPrefs.GetFloat("SFXVolume");
         }
 
 

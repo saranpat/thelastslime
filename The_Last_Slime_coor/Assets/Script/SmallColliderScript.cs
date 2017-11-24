@@ -54,8 +54,12 @@ public class SmallColliderScript : MonoBehaviour
 
     public void LeverTrigger()
     {
-        SoundManager.ButtonRea = true;
-        SoundManager.LeverRea = true;
+        if (PlayerPrefs.GetInt("SFXMute") == 0)
+        {
+            SoundManager.ButtonRea = true;
+            SoundManager.LeverRea = true;
+        }
+
         if (leverBtn != null)
         lever.gameObject.GetComponent<LeverScript>().PullLever();
         /*if (!lever.gameObject.GetComponent<LeverScript>().switchOff)

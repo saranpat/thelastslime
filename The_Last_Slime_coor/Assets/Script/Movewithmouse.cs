@@ -147,6 +147,13 @@ public class Movewithmouse : MonoBehaviour {
                 _Animator.SetBool(Ani_Move, false);
         }
 
+        if (PlayerPrefs.GetInt("SFXMute") == 1)
+            audio.mute = true;
+        else
+            audio.mute = false;
+
+        audio.volume = PlayerPrefs.GetFloat("SFXVolume");
+
         if (_Animator.GetBool(Ani_Move))
         {
             if (walkTiming < Time.time)

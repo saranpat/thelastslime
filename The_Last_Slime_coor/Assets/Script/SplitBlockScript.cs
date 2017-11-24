@@ -20,13 +20,20 @@ public class SplitBlockScript : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.tag == "Player" && collision.gameObject.GetComponent<Movewithmouse>().bulkUp && StageController.slimeCnt < 3 && collision.gameObject.GetComponent<Movewithmouse>().theRealOne == true)
+        if (collision.tag == "Player" && 
+            collision.gameObject.GetComponent<Movewithmouse>().bulkUp && 
+            StageController.slimeCnt < 3 && 
+            collision.gameObject.GetComponent<Movewithmouse>().theRealOne == true &&
+            !collision.gameObject.GetComponentInChildren<Animator>().GetBool("Ani_IsCamouflage"))
         {
             GameObject miniMe = Instantiate(slimePrefab, transform.position, transform.rotation) as GameObject;
             SoundManager.SlimeSplitRea = true;
 
             miniMe.gameObject.GetComponent<Movewithmouse>().theRealOne = false;
             miniMe.gameObject.GetComponent<Movewithmouse>().isControl = false;
+            if (PlayerPrefs.GetInt("SFXMute") == 1)
+                miniMe.gameObject.GetComponent<AudioSource>().mute = true;
+            miniMe.gameObject.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("SFXVolume");
 
             Collider2D dummy = miniMe.gameObject.GetComponentInChildren<Collider2D>();
             float time = miniMe.gameObject.GetComponent<Movewithmouse>().timer;
