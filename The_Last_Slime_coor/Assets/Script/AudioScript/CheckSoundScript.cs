@@ -66,10 +66,17 @@ public class CheckSoundScript : MonoBehaviour {
 
         delay = 1.0f;
         range = 4.0f;
+
+        volume = PlayerPrefs.GetFloat("SFXVolume");
     }
 	
 	// Update is called once per frame
 	void Update () {
+        if (PlayerPrefs.GetInt("SFXMute") == 1)
+            isMute = true;
+        else
+            isMute = false;
+
         if (isMute)
         {
             for (int i = 0; i < AuS.Length; i++)

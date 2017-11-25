@@ -30,6 +30,8 @@ public class SoundManager : MonoBehaviour {
     public AudioClip UIOver;
     public AudioClip GetItem;
 
+    private int i;
+
     // Use this for initialization
     void Start () {
         monk = GetComponents<AudioSource>();
@@ -43,11 +45,21 @@ public class SoundManager : MonoBehaviour {
         WinRea = false;
         GetItemRea = false;
 
-        int i = Random.Range(0, BGM.Length - 1);
+        i = Random.Range(0, BGM.Length - 1);
 
         monk[0].clip = BGM[i];
         monk[0].loop = true;
         monk[0].Play();
+
+        if (PlayerPrefs.GetInt("BGMMute") == 1)
+            monk[0].mute = true;
+        else
+            monk[0].volume = PlayerPrefs.GetFloat("BGMVolume");
+
+        if (PlayerPrefs.GetInt("SFXMute") == 1)
+            monk[1].mute = true;
+        else
+            monk[1].volume = PlayerPrefs.GetFloat("SFXVolume");
     }
 	
 	// Update is called once per frame
@@ -103,8 +115,6 @@ public class SoundManager : MonoBehaviour {
         }
         if (NormalRea)
         {
-            int i = Random.Range(0, BGM.Length - 1);
-
             NormalRea = false;
             monk[0].clip = BGM[i];
             monk[0].loop = true;
