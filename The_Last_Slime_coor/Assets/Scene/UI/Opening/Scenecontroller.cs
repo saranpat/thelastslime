@@ -113,10 +113,18 @@ public class Scenecontroller : MonoBehaviour {
                 lvlBtn[i].GetComponentInChildren<Text>().text = "lock";
         }
     }
-
+	public void hack()
+	{
+		SceneManager.LoadScene("Win_UI");
+	}
+	public void testasyn()
+	{
+		SceneManager.LoadSceneAsync ("Scene2");
+	}
     public void OnTap()
     {
         StartCoroutine(LoadScene());
+
     }
 
     public void LevelSelect(Button btn)
