@@ -7,6 +7,8 @@ public class DoorScript : MonoBehaviour {
     public Sprite closeSprite_Onfire;
     public Sprite openSprite;
     public Sprite closeSprite;
+    public Sprite FireOn_Sprite;
+    public GameObject FireEff;
     //public Sprite closeSprite_canUseKey;
     private bool isOpen;
     private bool isFireOff;
@@ -16,11 +18,15 @@ public class DoorScript : MonoBehaviour {
     public Color DoorColor;
     private BoxCollider2D _BoxCollider2D;
     private SpriteRenderer _SpriteRenderer;
-
+    private Animator anim;
 	// Use this for initialization
 	void Start () {
         _BoxCollider2D = this.GetComponent<BoxCollider2D>();
         _SpriteRenderer = this.GetComponent<SpriteRenderer>();
+
+        if (GetComponent<Animator>() != null)
+            anim = GetComponent<Animator>();
+
         isOpen = false;
         isFireOff = false;
 	}
@@ -79,24 +85,39 @@ public class DoorScript : MonoBehaviour {
         {
             if (isOpen && isFireOff)
             {
+                anim.enabled = false;
                 _SpriteRenderer.sprite = openSprite;
                 gameObject.layer = 2;
                 gameObject.tag = "Wall";
                 _BoxCollider2D.isTrigger = true;
+                FireEff.SetActive(false);
+            }
+            else if (isOpen && !isFireOff)
+            {
+                anim.enabled = true;
+                _SpriteRenderer.sprite = FireOn_Sprite;
+                gameObject.tag = "Fire";
+                gameObject.layer = 0;
+                _BoxCollider2D.isTrigger = true;
+                FireEff.SetActive(true);
             }
             else if (!isOpen && isFireOff)
             {
+                anim.enabled = false;
                 _SpriteRenderer.sprite = closeSprite;
                 gameObject.layer = 9; // Obstacle
                 gameObject.tag = "Wall";
                 _BoxCollider2D.isTrigger = false;
+                FireEff.SetActive(false);
             }
             else if (!isOpen && !isFireOff)
             {
+                anim.enabled = false;
                 _SpriteRenderer.sprite = closeSprite_Onfire;
                 gameObject.layer = 9; // Obstacle
                 gameObject.tag = "Fire";
                 _BoxCollider2D.isTrigger = true;
+                FireEff.SetActive(true);
             }
         }
         else
