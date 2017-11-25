@@ -10,7 +10,7 @@ public class DoorScript : MonoBehaviour {
     public Sprite FireOn_Sprite;
     public GameObject FireEff;
     //public Sprite closeSprite_canUseKey;
-    private bool isOpen;
+    public bool isOpen;
     private bool isFireOff;
 
     public bool isDoorOnFire;
