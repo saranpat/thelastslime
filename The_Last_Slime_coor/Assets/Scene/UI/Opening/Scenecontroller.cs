@@ -65,7 +65,25 @@ public class Scenecontroller : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if(Input.GetKeyDown(KeyCode.N))
+        {
+            PlayerPrefs.SetInt("Level", 18);
+
+            for (int i = 0; i < MaxScene; i++)
+            {
+                if (i == 0)
+                    lvlBtn[i] = GameObject.Find("Button").GetComponent<Button>();
+                else
+                    lvlBtn[i] = GameObject.Find("Button (" + i.ToString() + ")").GetComponent<Button>();
+
+                //if (i > PlayerPrefs.GetInt("Level") - 2)
+                    lvlBtn[i].GetComponentInChildren<Text>().text = ""+(i+1);
+            }
+        }
+        else if(Input.GetKeyDown(KeyCode.M))
+        {
+            ResetPP();
+        }
 	}
     /*IEnumerator FadingA()
 	{
