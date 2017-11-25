@@ -27,7 +27,7 @@ public class DoorScript : MonoBehaviour {
         if (GetComponent<Animator>() != null)
             anim = GetComponent<Animator>();
 
-        isOpen = false;
+        //isOpen = false;
         isFireOff = false;
 	}
 
